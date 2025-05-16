@@ -5,8 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>HelloT </Text>
-      <Link href="/settings">sd</Link>
-      
+      <Link href="/login">Login Page</Link>
     </View>
   );
 }
