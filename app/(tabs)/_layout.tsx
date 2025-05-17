@@ -9,12 +9,19 @@ export default function Layout() {
   }
 
   return (
-    <Tabs screenOptions={{   tabBarActiveTintColor: 'white', }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'white' }}>
       <Tabs.Screen
         name="home"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) =><Feather name="home" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="contacts"
+        options={{
+          title: 'Contacts',
+          tabBarIcon: ({ color }) => <Feather name="phone" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -24,24 +31,20 @@ export default function Layout() {
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={24} color={color} />,
         }}
       />
+
       <Tabs.Screen
-        name="add"
+        name="customers"
         options={{
-          tabBarIcon: ({ color }) => <Feather name="plus-circle" size={24} color={color}  />,
-        }}
-      />
-      <Tabs.Screen
-        name="contacts"
-        options={{
-          title: 'Contacts',
-          tabBarIcon: ({ color }) => <Feather name="users" size={24} color={color}  />,
+          title: 'Customers',
+          tabBarIcon: ({ color }) => <Feather name="users" size={24} color={color} />,
+          // tabBarButton: () => (  ),
         }}
       />
       <Tabs.Screen
         name="more"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Feather name="more-horizontal" size={24}  color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="more-horizontal" size={24} color={color} />,
         }}
       />
     </Tabs>
