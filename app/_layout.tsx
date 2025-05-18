@@ -1,22 +1,19 @@
-import {  Slot } from 'expo-router';
-import {ThemeProvider , DarkTheme  } from '@react-navigation/native';
+import { Slot } from 'expo-router';
+import { ThemeProvider } from '@react-navigation/native';
+import { myDarkTheme, myLightTheme } from '../theme/theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useColorScheme } from 'react-native';
 
-const myThmeme = {
-...DarkTheme,
-color:{
-  ...DarkTheme.colors,
-  primary: 'blue',
-},
-}
 
 export default function RootLayout() {
-  // all providers go here
+
+   const colorScheme = useColorScheme(); // Auto-detect system color scheme
+  
   return (
-  <GestureHandlerRootView>
-    <ThemeProvider value={myThmeme}>
-      <Slot/>
-    </ThemeProvider>
-  </GestureHandlerRootView>
-  )
+    <GestureHandlerRootView>
+      <ThemeProvider value={colorScheme === 'dark' ? myDarkTheme : myLightTheme}>
+        <Slot />
+      </ThemeProvider>
+    </GestureHandlerRootView>
+  );
 }
