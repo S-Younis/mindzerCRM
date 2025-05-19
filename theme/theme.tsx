@@ -5,8 +5,7 @@ export const myDarkTheme = {
   colors: {
     ...DarkTheme.colors,
     background: '#222b45',
-    primary: 'blue', 
-    card: '#1a2138', 
+    card: '#1a2138',  // tab && top bar background
     text: '#ffffff',
     border: '#303030',
   },
@@ -15,6 +14,7 @@ export const myLightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'blue',
+    background: '#f5f8fa',
+    primary: '#013399',
   },
 };

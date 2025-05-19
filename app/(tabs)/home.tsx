@@ -6,7 +6,6 @@ import { useColorScheme } from 'nativewind';
 export default function App() {
   // const { colors } = useTheme();
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  console.log('Current color scheme:', colorScheme); // Debugging line
 
   return (
     <View style={styles.container}>
