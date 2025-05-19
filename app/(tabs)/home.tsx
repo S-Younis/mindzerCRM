@@ -12,7 +12,7 @@ export default function App() {
       <Pressable style={{ backgroundColor: 'green', width: 120 }} onPress={() => toggleColorScheme()}>
         <Text >Changes</Text>
       </Pressable>
-      <Text className="bg-red-200 dark:bg-blue-300">Branch 2 </Text>
+      <Text className="bg-red-200 dark:bg-blue-300">Branch 3 </Text>
       <Link className='text-black dark:text-white' href="/login">
         Login Page
       </Link>
