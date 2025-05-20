@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 // import { useTheme } from '@react-navigation/native';
 import { useColorScheme } from 'nativewind';
 import { Button } from '@tamagui/button';
@@ -9,8 +9,8 @@ export default function App() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   return (
-    <View style={styles.container}>
-      <Button  themeInverse={false} theme={'blue_active'}  size="$5" width="$10">
+    <View className="flex-1 items-center justify-center">
+      <Button themeInverse={false} theme={'blue_active'} size="$5" width="$10">
         Click
       </Button>
 
@@ -24,12 +24,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

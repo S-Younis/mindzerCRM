@@ -1,7 +1,7 @@
 import '../global.css';
 import { Slot } from 'expo-router';
 import { ThemeProvider } from '@react-navigation/native';
-import { myDarkTheme, myLightTheme } from '../theme/theme';
+import { myDarkTheme, myLightTheme } from '@/theme/theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from 'nativewind';
 import { TamaguiProvider } from 'tamagui';

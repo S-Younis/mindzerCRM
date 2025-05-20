@@ -1,15 +1,19 @@
 import { Redirect, Tabs } from 'expo-router';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useColorScheme } from 'nativewind';
+import { myLightTheme } from '@/theme/theme';
 
 export default function Layout() {
+  const { colorScheme } = useColorScheme();
+
   const isLoggedIn = true;
   if (!isLoggedIn) {
     return <Redirect href={'/login'} />;
   }
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'white' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : myLightTheme.colors.primary , headerTitleAlign: 'center'  , headerTitleStyle:{'fontSize' : 18} }}>
       <Tabs.Screen
         name="home"
         options={{
