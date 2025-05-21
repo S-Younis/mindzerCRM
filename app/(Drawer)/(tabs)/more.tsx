@@ -1,27 +1,57 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
+import { useColorScheme } from 'nativewind';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MindzerButton from '@/components/MindzerButton';
 
 export default function App() {
-
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   return (
     <SafeAreaView className="flex-1 ">
-      <View className="flex-1 mt-[68px] ">
-        <View className="bg-[#303e5f] border-[#262f3a] p-6 border-2 flex-row gap-4  w-[92%] ml-auto mr-auto h-28 rounded-xl">
-          <View className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center">
-            <Text className="text-black font-bold text-xl ">YM</Text>
+      <View className="flex-1 mt-[60px] p-4 px-5">
+
+        <View className="bg-[#303e5f]  px-6 py-5  border-[1px] border-[#515763] flex-row gap-4 rounded-xl ">
+          <View className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
+            <Text className=" font-bold text-xl ">YM</Text>
           </View>
-          <View className="flex self-center gap-[2px] ">
-            <Text className="text-black dark:text-white font-bold ">Younis Mohammeed </Text>
-            <Text className="text-black dark:text-white font-bold ">
-              <Text className="text-gray-200">Division ➡️</Text> Reda Chemicals
+          <View className="flex self-center gap-[2px]  ">
+            <Text className=" text-black dark:text-white font-bold ">Younis Mohammeed </Text>
+            <Text className=" text-black dark:text-white font-bold ">
+              <Text className="dark:text-gray-200">Division ➡️</Text> Reda Chemicals
             </Text>
           </View>
 
           <View className="flex-1 items-end justify-center ">
-            <Entypo name="chevron-small-right" size={32} color="white" />
+            <Entypo name="chevron-small-right" size={32} color={colorScheme == 'dark' ? 'white' : 'black'} />
           </View>
         </View>
+
+        <Text className="text-black dark:text-white text-sm  mt-4 mb-2 ml-2">General</Text>
+
+        {/* General Options  */}
+        <View className="flex gap-2  ">
+          <View className="bg-[#303e5f] border-[#262f3a] p-6 py-4 border-2 flex-row justify-between gap-4  rounded-xl">
+            <View className='flex-row items-center gap-2'>
+              <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+              <Text className="text-black dark:text-white ">Edit Profile</Text>
+            </View>
+
+            <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+          </View>
+          <View className="bg-[#303e5f] border-[#262f3a] p-6 py-4 border-2 flex-row justify-between gap-4  rounded-xl">
+            <View className='flex-row items-center gap-2'>
+              <Ionicons name="color-palette-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+              <Text className="text-black dark:text-white ">Dark Mode</Text>
+            </View>
+            <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+          </View>
+        </View>
+
+        <MindzerButton title='Change Theme' />
+
+
       </View>
     </SafeAreaView>
   );
