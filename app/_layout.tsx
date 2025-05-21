@@ -11,11 +11,11 @@ export default function RootLayout() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
   console.log('RootLayout re-rendered, colorScheme:', colorScheme);
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <TamaguiProvider config={config}>
         <ThemeProvider value={colorScheme == 'dark' ? myDarkTheme : myLightTheme}>
           <Slot />
-        </ThemeProvider>
+        </ThemeProvider>  
       </TamaguiProvider>
     </GestureHandlerRootView>
   );

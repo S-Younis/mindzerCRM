@@ -1,13 +1,8 @@
-import { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
 export default function App() {
-  const [isModalVisible, setModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
 
   return (
     <SafeAreaView className="flex-1 ">
@@ -19,7 +14,7 @@ export default function App() {
           <View className="flex self-center gap-[2px] ">
             <Text className="text-black dark:text-white font-bold ">Younis Mohammeed </Text>
             <Text className="text-black dark:text-white font-bold ">
-              <Text className="text-gray-200">Division ➡️</Text> Reda Chemicals{' '}
+              <Text className="text-gray-200">Division ➡️</Text> Reda Chemicals
             </Text>
           </View>
 
