@@ -1,27 +1,34 @@
-import { Text, Pressable, View } from 'react-native'
+import { Pressable } from 'react-native'
 import React from 'react'
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useColorScheme } from 'nativewind';
-
 
 interface MindzerButtonProps {
-  title: string
+  variants: 'primary' | 'secondary' | 'outline' | 'danger' | 'success',
+  isTitleCentered?: boolean
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
   height?: string
   width?: string
   onPress?: () => void
+  children?: React.ReactNode
+  className?: string
 }
 
-export default function MindzerButton({ title, size, width, height, onPress }: MindzerButtonProps) {
+export default function MindzerButton({ isTitleCentered, variants = 'primary', size, width, height, onPress, className, children }: MindzerButtonProps) {
+  //  let sizeClasses = {
+  //     md: "px-4 py-2 rounded-md text-base",
+  //     lg: "px-5 py-3 rounded-lg text-lg",
+  //   }[size];
 
-  const { colorScheme } = useColorScheme();
+  const variantClasses = {
+    primary: 'btn-primary',
+    secondary: 'btn-secondary',
+    danger: 'btn-danger',
+    success: 'btn-success',
+    outline: 'btn-outline',
+  };
 
   return (
-    <Pressable className={`flex-row  my-4 bg-blue-800 dark:bg-blue-300 p-[10px] px-4 rounded-lg active:bg-blue-700 dark:active:bg-blue-200   ${height && `h-[${height}]`}  ${width && `w-[${width}]`}  `} onPress={onPress}>
-      <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
-        <Ionicons name="color-palette-outline" size={19} color={colorScheme == 'dark' ? 'black' : 'white'} />
-      </View>
-      <Text className={`font-medium text-${size || 'md'}  text-white dark:text-slate-900`}>{title || 'Click Me'}</Text>
+    <Pressable className={`flex-row ${isTitleCentered && 'justify-center'}  my-4  ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}`} onPress={onPress}>
+      {children}
     </Pressable>
   )
 }

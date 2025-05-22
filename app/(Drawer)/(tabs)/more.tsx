@@ -2,8 +2,9 @@ import { SafeAreaView, Text, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useColorScheme } from 'nativewind';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '@/components/MindzerButton';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -49,10 +50,16 @@ export default function App() {
           </View>
         </View>
 
-        <MindzerButton title='Change Theme' />
-
+        <MindzerButton isTitleCentered variants='danger'  >
+          <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
+            <AntDesign name="logout" size={16} color={'white'} />
+          </View>
+          <Text className={`font-medium  text-white `}>
+            Logout
+          </Text>
+        </MindzerButton>
 
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }

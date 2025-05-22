@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .btn-primary{
+    @apply bg-primary dark:bg-blue-300 p-[10px] px-4 rounded-lg active:bg-blue-700 dark:active:bg-blue-200;
+  }
+  .btn-secondary{
+    @apply bg-[#f1f1f1]  p-[10px] px-4 rounded-lg text-black  
+  }
+  .btn-outline{
+    @apply bg-transparent border border-black dark:border-white   p-[10px] px-4 rounded-lg active:bg-gray-100 dark:active:bg-gray-700 text-black dark:text-white;
+  }
+  .btn-success{
+    @apply bg-green-800 p-[10px] px-4 rounded-lg active:bg-green-700 ;
+  }
+  .btn-danger{
+    @apply bg-red-600  p-[10px] px-4 rounded-lg active:bg-red-500 ;
+  }
+ 
+}
+@layer utilities {
+  .adaptive-text{
+    @apply text-white dark:text-slate-900
+  }
+}

@@ -2,7 +2,7 @@ import { Redirect, Tabs } from 'expo-router';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
-import { myDarkTheme, myLightTheme } from '@/theme/theme';
+import { myDarkTheme, myLightTheme } from '@/configs/theme';
 import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function Layout() {
@@ -20,7 +20,7 @@ export default function Layout() {
       headerTitleStyle: { 'fontSize': 18, color: '#fff' },
       headerStyle: {
         backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
-      }, headerLeft: () => <DrawerToggleButton  tintColor='white'/>,
+      }, headerLeft: () => <DrawerToggleButton tintColor='white' />,
     }}>
       <Tabs.Screen
         name="home"
