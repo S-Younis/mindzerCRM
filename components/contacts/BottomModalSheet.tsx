@@ -2,7 +2,6 @@ import { Text  , StyleSheet , Pressable} from "react-native";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView }  from '@gorhom/bottom-sheet';
 import { forwardRef, useCallback } from "react";
 
-
 type Ref = BottomSheet ;
 
  const BottomModalSheet = forwardRef<Ref , any>( (  props  , ref )  => {
@@ -22,7 +21,6 @@ type Ref = BottomSheet ;
               </Pressable>
           </BottomSheetView>
         </BottomSheet>
-
   );
 }
 );

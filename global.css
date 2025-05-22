@@ -1,21 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer components {
   .btn-primary{
-    @apply bg-primary dark:bg-blue-300 p-[10px] px-4 rounded-lg active:bg-blue-700 dark:active:bg-blue-200;
+    @apply bg-primary dark:bg-blue-300 p-[10px] px-4 rounded-lg active:bg-blue-700 dark:active:bg-blue-200 shadow-md;
   }
   .btn-secondary{
     @apply bg-[#f1f1f1]  p-[10px] px-4 rounded-lg text-black  
   }
   .btn-outline{
-    @apply bg-transparent border border-black dark:border-white   p-[10px] px-4 rounded-lg active:bg-gray-100 dark:active:bg-gray-700 text-black dark:text-white;
+    @apply bg-transparent border border-black dark:border-white p-[10px] px-4 rounded-lg active:bg-gray-100 dark:active:bg-gray-700 text-black dark:text-white shadow-md;
   }
   .btn-success{
-    @apply bg-green-800 p-[10px] px-4 rounded-lg active:bg-green-700 ;
+    @apply bg-green-800 p-[10px] px-4 rounded-lg active:bg-green-700  shadow-md;
   }
   .btn-danger{
-    @apply bg-red-600  p-[10px] px-4 rounded-lg active:bg-red-500 ;
+    @apply bg-red-600  p-[10px] px-4 rounded-lg active:bg-red-500 shadow-md ;
   }
  
 }

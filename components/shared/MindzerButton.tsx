@@ -27,7 +27,7 @@ export default function MindzerButton({ isTitleCentered, variants = 'primary', s
   };
 
   return (
-    <Pressable className={`flex-row ${isTitleCentered && 'justify-center'}  my-4  ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}`} onPress={onPress}>
+    <Pressable className={`flex-row ${isTitleCentered && 'justify-center'} ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}`} onPress={onPress}>
       {children}
     </Pressable>
   )

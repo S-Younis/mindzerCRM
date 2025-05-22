@@ -1,13 +1,46 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { ActionSheetIOS, Platform, SafeAreaView, Text, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useColorScheme } from 'nativewind';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign';
-import MindzerButton from '@/components/MindzerButton';
+import MindzerButton from '@/components/shared/MindzerButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Toast from 'react-native-toast-message';
+import BottomModalSheet from '@/components/morePage/BottomModalSheet';
+import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
+import { useRef } from 'react';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const handleLogoutBTN = () => {
+
+    // Use Native ActionSheet for ios only
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: ['Cancel', 'Show Toast'],
+          destructiveButtonIndex: 2,
+          cancelButtonIndex: 0,
+          userInterfaceStyle: 'dark',
+        },
+        buttonIndex => {
+          if (buttonIndex === 1) {
+            Toast.show({
+              type: 'success',
+              text1: 'Successfully Logged Out',
+              position: 'top',
+              visibilityTime: 1500,
+              swipeable: true,
+            })
+          }
+        });
+    } else {
+      bottomSheetRef.current?.expand()
+    }
+  }
+
 
   return (
     <SafeAreaView className="flex-1 ">
@@ -50,7 +83,7 @@ export default function App() {
           </View>
         </View>
 
-        <MindzerButton isTitleCentered variants='danger'  >
+        <MindzerButton isTitleCentered variants='danger' onPress={handleLogoutBTN} className='mt-4'  >
           <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
             <AntDesign name="logout" size={16} color={'white'} />
           </View>
@@ -60,6 +93,9 @@ export default function App() {
         </MindzerButton>
 
       </View>
+
+      <BottomModalSheet ref={bottomSheetRef} />
+
     </SafeAreaView >
   );
 }
