@@ -1,5 +1,6 @@
 import { Pressable } from 'react-native'
 import React from 'react'
+import { Animated } from 'react-native';
 
 interface MindzerButtonProps {
   variants: 'primary' | 'secondary' | 'outline' | 'danger' | 'success',

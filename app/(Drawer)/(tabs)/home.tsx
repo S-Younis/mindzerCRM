@@ -5,14 +5,15 @@ import { useColorScheme } from 'nativewind';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-import { Spinner } from 'tamagui';
-import BottomModalSheet from '@/components/contacts/BottomModalSheet';
+import { Flow } from 'react-native-animated-spinkit';
+import { useState } from 'react';
 
 
 export default function App() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const { push } = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <View className="flex-1 items-center justify-center">
 
@@ -34,8 +35,11 @@ export default function App() {
         </Text>
       </MindzerButton>
 
-      <MindzerButton isTitleCentered variants='primary' className='mt-4' onPress={() => push('/login')} >
-        <Spinner size='small' marginRight={6} color={'white'} />
+      <MindzerButton isTitleCentered variants='primary' className='mt-4' onPress={() => {
+        // push('/login')
+        setIsLoading(!isLoading);
+      }} >
+        {isLoading && <Flow size={18} className='mr-3  my-auto ' color="#FFF"></Flow>}
         <Text className={`font-medium  adaptive-text`}>
           Go To Login
         </Text>

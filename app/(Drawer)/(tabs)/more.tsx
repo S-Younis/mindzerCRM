@@ -94,6 +94,7 @@ export default function App() {
 
       </View>
 
+      {/* Logout Modal  */}
       <BottomModalSheet ref={bottomSheetRef} />
 
     </SafeAreaView >
