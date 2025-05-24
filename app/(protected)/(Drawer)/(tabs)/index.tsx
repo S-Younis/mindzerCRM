@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 // import { useTheme } from '@react-navigation/native';
 import { useColorScheme } from 'nativewind';
@@ -7,16 +6,22 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 import { Flow } from 'react-native-animated-spinkit';
 import { useState } from 'react';
+import { useAuthStore } from '@/stores/auth.store';
 
-
-export default function App() {
+export default function Home() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const { push } = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = useAuthStore((state) => state.user);
+  const logOut = useAuthStore((state) => state.logOut);
+
   return (
     <View className="flex-1 items-center justify-center">
 
+      <Text className={`text-2xl font-bold text-green-500 mb-10`}>
+        Welcome {user?.name || 'Guest'}
+      </Text>
       <MindzerButton isTitleCentered variants='primary' onPress={() => {
         toggleColorScheme();
         Toast.show({
@@ -39,9 +44,18 @@ export default function App() {
         // push('/login')
         setIsLoading(!isLoading);
       }} >
-        {isLoading && <Flow size={18} className='mr-3  my-auto ' color="#FFF"></Flow>}
+        {isLoading && <Flow size={18} className='mr-3  my-auto ' color={colorScheme == 'dark' ? 'black' : 'white'}></Flow>}
         <Text className={`font-medium  adaptive-text`}>
           Go To Login
+        </Text>
+      </MindzerButton>
+
+      <MindzerButton isTitleCentered variants='danger' className='mt-4 ' onPress={() => {
+        logOut();
+      }} >
+
+        <Text className={`font-medium text-white  `}>
+          Logout
         </Text>
       </MindzerButton>
 

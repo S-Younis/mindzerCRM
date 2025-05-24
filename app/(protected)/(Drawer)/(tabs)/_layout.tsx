@@ -23,7 +23,7 @@ export default function Layout() {
       }, headerLeft: () => <DrawerToggleButton tintColor='white' />,
     }}>
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
