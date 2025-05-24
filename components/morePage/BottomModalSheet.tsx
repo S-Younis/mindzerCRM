@@ -4,6 +4,8 @@ import { forwardRef, useCallback } from "react";
 import MindzerButton from "../shared/MindzerButton";
 import Toast from "react-native-toast-message";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useAuthStore } from "@/stores/auth.store";
+import { router } from "expo-router";
 
 type Ref = BottomSheet;
 
@@ -12,10 +14,14 @@ type Ref = BottomSheet;
 const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
   const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
 
+  const logOut = useAuthStore((state) => state.logOut);
+
+
   const handleLogoutBTN = () => {
     // dismiss the bottom sheet
     ref?.current?.close()
-
+    router.replace('/login');
+    logOut();
     Toast.show({
       type: 'success',
       text1: 'Successfully Logged Out',

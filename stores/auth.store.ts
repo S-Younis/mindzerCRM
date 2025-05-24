@@ -6,7 +6,7 @@ interface AuthType {
   token: string | null;
   user: { id: string; name: string; email: string } | null;
   isLoggedIn: boolean;
-  logIn: (user:any) => void;
+  logIn: (user: any) => void;
   logOut: () => void;
 }
 export const useAuthStore = create<AuthType>()(

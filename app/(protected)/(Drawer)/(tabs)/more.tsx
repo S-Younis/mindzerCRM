@@ -5,14 +5,19 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Toast from 'react-native-toast-message';
+
 import BottomModalSheet from '@/components/morePage/BottomModalSheet';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
 import { useRef } from 'react';
+import { router } from 'expo-router';
+import { useAuthStore } from '@/stores/auth.store';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const logOut = useAuthStore((state) => state.logOut);
 
   const handleLogoutBTN = () => {
 
@@ -20,13 +25,16 @@ export default function App() {
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          options: ['Cancel', 'Show Toast'],
+          options: ['Cancel', 'Logout'],
+          title: 'Are you sure you want to log out?',
           destructiveButtonIndex: 2,
           cancelButtonIndex: 0,
           userInterfaceStyle: 'dark',
         },
         buttonIndex => {
           if (buttonIndex === 1) {
+            router.replace('/login');
+            logOut();
             Toast.show({
               type: 'success',
               text1: 'Successfully Logged Out',
@@ -34,10 +42,12 @@ export default function App() {
               visibilityTime: 1500,
               swipeable: true,
             })
+
           }
         });
     } else {
       bottomSheetRef.current?.expand()
+
     }
   }
 

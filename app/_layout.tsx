@@ -12,7 +12,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme == 'dark' ? myDarkTheme : myLightTheme}>
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack screenOptions={{ headerShown: false, animation: 'fade' }} />
       </ThemeProvider>
       <Toast config={toastConfig} />
     </GestureHandlerRootView>

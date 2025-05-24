@@ -9,13 +9,9 @@ import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth.store';
 
 export default function Home() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-
   const [isLoading, setIsLoading] = useState(false);
-
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   const user = useAuthStore((state) => state.user);
-  const logOut = useAuthStore((state) => state.logOut);
-
   return (
     <View className="flex-1 items-center justify-center">
 
@@ -50,16 +46,9 @@ export default function Home() {
         </Text>
       </MindzerButton>
 
-      <MindzerButton isTitleCentered variants='danger' className='mt-4 ' onPress={() => {
-        logOut();
-      }} >
-
-        <Text className={`font-medium text-white  `}>
-          Logout
-        </Text>
-      </MindzerButton>
 
 
-    </View>
+
+    </View >
   );
 }

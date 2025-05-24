@@ -1,4 +1,4 @@
-import { Redirect, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
@@ -7,11 +7,6 @@ import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
-
-  const isLoggedIn = true;
-  if (!isLoggedIn) {
-    return <Redirect href={'/login'} />;
-  }
 
   return (
     <Tabs screenOptions={{
