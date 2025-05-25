@@ -43,12 +43,12 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
 
         <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
           <AntDesign name="adduser" size={18} color="black" className="mr-2" />
-          <Text className={`font-medium   `}>
+          <Text className={`font-medium text-slate-800   `}>
             Create New Contact
           </Text>
         </MindzerButton>
-        <MindzerButton isTitleCentered variants='outline' className="w-full " onPress={() => ref?.current?.close()}   >
-          <Text className={`font-medium  text-white `}>
+        <MindzerButton isTitleCentered variants='secondary' className="w-full " onPress={() => ref?.current?.close()}   >
+          <Text className={`font-medium  text-gray-200 `}>
             Cancel
           </Text>
         </MindzerButton>
