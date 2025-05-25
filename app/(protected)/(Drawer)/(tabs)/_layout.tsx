@@ -27,6 +27,7 @@ export default function Layout() {
       <Tabs.Screen
         name="contacts"
         options={{
+          headerShown: false,
           title: 'Contacts',
           tabBarIcon: ({ color }) => <Feather name="phone" size={24} color={color} />,
         }}

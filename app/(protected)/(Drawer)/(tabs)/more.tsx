@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <SafeAreaView className="flex-1 ">
-      <View className="flex-1 mt-[60px] p-4 px-5">
+      <View className="flex-1 mt-[50px] p-4 px-5">
 
         <View className="bg-[#303e5f]  px-6 py-5  border-[1px] border-[#515763] flex-row gap-4 rounded-xl ">
           <View className="w-16 h-16 rounded-full bg-white flex items-center justify-center">

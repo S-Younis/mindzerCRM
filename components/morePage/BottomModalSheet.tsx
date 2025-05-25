@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import { forwardRef, useCallback } from "react";
 import MindzerButton from "../shared/MindzerButton";
 import Toast from "react-native-toast-message";
@@ -9,13 +9,17 @@ import { router } from "expo-router";
 
 type Ref = BottomSheet;
 
-
-
 const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
   const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
+  const animationConfigs = useBottomSheetSpringConfigs({
+    damping: 80,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.1,
+    restSpeedThreshold: 0.1,
+    stiffness: 150,
+  });
 
   const logOut = useAuthStore((state) => state.logOut);
-
 
   const handleLogoutBTN = () => {
     // dismiss the bottom sheet
@@ -38,6 +42,7 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
       snapPoints={['20%']}
       backdropComponent={renderBackdrop}
       index={-1}
+      animationConfigs={animationConfigs}
     >
       <BottomSheetView className="flex gap-4 p-4   " >
 
@@ -59,7 +64,5 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
   );
 }
 );
-
-
 
 export default BottomModalSheet;

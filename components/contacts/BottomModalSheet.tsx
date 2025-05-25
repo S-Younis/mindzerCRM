@@ -1,36 +1,61 @@
-import { Text  , StyleSheet , Pressable} from "react-native";
-import BottomSheet, { BottomSheetBackdrop, BottomSheetView }  from '@gorhom/bottom-sheet';
+import { Text, StyleSheet, Pressable, View } from "react-native";
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import { forwardRef, useCallback } from "react";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MindzerButton from "../shared/MindzerButton";
+import { router } from "expo-router";
+import { useColorScheme } from "nativewind";
+import { myDarkTheme } from "@/configs/theme";
 
-type Ref = BottomSheet ;
 
- const BottomModalSheet = forwardRef<Ref , any>( (  props  , ref )  => {
- const renderBackdrop = useCallback((props:any)=><BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props}/>,[]) 
+type Ref = BottomSheet;
+
+const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
+
+  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
+  const animationConfigs = useBottomSheetSpringConfigs({
+    damping: 80,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.1,
+    restSpeedThreshold: 0.1,
+    stiffness: 150,
+  });
+
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+
+  const showCreateContact = () => {
+    router.navigate('/contacts/createContactModal');
+    // dismiss the bottom sheet
+    ref?.current?.close()
+  }
 
   return (
-        <BottomSheet
-          ref={ref}
-          snapPoints={['30%']} 
-          backdropComponent={renderBackdrop}
-          index={-1}
-        >
-          <BottomSheetView style={styles.contentContainer} >  
-              <Text>Awesome 🎉</Text>
-               <Pressable onPress={() => ref?.current?.close()} >
-               <Text>Close X</Text> 
-              </Pressable>
-          </BottomSheetView>
-        </BottomSheet>
+    <BottomSheet
+      ref={ref}
+      snapPoints={['20%']}
+      backdropComponent={renderBackdrop}
+      index={-1}
+      animationConfigs={animationConfigs}
+      backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
+      handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}
+    >
+      <BottomSheetView className="flex gap-4 p-4   " >
+
+        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
+          <AntDesign name="adduser" size={18} color="black" className="mr-2" />
+          <Text className={`font-medium   `}>
+            Create New Contact
+          </Text>
+        </MindzerButton>
+        <MindzerButton isTitleCentered variants='outline' className="w-full " onPress={() => ref?.current?.close()}   >
+          <Text className={`font-medium  text-white `}>
+            Cancel
+          </Text>
+        </MindzerButton>
+      </BottomSheetView>
+    </BottomSheet>
   );
 }
 );
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-    padding: 36,
-    alignItems: 'center',
-  },
-})
 
 export default BottomModalSheet;
