@@ -37,7 +37,7 @@ const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps
                 {isDarkMode ? (
                     <Ionicons name="moon" size={iconsSize - 1} color="#1c3db8" />
                 ) : (
-                    <Ionicons name="sunny" size={iconsSize + 1} color="white" />
+                    <Ionicons name="sunny" size={iconsSize + 1} color="#DBDBDB" />
                 )}
             </Animated.View>
         </TouchableOpacity>

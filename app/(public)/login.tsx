@@ -10,7 +10,7 @@ import { LoginFooter } from "@/components/loginPage/LoginFooter";
 import Svg from "react-native-svg"
 import SimpleThemeToggle from "@/components/shared/ThemeToggler";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { Divider } from "@/components/shared/Divider";
 
 export default function login() {
   const logIn = useAuthStore((state) => state.logIn);
@@ -30,10 +30,10 @@ export default function login() {
         <SimpleThemeToggle className=" ml-auto " />
       </View>
 
-      <View className="mt-6  rounded-xl pt-2 ">
-        <View className="h-fit  w-full py-4 rounded-md mx-auto mb-4">
+      <View className="mt-2  rounded-xl pt-2 ">
+        <View className="h-fit  w-full py-4 rounded-md mx-auto mb-2">
           <Image
-            style={{ width: 200, height: 55, marginLeft: 'auto', marginRight: 'auto', }}
+            style={{ width: 200, height: 60, marginLeft: 'auto', marginRight: 'auto', }}
             source={require('@/assets/MINDZER.png')}
             placeholder={{ blurhash }}
             contentFit="cover"
@@ -44,19 +44,13 @@ export default function login() {
         <Text className="text-sm font-medium text-center mb-4 text-gray-400 dark:text-[#DBDBDB]"> Enter your credentials to access your account </Text>
 
         <View className=" mt-10 mb-10 w-[85%] mx-auto ">
-          {/* <TextInput
-            className="  bg-slate-100 dark:bg-transparent mb-8 p-4  rounded-lg border  border-[#e4e4e4] dark:border-gray-600  shadow"
-            placeholder="Email"
-            placeholderTextColor="#A9A9A9"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          /> */}
-          <View className="flex-row gap-2 bg-slate-100 dark:bg-transparent mb-8 p-2  rounded-lg border  border-[#e4e4e4] dark:border-gray-600  shadow">
-            <View className=" pl-2 flex items-center justify-center dark:opacity-55">
+
+          <View className=" flex-row gap-2 bg-slate-100 dark:bg-transparent mb-8 p-2  rounded-lg border  border-[#e4e4e4] dark:border-gray-600 shadow-xs">
+            <View className=" pl-2 flex items-center justify-center dark:opacity-55 ">
               <MaterialCommunityIcons name="email-outline" size={20} color="#A9A9A9" />
             </View>
             <TextInput
-              className=" text-gray-800  dark:text-white"
+              className=" text-gray-800  dark:text-white py-2 flex-1"
               placeholder="Email"
               placeholderTextColor="#A9A9A9"
               keyboardType="email-address"
@@ -64,25 +58,19 @@ export default function login() {
             />
           </View>
 
-          <View className="flex-row gap-2 bg-slate-100 dark:bg-transparent mb-8 p-2  rounded-lg border  border-[#e4e4e4] dark:border-gray-600  shadow">
+          <View className="flex-row gap-2 bg-slate-100 dark:bg-transparent mb-4 p-2  rounded-lg border  border-[#e4e4e4] dark:border-gray-600  shadow-xs">
             <View className=" pl-2 flex items-center justify-center dark:opacity-55">
-              <FontAwesome6 name="lock" size={16} color="#A9A9A9" />
+              <MaterialCommunityIcons name="lock" size={20} color="#A9A9A9" />
             </View>
             <TextInput
-              className=" text-gray-500 dark:text-white"
+              className=" text-gray-500 dark:text-white py-2 flex-1 "
               placeholder="Password"
               placeholderTextColor="#A9A9A9"
               secureTextEntry
               autoCapitalize="none"
             />
           </View>
-          {/* <TextInput
-            className=" bg-slate-100 dark:bg-transparent  mb-5 p-4 rounded-lg  border  border-[#e4e4e4] dark:border-gray-600  shadow "
-            placeholder="Password"
-            placeholderTextColor="#A9A9A9"
-            secureTextEntry
-            autoCapitalize="none"
-          /> */}
+
           <Text className="text-blue-600 dark:text-blue-300 text-xs text-right underline">Forgot Password?</Text>
         </View>
 
@@ -93,13 +81,9 @@ export default function login() {
             </Text>
           </MindzerButton>
 
-          <View className="flex-row items-center justify-center gap-4  ">
-            <View className="flex-1 h-[0.5px] bg-gray-200 dark:bg-[#444442]"></View>
-            <Text className="text-gray-400 dark:text-gray-500 " > or </Text>
-            <View className="flex-1  h-[0.5px] bg-gray-200 dark:bg-[#444442]"></View>
-          </View>
+          <Divider title='or' />
 
-          <MindzerButton isTitleCentered variants='outline'   >
+          <MindzerButton isTitleCentered variants='outline'  >
             <Svg
               width={22}
               height={22}
