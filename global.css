@@ -4,19 +4,20 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary dark:bg-blue-300 p-[10px] px-5 rounded-lg active:bg-blue-700 dark:active:bg-blue-200 shadow-sm;
+    @apply bg-primary  py-[12px] px-5 rounded-lg active:bg-blue-700 ;
   }
   .btn-secondary {
-    @apply bg-[#f1f1f1] dark:bg-gray-600  p-[10px] px-4 rounded-lg text-black dark:text-white  active:bg-gray-200 dark:active:bg-gray-500  shadow-sm;
+    @apply bg-[#f1f1f1] dark:bg-gray-600  py-[12px] px-5 rounded-lg text-black dark:text-white  active:bg-gray-200 dark:active:bg-gray-500  ;
   }
   .btn-outline {
-    @apply bg-transparent border border-black dark:border-[#444442] p-[10px] px-4 rounded-lg active:bg-gray-100 dark:active:bg-gray-700 text-black dark:text-white;
+    @apply  bg-slate-100 dark:bg-transparent border border-gray-600  dark:border-[#444442] py-[12px] px-5 rounded-lg active:bg-gray-100 dark:active:bg-[#0d0d16] text-black dark:text-white;
   }
+  /* border-[#a8aab6] */
   .btn-success {
-    @apply bg-green-800 p-[10px] px-4 rounded-lg active:bg-green-700  shadow-sm;
+    @apply bg-green-800 py-[12px] px-5 rounded-lg active:bg-green-700  ;
   }
   .btn-danger {
-    @apply bg-red-600  p-[10px] px-4 rounded-lg active:bg-red-500 shadow-sm;
+    @apply bg-red-600  py-[12px] px-5 rounded-lg active:bg-red-500 ;
   }
 }
 @layer utilities {

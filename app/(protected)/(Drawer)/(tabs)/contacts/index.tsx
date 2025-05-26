@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import BottomModalSheet from "@/components/contacts/BottomModalSheet";
+import BottomModalSheet from "@/components/contactsPage/BottomModalSheet";
 import React, { useRef } from "react";
 import Feather from '@expo/vector-icons/Feather';
 import BottomSheet from "@gorhom/bottom-sheet";

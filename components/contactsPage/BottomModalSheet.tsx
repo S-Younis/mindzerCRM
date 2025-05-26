@@ -42,8 +42,8 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
       <BottomSheetView className="flex gap-4 p-4   " >
 
         <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
-          <AntDesign name="adduser" size={18} color="black" className="mr-2" />
-          <Text className={`font-medium text-slate-800   `}>
+          <AntDesign name="adduser" size={18} color="white" className="mr-2" />
+          <Text className={`font-medium text-white   `}>
             Create New Contact
           </Text>
         </MindzerButton>

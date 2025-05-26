@@ -1,6 +1,5 @@
 import { Pressable } from 'react-native'
 import React from 'react'
-import { Animated } from 'react-native';
 
 interface MindzerButtonProps {
   variants: 'primary' | 'secondary' | 'outline' | 'danger' | 'success',
@@ -28,7 +27,7 @@ export default function MindzerButton({ isTitleCentered, variants = 'primary', s
   };
 
   return (
-    <Pressable className={`flex-row ${isTitleCentered && 'justify-center'} ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}`} onPress={onPress}>
+    <Pressable className={`flex-row items-center ${isTitleCentered && 'justify-center'} ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}`} onPress={onPress}>
       {children}
     </Pressable>
   )

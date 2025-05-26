@@ -10,13 +10,13 @@ import { useAuthStore } from '@/stores/auth.store';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { toggleColorScheme } = useColorScheme();
   const user = useAuthStore((state) => state.user);
   return (
     <View className="flex-1 items-center justify-center">
 
-      <Text className={`text-2xl font-bold text-green-500 mb-10`}>
-        Welcome {user?.name || 'Guest'}
+      <Text className={`text-2xl font-bold text-blue-800 dark:text-slate-200 mb-10`}>
+        Welcome ,  {user?.name || 'Guest'}
       </Text>
       <MindzerButton isTitleCentered variants='primary' onPress={() => {
         toggleColorScheme();
@@ -29,9 +29,9 @@ export default function Home() {
         })
       }} >
         <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
-          <Ionicons name="color-palette-outline" size={19} color={colorScheme == 'dark' ? 'black' : 'white'} />
+          <Ionicons name="color-palette-outline" size={19} color={'white'} />
         </View>
-        <Text className={`font-medium  adaptive-text`}>
+        <Text className={`font-medium  text-white`}>
           Change Theme
         </Text>
       </MindzerButton>
@@ -40,8 +40,8 @@ export default function Home() {
         // push('/login')
         setIsLoading(!isLoading);
       }} >
-        {isLoading && <Flow size={18} className='mr-3  my-auto ' color={colorScheme == 'dark' ? 'black' : 'white'}></Flow>}
-        <Text className={`font-medium  adaptive-text`}>
+        {isLoading && <Flow size={18} className='mr-3  my-auto ' color={'white'}></Flow>}
+        <Text className={`font-medium  text-white`}>
           Go To Login
         </Text>
       </MindzerButton>

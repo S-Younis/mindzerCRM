@@ -6,10 +6,14 @@ import Toast from "react-native-toast-message";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useAuthStore } from "@/stores/auth.store";
 import { router } from "expo-router";
-
+import { useColorScheme } from "nativewind";
+import { myDarkTheme } from "@/configs/theme";
 type Ref = BottomSheet;
 
 const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
+
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+
   const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
@@ -38,11 +42,13 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
   return (
     <BottomSheet
       ref={ref}
-      // snapPoints={['10%']}
-      snapPoints={['20%']}
+      // snapPoints={['10%']} 
+      snapPoints={['18%']}
       backdropComponent={renderBackdrop}
       index={-1}
       animationConfigs={animationConfigs}
+      backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
+      handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}
     >
       <BottomSheetView className="flex gap-4 p-4   " >
 
@@ -54,11 +60,13 @@ const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
             Logout
           </Text>
         </MindzerButton>
+
         <MindzerButton isTitleCentered variants='secondary' className="w-full " onPress={() => ref?.current?.close()}   >
-          <Text className={`font-medium  text-black `}>
+          <Text className={`font-medium  text-black dark:text-gray-200 `}>
             Cancel
           </Text>
         </MindzerButton>
+
       </BottomSheetView>
     </BottomSheet>
   );

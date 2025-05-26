@@ -4,7 +4,8 @@ export const myDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: '#222b45',
+    // background: '#222b45',
+    background: '#030e1f',
     card: '#1a2138', // tab && top bar background
     text: '#ffffff',
     border: '#303030',
