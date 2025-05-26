@@ -14,7 +14,7 @@ export const myDarkTheme = {
     // btnSecondary: '#8ec5ff', // Tailwind : bg-blue-300 
     // btnSecondaryPress: '#bedbff', // Tailwind : bg-blue-200 
   },
- 
+
 };
 export const myLightTheme = {
   ...DefaultTheme,
@@ -22,8 +22,9 @@ export const myLightTheme = {
     ...DefaultTheme.colors,
     background: '#f5f8fa',
     card: '#f7fafd',
-    primary: '#013399',
-    // primary: '#0136a3',
+    primary: '#193cb8',
+    // primary: '#013399',
+
   },
- 
+
 };
