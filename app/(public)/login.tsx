@@ -148,7 +148,7 @@ export default function login() {
 
         {/* Form Buttons */}
         <View className=" gap-4 w-[85%] mx-auto">
-          <MindzerButton isTitleCentered variants='primary' onPress={
+          <MindzerButton isTitleCentered isLoading variants='primary' onPress={
             handleSubmit(onLogIn)
           } >
             <Text className={`font-medium text-light  `}>
