@@ -10,9 +10,9 @@ export default function Layout() {
 
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : myLightTheme.colors.primary,
+      tabBarActiveTintColor: colorScheme === 'dark' ? '#fafafa' : myLightTheme.colors.primary,
       headerTitleAlign: 'center',
-      headerTitleStyle: { 'fontSize': 18, color: '#fff' },
+      headerTitleStyle: { 'fontSize': 18, color: '#fafafa' },
       headerStyle: {
         backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
       }, headerLeft: () => <DrawerToggleButton tintColor='white' />,

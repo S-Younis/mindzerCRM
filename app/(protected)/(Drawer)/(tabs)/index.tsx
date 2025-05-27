@@ -8,6 +8,7 @@ import { Flow } from 'react-native-animated-spinkit';
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth.store';
 
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const { toggleColorScheme } = useColorScheme();
@@ -18,7 +19,7 @@ export default function Home() {
       <Text className={`text-2xl font-bold text-blue-800 dark:text-slate-200 mb-10`}>
         Welcome ,  {user?.name || 'Guest'}
       </Text>
-      <MindzerButton  isTitleCentered variants='primary' onPress={() => {
+      <MindzerButton isTitleCentered variants='primary' onPress={() => {
         toggleColorScheme();
         Toast.show({
           type: 'info',
@@ -44,7 +45,6 @@ export default function Home() {
           Go To Login
         </Text>
       </MindzerButton>
-
 
 
 

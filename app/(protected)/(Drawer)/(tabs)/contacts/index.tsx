@@ -1,19 +1,21 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import BottomModalSheet from "@/components/contactsPage/BottomModalSheet";
 import React, { useRef } from "react";
 import Feather from '@expo/vector-icons/Feather';
 import BottomSheet from "@gorhom/bottom-sheet";
 import { myLightTheme } from "@/configs/theme";
+import { ContactCard } from "@/components/contactsPage/ContactCard";
+
 export default function contacts() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
 
   return (
-    <View className="flex-1 ">
-      <View className="bg-[#161f2e] border-[#262f3a] border-2 flex items-center justify-center w-[80%] h-40 rounded-xl">
-      </View>
-     
+    <View className="flex-1 pt-10 ">
+
+      <ContactCard sFullName={"Sayed Younis Moahmmed"} sJobTitle="Front-end Dev" sEmail={"younis.mohamemd@gmail.com"} />
+
       <TouchableOpacity
         style={{
           position: 'absolute',
@@ -32,7 +34,6 @@ export default function contacts() {
       >
         <Feather name="plus" size={24} color="white" />
       </TouchableOpacity>
-
       <BottomModalSheet ref={bottomSheetRef} />
     </View>
   );
