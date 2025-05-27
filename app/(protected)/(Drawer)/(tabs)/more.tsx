@@ -61,8 +61,8 @@ export default function App() {
             <Text className=" font-bold text-xl ">YM</Text>
           </View>
           <View className="flex self-center gap-[2px]  ">
-            <Text className=" text-black dark:text-white font-bold ">Younis Mohammeed </Text>
-            <Text className=" text-black dark:text-white font-bold ">
+            <Text className=" text-dark dark:text-light font-bold ">Younis Mohammeed </Text>
+            <Text className=" text-dark dark:text-light font-bold ">
               <Text className="dark:text-gray-200">Division ➡️</Text> Reda Chemicals
             </Text>
           </View>
@@ -72,14 +72,14 @@ export default function App() {
           </View>
         </View>
 
-        <Text className="text-black dark:text-white text-sm  mt-4 mb-2 ml-2">General</Text>
+        <Text className="text-dark dark:text-light text-sm  mt-4 mb-2 ml-2">General</Text>
 
         {/* General Options  */}
         <View className="flex gap-2  ">
           <View className="bg-[#303e5f] border-[#262f3a] p-6 py-4 border-2 flex-row justify-between gap-4  rounded-xl">
             <View className='flex-row items-center gap-2'>
               <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
-              <Text className="text-black dark:text-white ">Edit Profile</Text>
+              <Text className="text-dark dark:text-light ">Edit Profile</Text>
             </View>
 
             <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
@@ -87,7 +87,7 @@ export default function App() {
           <View className="bg-[#303e5f] border-[#262f3a] p-6 py-4 border-2 flex-row justify-between gap-4  rounded-xl">
             <View className='flex-row items-center gap-2'>
               <Ionicons name="color-palette-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
-              <Text className="text-black dark:text-white ">Dark Mode</Text>
+              <Text className="text-dark dark:text-light ">Dark Mode</Text>
             </View>
             <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
           </View>
@@ -97,7 +97,7 @@ export default function App() {
           <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
             <AntDesign name="logout" size={16} color={'white'} />
           </View>
-          <Text className={`font-medium  text-white `}>
+          <Text className={`font-medium  text-light `}>
             Logout
           </Text>
         </MindzerButton>

@@ -4,56 +4,92 @@ import { useAuthStore } from "@/stores/auth.store";
 import { router } from "expo-router";
 import { Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Path } from "react-native-svg";
 import { LoginFooter } from "@/components/loginPage/LoginFooter";
-import Svg from "react-native-svg"
-import SimpleThemeToggle from "@/components/shared/ThemeToggler";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { SimpleThemeToggle } from "@/components/shared/ThemeToggler";
+import { CustomInput } from "@/components/shared/CustomInput";
 import { Divider } from "@/components/shared/Divider";
+import { LoginHeader } from "@/components/loginPage/LoginHeader";
+
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
-import CustomInput from "@/components/shared/CustomInput";
-import LoginHeader from "@/components/loginPage/LoginHeader";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Toast from "react-native-toast-message";
+import { Microsoft } from "@/assets/svg/Microsoft";
+import { useEffect } from "react";
+
 
 type FormDataType = {
-  email: string
+  userId: string
   password: string
 }
 
 const FormSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string(),
+  userId: z.string().nonempty({ message: 'User Id is required' }),
+  password: z.string().nonempty({ message: 'Password is required' }).min(4, { message: 'Password must be at least 4 characters long' }),
 });
 
-// type FormDataType = z.infer<typeof FormSchema>;
 
 export default function login() {
+
+
   const logIn = useAuthStore((state) => state.logIn);
   const {
     control,
     handleSubmit,
     setError,
-    formState: { errors },
+    // clearErrors,
+    formState: { errors, isValid },
   } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
   })
 
 
-  const onLogIn: SubmitHandler<FormDataType> = (data) => {
-    console.log(data);
-    // log the errors if any
-    // if (Object.keys(errors).length > 0) {
-    //   console.log(errors);
-    //   return;
-    // }
 
-    // call api and then set the global state
-    logIn({ name: data.email, email: 'younis@gmail.com', id: '1234567890' });
-    router.replace('/')
-    // setError("email", {
-    //   message: "Invalid email or password",
-    // });
+
+
+  const onLogIn: SubmitHandler<FormDataType> = (data) => {
+
+    try {
+      console.log(data);
+
+
+      // call api and then set the global state
+
+      // Api call 
+      //
+      if (data.userId === 'alex') {
+        setError("userId", {
+          type: "manual",
+          message: "User Id is Taken",
+        });
+        Toast.show({
+          type: 'error',
+          text1: 'Failed',
+          text2: 'Invalid User Id or Password',
+          position: 'top',
+          visibilityTime: 2500,
+          swipeable: true,
+        })
+        return;
+      }
+      logIn({ name: data.userId, email: 'younis@gmail.com', id: '1234567890' });
+      router.replace('/')
+    } catch (e) {
+      setError("root", {
+        message: "Invalid email or password",
+      });
+      Toast.show({
+        type: 'error',
+        text1: 'Failed',
+        text2: 'Invalid User Id or Password',
+        position: 'bottom',
+        visibilityTime: 1500,
+        swipeable: true,
+      })
+    }
+
   }
 
   return (
@@ -64,29 +100,27 @@ export default function login() {
       </View>
 
       <View className="mt-2  rounded-xl pt-2 ">
-
         <LoginHeader className="gap-8 mb-4" />
 
         {/* Form Inputs */}
         <View className=" mt-10 mb-10 w-[85%] mx-auto ">
           <Controller
             control={control}
-            name="email"
+            name="userId"
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomInput
-                placeholder="Email"
+                placeholder="User Id"
                 containerClassName="relative mb-10"
                 onBlur={onBlur}
                 value={value}
                 onChangeText={onChange}
-                error={errors.email?.message}
+                isError={errors.userId?.message}
               >
-                <MaterialCommunityIcons name="email-outline" size={20} color={errors.email?.message ? '#ef4444' : '#A9A9A9'} />
-                {errors.email && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.email.message} </Text>)}
+                <MaterialCommunityIcons name="account-outline" size={20} color={errors.userId?.message ? '#ef4444' : '#A9A9A9'} />
+                {errors.userId && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.userId.message} </Text>)}
               </CustomInput>
             )}
           />
-
 
           <Controller
             control={control}
@@ -94,18 +128,21 @@ export default function login() {
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomInput
                 placeholder="Password"
+                containerClassName="relative"
                 secureTextEntry
                 onBlur={onBlur}
                 value={value}
                 onChangeText={onChange}
+                isError={errors.password?.message}
               >
-                <MaterialCommunityIcons name="lock" size={20} color="#A9A9A9" />
+                <MaterialCommunityIcons name="lock-outline" size={20} color={errors.password?.message ? '#ef4444' : '#A9A9A9'} />
+                {errors.password && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.password.message} </Text>)}
               </CustomInput>
 
             )}
           />
 
-          <Text className="text-blue-600 dark:text-blue-300 text-xs text-right underline">Forgot Password?</Text>
+          <Text className="text-blue-600 dark:text-blue-300 text-xs text-right underline ">Forgot Password?</Text>
         </View>
         {/* End of Form Inputs */}
 
@@ -114,32 +151,17 @@ export default function login() {
           <MindzerButton isTitleCentered variants='primary' onPress={
             handleSubmit(onLogIn)
           } >
-            <Text className={`font-medium text-white  `}>
+            <Text className={`font-medium text-light  `}>
               Sign In
             </Text>
           </MindzerButton>
-
           <Divider title='or' />
-
           <MindzerButton isTitleCentered variants='outline'  >
-            <Svg
-              width={22}
-              height={22}
-              style={{ marginRight: 6 }}
-              fill="none"
-              viewBox="0 0 32 32"
-            >
-              <Path fill="#FEBA08" d="M17 17h10v10H17z" />
-              <Path fill="#05A6F0" d="M5 17h10v10H5z" />
-              <Path fill="#80BC06" d="M17 5h10v10H17z" />
-              <Path fill="#F25325" d="M5 5h10v10H5z" />
-            </Svg>
-
-            <Text className={`font-medium text-gray-800 dark:text-white   `}>
+            <Microsoft width={22} height={22} marginRight={6} />
+            <Text className={`font-medium text-dark dark:text-light   `}>
               Sign In with Microsoft
             </Text>
           </MindzerButton>
-
 
         </View>
         {/* End of Form Buttons */}

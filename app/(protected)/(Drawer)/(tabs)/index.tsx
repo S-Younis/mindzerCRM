@@ -18,7 +18,7 @@ export default function Home() {
       <Text className={`text-2xl font-bold text-blue-800 dark:text-slate-200 mb-10`}>
         Welcome ,  {user?.name || 'Guest'}
       </Text>
-      <MindzerButton isTitleCentered variants='primary' onPress={() => {
+      <MindzerButton  isTitleCentered variants='primary' onPress={() => {
         toggleColorScheme();
         Toast.show({
           type: 'info',
@@ -31,17 +31,16 @@ export default function Home() {
         <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
           <Ionicons name="color-palette-outline" size={19} color={'white'} />
         </View>
-        <Text className={`font-medium  text-white`}>
+        <Text className={`font-medium  text-light`}>
           Change Theme
         </Text>
       </MindzerButton>
 
       <MindzerButton isTitleCentered variants='primary' className='mt-4' onPress={() => {
-        // push('/login')
         setIsLoading(!isLoading);
       }} >
         {isLoading && <Flow size={18} className='mr-3  my-auto ' color={'white'}></Flow>}
-        <Text className={`font-medium  text-white`}>
+        <Text className={`font-medium  text-light`}>
           Go To Login
         </Text>
       </MindzerButton>

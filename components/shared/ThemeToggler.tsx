@@ -7,7 +7,7 @@ interface SimpleThemeToggleProps {
     className?: string;
     iconsSize?: number;
 }
-const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps) => {
+export const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps) => {
     const { colorScheme, toggleColorScheme } = useColorScheme();
 
     const [isDarkMode, setIsDarkMode] = useState(!(colorScheme == 'dark'));
@@ -35,7 +35,7 @@ const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps
         <TouchableOpacity onPress={toggleTheme} className={`${className}`}>
             <Animated.View style={{ transform: [{ rotate: spin }] }}>
                 {isDarkMode ? (
-                    <Ionicons name="moon" size={iconsSize - 1} color="#1c3db8" />
+                    <Ionicons name="moon" size={iconsSize - 1} color="#003299" />
                 ) : (
                     <Ionicons name="sunny" size={iconsSize + 1} color="#DBDBDB" />
                 )}
@@ -45,5 +45,3 @@ const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps
 };
 
 
-
-export default SimpleThemeToggle;
