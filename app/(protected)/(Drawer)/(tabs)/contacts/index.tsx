@@ -10,10 +10,10 @@ export default function contacts() {
 
 
   return (
-    <View className="flex-1 items-center justify-center">
-      <View className="bg-[#303e5f] border-[#262f3a] border-2 flex items-center justify-center w-[80%] h-40 rounded-xl">
+    <View className="flex-1 ">
+      <View className="bg-[#161f2e] border-[#262f3a] border-2 flex items-center justify-center w-[80%] h-40 rounded-xl">
       </View>
-      <Text>contacts</Text>
+     
       <TouchableOpacity
         style={{
           position: 'absolute',

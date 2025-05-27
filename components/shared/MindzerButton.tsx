@@ -26,8 +26,8 @@ const MindzerButton: React.FC<MindzerButtonProps> = ({ isTitleCentered, isLoadin
   };
 
   return (
-    <Pressable disabled={isLoading} {...props} className={`flex-row items-center     ${isTitleCentered && 'justify-center'} ${variantClasses[variants]}  ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}  `} onPress={onPress}>
-      {isLoading ? (<Flow size={18}  color={'#fafafa'}></Flow>) : children}
+    <Pressable disabled={isLoading} {...props} className={`flex-row items-center     ${isTitleCentered && 'justify-center'} ${variantClasses[variants]} min-w-[120px] h-[44px] ${height && `h-[${height}]`}  ${width && `w-[${width}]`} ${className}  `} onPress={onPress}>
+      {isLoading ? (<Flow className='' size={28} color={'#fafafa'}></Flow>) : children}
     </Pressable>
   )
 }

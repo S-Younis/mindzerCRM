@@ -17,7 +17,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Toast from "react-native-toast-message";
 import { Microsoft } from "@/assets/svg/Microsoft";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 type FormDataType = {
@@ -44,9 +44,7 @@ export default function login() {
   } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
   })
-
-
-
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const onLogIn: SubmitHandler<FormDataType> = (data) => {
@@ -142,13 +140,13 @@ export default function login() {
             )}
           />
 
-          <Text className="text-blue-600 dark:text-blue-300 text-xs text-right underline ">Forgot Password?</Text>
+          <Text className="text-blue-600 dark:text-blue-500 text-xs text-right underline ">Forgot Password?</Text>
         </View>
         {/* End of Form Inputs */}
 
         {/* Form Buttons */}
         <View className=" gap-4 w-[85%] mx-auto">
-          <MindzerButton isTitleCentered isLoading variants='primary' onPress={
+          <MindzerButton isTitleCentered isLoading={isLoading} variants='primary' onPress={
             handleSubmit(onLogIn)
           } >
             <Text className={`font-medium text-light  `}>
@@ -156,7 +154,7 @@ export default function login() {
             </Text>
           </MindzerButton>
           <Divider title='or' />
-          <MindzerButton isTitleCentered variants='outline'  >
+          <MindzerButton isTitleCentered variants='outline' onPress={() => setIsLoading(!isLoading)}  >
             <Microsoft width={22} height={22} marginRight={6} />
             <Text className={`font-medium text-dark dark:text-light   `}>
               Sign In with Microsoft
