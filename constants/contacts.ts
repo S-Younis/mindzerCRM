@@ -1,4 +1,15 @@
-export const users = [
+type contactType = {
+  iContactId: number;
+  sFullName: string;
+  sEmail: string;
+  sPhoneMobile: string;
+  sJobTitle: string;
+  eCompany: number;
+  sCompany: string;
+  sPhoneBusiness: string;
+}
+
+export const contacts_lst : contactType[] = [
   {
     iContactId: 1,
     sFullName: "John Carter",

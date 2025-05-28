@@ -3,7 +3,8 @@ import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
-import { DrawerToggleButton } from '@react-navigation/drawer';
+// import { DrawerToggleButton } from '@react-navigation/drawer';
+import { DrawerToggle } from '@/components/shared/DrawerToggle';
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
@@ -15,13 +16,13 @@ export default function Layout() {
       headerTitleStyle: { 'fontSize': 18, color: '#fafafa' },
       headerStyle: {
         backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
-      }, headerLeft: () => <DrawerToggleButton tintColor='white' />,
+      }, headerLeft: () => <DrawerToggle hasMargins />,
     }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -29,14 +30,14 @@ export default function Layout() {
         options={{
           headerShown: false,
           title: 'Contacts',
-          tabBarIcon: ({ color }) => <Feather name="phone" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="phone" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="opportunities"
         options={{
           title: 'Opps',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={22} color={color} />,
         }}
       />
 
@@ -44,7 +45,7 @@ export default function Layout() {
         name="customers"
         options={{
           title: 'Customers',
-          tabBarIcon: ({ color }) => <Feather name="users" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="users" size={22} color={color} />,
           // tabBarButton: () => (  ),
         }}
       />
@@ -52,7 +53,7 @@ export default function Layout() {
         name="more"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <Feather name="more-horizontal" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="more-horizontal" size={22} color={color} />,
         }}
       />
     </Tabs>

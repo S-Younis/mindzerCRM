@@ -1,19 +1,18 @@
-import { View, Text } from 'react-native'
+import { View, Text, ViewProps } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
 
-type ContactCardProps = {
+type ContactCardProps = ViewProps & {
     sFullName: string;
     sJobTitle?: string;
     sEmail: string;
 }
 
-export const ContactCard = ({ sFullName, sJobTitle, sEmail }: ContactCardProps) => {
+export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactCardProps) => {
     return (
-        <View className="bg-[#161f2e] border-[#262f3a] border-2 flex-row gap-4 p-3 px-5  w-[90%] mx-auto  rounded-xl">
-
-            <View className='  items-center pt-4'>
-                <FontAwesome5 name="user" size={21} color="#2563eb" />
+        <View className={`bg-[#161f2e] border-[#262f3a] border-2 flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className}`}>
+            <View className='  items-center pt-3 '>
+                <FontAwesome5 name="user" size={21} className='p-2 bg-gray-500 rounded-lg' color="#9ca3af" />
             </View>
 
             <View className='gap-[8px]'>

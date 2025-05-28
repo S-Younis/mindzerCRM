@@ -23,6 +23,6 @@
 }
 @layer utilities {
   .adaptive-text {
-    @apply text-light dark:text-dark;
+    @apply text-dark dark:text-light;
   }
 }
