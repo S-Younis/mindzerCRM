@@ -32,6 +32,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
                 className={`   text-gray-500 ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
                 placeholderTextColor={isError ? '#7f1d1d' : '#A9A9A9'}
                 autoCapitalize="none"
+                autoCorrect={false}
                 onFocus={() => setIsFocused(true)}
                 onEndEditing={() => setIsFocused(false)}
                 {...textInputProps}

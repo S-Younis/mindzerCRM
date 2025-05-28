@@ -10,7 +10,7 @@ type ContactCardProps = ViewProps & {
 
 export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactCardProps) => {
     return (
-        <View className={`bg-[#161f2e] border-[#262f3a] border-2 flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className}`}>
+        <View className={`bg-[#161f2e] border-[#262f3a] border-2 flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70  `}>
             <View className='  items-center pt-3 '>
                 <FontAwesome5 name="user" size={21} className='p-2 bg-gray-500 rounded-lg' color="#9ca3af" />
             </View>
