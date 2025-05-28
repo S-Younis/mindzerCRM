@@ -18,7 +18,7 @@ export default function Layout() {
     },
   }} >
     <Stack.Screen name="index" options={{
-      title: 'Contacts', headerLeft: () => <DrawerToggle />, headerRight: () => <SearchIconModalButton />,
+      title: 'Contacts', headerLeft: () => <DrawerToggle />, headerRight: () => <SearchIconModalButton  />,
     }} />
     <Stack.Screen name="createContactModal" options={{ presentation: 'modal', title: 'Add Contact' }} />
   </Stack>;

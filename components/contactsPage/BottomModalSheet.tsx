@@ -12,7 +12,7 @@ type Ref = BottomSheet;
 
 const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
 
-  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
+  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop opacity={0.7}  appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
     overshootClamping: true,
