@@ -12,6 +12,14 @@ export default function _layout() {
     }
 
     // User is Authenticated
-    return <Stack screenOptions={{ headerShown: false }} />
+    return <Stack screenOptions={{ headerShown: false }} >
+        <Stack.Screen name="(Drawer)" />
+        <Stack.Screen name="modals"
+            options={{
+                presentation: 'modal',
+                headerShown: true,
+                title: ''
+            }} />
+    </Stack>
 }
 

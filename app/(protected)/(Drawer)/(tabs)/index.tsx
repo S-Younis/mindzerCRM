@@ -1,12 +1,14 @@
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 // import { useTheme } from '@react-navigation/native';
 import { useColorScheme } from 'nativewind';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-import { Flow } from 'react-native-animated-spinkit';
+// import { Flow } from 'react-native-animated-spinkit';
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth.store';
+import { Link } from 'expo-router';
+import Spinner from '@/components/shared/Spinner';
 
 
 export default function Home() {
@@ -40,12 +42,20 @@ export default function Home() {
       <MindzerButton isTitleCentered variants='primary' className='mt-4' onPress={() => {
         setIsLoading(!isLoading);
       }} >
-        {isLoading && <Flow size={18} className='mr-3  my-auto ' color={'white'}></Flow>}
+        {isLoading && <Spinner />}
+        {/* <Flow size={18} className='mr-3  my-auto ' color={'white'}></Flow> */}
         <Text className={`font-medium  text-light`}>
           Go To Login
         </Text>
       </MindzerButton>
 
+      <Link href="/modals/Test" asChild>
+        <MindzerButton isTitleCentered variants='primary' className='mt-4' >
+          <Text className={`font-medium  text-light`}>
+            Go To Login
+          </Text>
+        </MindzerButton>
+      </Link>
 
 
     </View >

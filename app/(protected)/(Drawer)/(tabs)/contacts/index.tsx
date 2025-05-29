@@ -10,6 +10,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { contacts_lst } from "@/constants/contacts";
 import { useColorScheme } from "nativewind";
 import { myDarkTheme } from "@/configs/theme";
+import { router } from "expo-router";
 export default function contacts() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -37,7 +38,8 @@ export default function contacts() {
       <FlashList
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         data={contacts_lst}
-        renderItem={({ item, index }) => <ContactCard className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`} sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
+        renderItem={({ item, index }) => <ContactCard onPress={() => { router.push(`/contacts/${item.iContactId}`) }}
+          className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`} sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
         keyExtractor={(item) => item.iContactId.toString()}
         estimatedItemSize={80}
         refreshControl={

@@ -39,7 +39,10 @@ export default function login() {
     handleSubmit,
     setError,
     // clearErrors,
-    formState: { errors, isValid },
+    formState: {
+      errors,
+      // isValid  
+    },
   } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
   })
@@ -54,8 +57,8 @@ export default function login() {
       // call api and then set the global state
 
       // Api call 
-      //
-      if (data.userId === 'alex') {
+
+      if (data.userId.toLowerCase() === 'alex'.toLowerCase()) {
         setError("userId", {
           type: "manual",
           message: "User Id is Taken",
@@ -106,11 +109,12 @@ export default function login() {
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomInput
                 placeholder="User Id"
-                containerClassName="relative mb-10"
+                containerClassName="relative mb-10 py-2"
                 onBlur={onBlur}
                 value={value}
                 onChangeText={onChange}
                 isError={errors.userId?.message}
+                clearButtonMode='while-editing' // NOTE: IOS ONLY 
               >
                 <MaterialCommunityIcons name="account-outline" size={20} color={errors.userId?.message ? '#ef4444' : '#A9A9A9'} />
                 {errors.userId && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.userId.message} </Text>)}
@@ -124,12 +128,13 @@ export default function login() {
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomInput
                 placeholder="Password"
-                containerClassName="relative"
+                containerClassName="relative mb-8 py-2 "
                 secureTextEntry
                 onBlur={onBlur}
                 value={value}
                 onChangeText={onChange}
                 isError={errors.password?.message}
+                clearButtonMode='while-editing' // NOTE: IOS ONLY 
               >
                 <MaterialCommunityIcons name="lock-outline" size={20} color={errors.password?.message ? '#ef4444' : '#A9A9A9'} />
                 {errors.password && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.password.message} </Text>)}

@@ -1,6 +1,9 @@
 import { Text, View } from "react-native";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
-import { forwardRef, useCallback } from "react";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
+
+import { useCallback } from "react";
 import MindzerButton from "../shared/MindzerButton";
 import Toast from "react-native-toast-message";
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -8,13 +11,16 @@ import { useAuthStore } from "@/stores/auth.store";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { myDarkTheme } from "@/configs/theme";
-type Ref = BottomSheet;
 
-const BottomModalSheet = forwardRef<Ref, any>((props, ref) => {
+
+type BottomModalSheetProps = {
+  ref?: React.RefObject<BottomSheetMethods | null>
+}
+const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
 
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
-  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
+  const renderBackdrop = useCallback((props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
     overshootClamping: true,

@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
 import { useColorScheme } from 'nativewind';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
@@ -18,8 +18,23 @@ export default function Layout() {
     },
   }} >
     <Stack.Screen name="index" options={{
-      title: 'Contacts', headerLeft: () => <DrawerToggle />, headerRight: () => <SearchIconModalButton  />,
+      title: 'Contacts', headerLeft: () => <DrawerToggle />, headerRight: () => <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />,
     }} />
-    <Stack.Screen name="createContactModal" options={{ presentation: 'modal', title: 'Add Contact' }} />
+    <Stack.Screen name="contactsSearch" options={{
+      title: 'Search Contacts',
+      presentation: 'modal',
+      headerShown: false,
+      animation: 'fade',
+    }} />
+    <Stack.Screen name="[iContactId]" options={{
+      title: 'Details',
+      presentation: 'modal',
+    }} />
+    <Stack.Screen name="createContactModal" options={{
+      presentation: 'modal', title: 'Add Contact',
+      headerShown: false,
+      animation: 'slide_from_bottom', // iOS-like
+      animationDuration: 250
+    }} />
   </Stack>;
 }
