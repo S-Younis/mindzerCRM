@@ -56,7 +56,7 @@ export default function App() {
     <SafeAreaView className="flex-1 ">
       <View className="flex-1 mt-4 p-4 px-5">
 
-        <Pressable className="  px-4 py-3  bg-[#161f2e] border-[#262f3a] border-2 flex-row gap-4 rounded-xl active:opacity-70 ">
+        <Pressable className="p-4 bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 rounded-xl active:opacity-70 ">
           <View className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
             <Text className=" font-bold text-xl ">YM</Text>
           </View>
@@ -77,7 +77,7 @@ export default function App() {
         {/* General Options  */}
         <View className="flex">
           <ListOption title='Edit Profile' className='rounded-tr-lg rounded-tl-lg'  >
-            <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+            <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
           </ListOption>
 
           <ListOption title='Theme Preference' className='rounded-br-lg rounded-bl-lg' >

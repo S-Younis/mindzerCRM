@@ -27,9 +27,9 @@ export default function contacts() {
   return (
     <View className="flex-1 ">
 
-      <View className={`h-14 flex-row items-center justify-between border-1 border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'} border`}>
+      <View className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'} border`}>
         <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
-        <Pressable className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-[#262f3a] border-2  rounded-lg  `} >
+        <Pressable className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-lg  `} >
           <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
           <Text className="text-sm adaptive-text "> Sort By : Name  </Text>
         </Pressable>

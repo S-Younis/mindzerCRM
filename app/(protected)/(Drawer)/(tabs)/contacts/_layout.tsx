@@ -27,8 +27,7 @@ export default function Layout() {
       animation: 'fade',
     }} />
     <Stack.Screen name="[iContactId]" options={{
-      title: 'Details',
-      presentation: 'modal',
+      title: '',
     }} />
     <Stack.Screen name="createContactModal" options={{
       presentation: 'modal', title: 'Add Contact',
