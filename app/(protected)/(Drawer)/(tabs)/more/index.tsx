@@ -1,5 +1,4 @@
-import { ActionSheetIOS, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
-import Entypo from '@expo/vector-icons/Entypo';
+import { ActionSheetIOS, Platform, SafeAreaView, Text, View } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '@/components/shared/MindzerButton';
@@ -12,6 +11,7 @@ import { router } from 'expo-router';
 import { useAuthStore } from '@/stores/auth.store';
 import Toast from 'react-native-toast-message';
 import ListOption from '@/components/shared/ListOption';
+import { ProfileHeaderCard } from '@/components/morePage/ProfileHeaderCard';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -56,21 +56,7 @@ export default function App() {
     <SafeAreaView className="flex-1 ">
       <View className="flex-1 mt-4 p-4 px-5">
 
-        <Pressable className="p-4 bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 rounded-xl active:opacity-70 ">
-          <View className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
-            <Text className=" font-bold text-xl ">YM</Text>
-          </View>
-          <View className="flex self-center gap-[2px]  ">
-            <Text className=" text-dark dark:text-light font-bold ">Younis Mohammeed </Text>
-            <Text className=" text-blue-400 text-sm    ">
-              younis.mohammed@mindzer.com
-            </Text>
-          </View>
-
-          <View className="flex-1 items-end justify-center ">
-            <Entypo name="chevron-small-right" size={32} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-          </View>
-        </Pressable>
+        <ProfileHeaderCard />
 
         <Text className="text-gray-400 text-xs  mt-4 mb-2 ml-2">General</Text>
 
@@ -80,7 +66,7 @@ export default function App() {
             <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
           </ListOption>
 
-          <ListOption title='Theme Preference' className='rounded-br-lg rounded-bl-lg' >
+          <ListOption title='Theme Preference' className='rounded-br-lg rounded-bl-lg' onPress={() => router.push('/more/themeSettings')} >
             <Ionicons name="color-palette-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
           </ListOption>
 
