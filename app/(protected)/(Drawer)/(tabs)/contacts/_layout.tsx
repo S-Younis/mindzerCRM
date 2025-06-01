@@ -32,8 +32,11 @@ export default function Layout() {
     <Stack.Screen name="createContactModal" options={{
       presentation: 'modal', title: 'Add Contact',
       headerShown: false,
-      animation: 'slide_from_bottom', // iOS-like
-      animationDuration: 250
+      // animation: 'slide_from_bottom', // iOS-like
+    }} />
+    <Stack.Screen name="editContact/[iContactId]" options={{
+      presentation: 'modal', title: '',
+      // animation: 'slide_from_bottom',
     }} />
   </Stack>;
 }

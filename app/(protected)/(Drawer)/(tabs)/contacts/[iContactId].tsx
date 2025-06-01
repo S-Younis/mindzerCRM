@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, RefreshControl } from 'react-native'
 import { useLayoutEffect, useState } from 'react'
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { contacts_lst } from "@/constants/contacts";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -15,18 +15,17 @@ const ContactDetails = () => {
     const USER = contacts_lst.find(contact => contact.iContactId === parseInt(iContactId as string));
 
     const [refreshing, setRefreshing] = useState(false);
-
+    const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
     // Top Edit Icon
     const { setOptions } = useNavigation();
     useLayoutEffect(() => {
         if (USER?.bEdit) {
             setOptions({
-                headerRight: () => <MaterialIcons name="mode-edit-outline" size={18} color="#f8f8f8" />,
+                headerRight: () => <MaterialIcons name="mode-edit-outline" size={18} color="#f8f8f8" onPress={() => router.push(`/contacts/editContact/${iContactId}`)} />,
             });
         }
     }, []);
-
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -34,10 +33,6 @@ const ContactDetails = () => {
             setRefreshing(false);
         }, 1200);
     };
-
-
-
-    const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
     return (
         <ScrollView

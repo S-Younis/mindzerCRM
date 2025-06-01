@@ -21,7 +21,7 @@ export default function Home() {
       <Text className={`text-2xl font-bold text-blue-800 dark:text-slate-200 mb-10`}>
         Welcome ,  {user?.name || 'Guest'}
       </Text>
-      <MindzerButton isTitleCentered variants='primary' onPress={() => {
+      {/* <MindzerButton isTitleCentered variants='primary' onPress={() => {
         toggleColorScheme();
         Toast.show({
           type: 'info',
@@ -37,7 +37,7 @@ export default function Home() {
         <Text className={`font-medium  text-light`}>
           Change Theme
         </Text>
-      </MindzerButton>
+      </MindzerButton> */}
 
       <MindzerButton isTitleCentered variants='primary' className='mt-4' onPress={() => {
         setIsLoading(!isLoading);
