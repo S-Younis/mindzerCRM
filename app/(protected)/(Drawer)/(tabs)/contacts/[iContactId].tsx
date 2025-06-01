@@ -9,7 +9,7 @@ import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/contactsPage/DetialsTabView';
 
 const ContactDetails = () => {
-    const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+    // const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
     const { iContactId } = useLocalSearchParams();
     const USER = contacts_lst.find(contact => contact.iContactId === parseInt(iContactId as string));
@@ -22,7 +22,7 @@ const ContactDetails = () => {
     useLayoutEffect(() => {
         if (USER?.bEdit) {
             setOptions({
-                headerRight: () => <MaterialIcons name="mode-edit-outline" size={18} color="#f8f8f8" onPress={() => router.push(`/contacts/editContact/${iContactId}`)} />,
+                headerRight: () => <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => router.push(`/contacts/editContact/${iContactId}`)} />,
             });
         }
     }, []);
