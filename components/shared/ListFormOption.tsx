@@ -24,7 +24,7 @@ const ListFormOption = ({ children, title = '', value = '', isReadOnly = true, h
                     {children}
                 </View>
                 <Pressable onPress={() => !isReadOnly && textInputRef.current?.focus()} className='flex gap-[2px] w-[100%] '>
-                    <Text className=" ml-1 text-xs text-gray-400 pl-1 ">{title}</Text>
+                    <Text className=" ml-1 text-xs text-gray-400 pl-[6px] ">{title}</Text>
                     <TextInput ref={textInputRef} onChangeText={onChangeText} onBlur={onBlur} clearButtonMode='while-editing' readOnly={isReadOnly} value={value} defaultValue={value} className="text-dark ml-2  pr-[10px] py-0  dark:text-light h-[22px] " />
                 </Pressable>
             </View>

@@ -2,7 +2,7 @@ import { View, Text, Alert, ScrollView } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import ListFormOption from '@/components/shared/ListFormOption';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { contacts_lst } from '@/constants/contacts';
@@ -16,7 +16,7 @@ const editContactModal = () => {
     useLayoutEffect(() => {
         setOptions({
             headerLeft: () => <Text className='text-blue-400 text-lg' onPress={handleModalCancel}>Cancel</Text>,
-            headerRight: () => <Text className='text-blue-400  text-lg' onPress={handleModalSave} >Save</Text>,
+            headerRight: () => <Text className='text-blue-400  text-lg' onPress={handleSaveBTN} >Save</Text>,
         });
     }, []);
 
@@ -58,9 +58,8 @@ const editContactModal = () => {
         // clearErrors,
         formState: {
             isDirty,
-
             errors,
-            // isValid  
+            isValid
         },
     } = useForm<FormDataType>({
         resolver: zodResolver(FormSchema),
@@ -96,10 +95,29 @@ const editContactModal = () => {
         }
 
     }
-    const handleModalSave = () => {
-        // Logic to save the edited contact
-        router.back();
+
+    const handleSaveBTN = () => {
+        if (isValid) {
+            handleSubmit(handleModalSave)
+        } else {
+            Alert.alert('No Contact Name Provided', 'Contact Name is Required , please fill the field and try again ', [
+                { text: 'OK' },
+            ]);
+        }
     }
+    const handleModalSave: SubmitHandler<FormDataType> = (data) => {
+
+        console.log('Form Data:', data);
+        console.log('Form errors:', errors);
+        // Logic to save the edited contact
+        // if (Object.keys(errors).length > 0) {
+
+        // }
+
+        console.log('Edited Contact Data:', data);
+        // router.back();
+    }
+
 
 
 
@@ -117,7 +135,7 @@ const editContactModal = () => {
                                 onBlur={onBlur}
                                 onChangeText={onChange}
                                 isReadOnly={false}
-                                title='Company'
+                                title='Full Name'
                                 value={value}
                                 titleMarginLeft={4}
                                 className='rounded-tr-lg rounded-tl-lg ' />
