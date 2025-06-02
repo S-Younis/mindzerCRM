@@ -1,5 +1,5 @@
 import { View, Text, Alert, ScrollView } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -21,24 +21,23 @@ const editContactModal = () => {
     }, []);
 
 
-    type FormDataType = {
-        sEmail: string
-        sFullName: string
-        sJobTitle: string
-        sCompany: string;
-        sActive: string;
-        bPrivate: string;
-        sPhoneMobile?: string;
-        sPhoneBusiness?: string;
-        sArea: string;
-        sCity?: string;
-        sAddress?: string;
-    }
+    // type FormDataType = {
+    //     sEmail: string
+    //     sFullName: string
+    //     sJobTitle: string
+    //     sCompany: string;
+    //     sActive: string;
+    //     bPrivate: string;
+    //     sPhoneMobile?: string;
+    //     sPhoneBusiness?: string;
+    //     sArea: string;
+    //     sCity?: string;
+    //     sAddress?: string;
+    // }
 
     const FormSchema = z.object({
-        sEmail: z.string().nonempty({ message: 'User Id is required' }),
-        sFullName: z.string().nonempty({ message: 'Password is required' }).min(4, { message: 'Password must be at least 4 characters long' }),
-
+        sEmail: z.string().nonempty({ message: 'User Id is required' }).email({ message: 'Invalid email address' }),
+        sFullName: z.string().nonempty({ message: 'Name is required' }).min(2, { message: 'Name must be at least 2 characters long' }),
         sJobTitle: z.string().nonempty({ message: 'Job Title is required' }),
         sCompany: z.string().nonempty({ message: 'Company is required' }),
         sActive: z.string().nonempty({ message: 'Status is required' }),
@@ -51,17 +50,17 @@ const editContactModal = () => {
 
     });
 
+    type FormData = z.infer<typeof FormSchema>;
+
     const {
         control,
         handleSubmit,
-        setError,
-        // clearErrors,
+        trigger,
         formState: {
             isDirty,
             errors,
-            isValid
         },
-    } = useForm<FormDataType>({
+    } = useForm<FormData>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             sEmail: USER?.sEmail || '',
@@ -77,7 +76,6 @@ const editContactModal = () => {
             sAddress: USER?.sAddress || '',
         }
     })
-
 
     const handleModalCancel = () => {
 
@@ -96,27 +94,28 @@ const editContactModal = () => {
 
     }
 
-    const handleSaveBTN = () => {
-        if (isValid) {
-            handleSubmit(handleModalSave)
-        } else {
-            Alert.alert('No Contact Name Provided', 'Contact Name is Required , please fill the field and try again ', [
-                { text: 'OK' },
-            ]);
+    const handleSaveBTN = async() => {
+        const isValid = await trigger(); // Trigger validation
+
+        if (!isValid) {
+            // 3. Get the first error message
+            console.log('Form is invalid:', errors);
+            Alert.alert(
+                'Validation Error',
+                `Error: ${errors.sEmail?.message || errors.sFullName?.message}`,
+                [{ text: 'OK', }]
+            );
+            return;
         }
-    }
-    const handleModalSave: SubmitHandler<FormDataType> = (data) => {
 
-        console.log('Form Data:', data);
-        console.log('Form errors:', errors);
-        // Logic to save the edited contact
-        // if (Object.keys(errors).length > 0) {
+        // 4. Proceed if valid
+        handleSubmit(handleModalSave)();
+    };
 
-        // }
-
-        console.log('Edited Contact Data:', data);
-        // router.back();
-    }
+    const handleModalSave: SubmitHandler<FormData> = (data) => {
+        console.log('Form Data X:', data);
+        // Your save logic here
+    };
 
 
 
