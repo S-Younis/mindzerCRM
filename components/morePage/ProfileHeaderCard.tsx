@@ -15,8 +15,8 @@ export const ProfileHeaderCard = () => {
                 <Text className=" font-bold text-xl ">YM</Text>
             </View>
             <View className="flex self-center gap-[2px]  ">
-                <Text className=" text-dark dark:text-light font-bold ">{USER?.name} </Text>
-                <Text className=" text-blue-400 text-sm    ">
+                <Text className=" text-dark dark:text-light font-bold text-lg ">{USER?.name} </Text>
+                <Text className=" text-blue-400     ">
                     {USER?.email}
                 </Text>
             </View>

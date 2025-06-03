@@ -43,7 +43,7 @@ const ContactDetails = () => {
                 }
                 className='h-full '>
 
-                <View className=' bg-[#161f2e]  p-4 px-6 pt-6   flex-row  gap-2  '>
+                <View className=' bg-[#161f2e]  p-4 pb-3 px-6 pt-6 flex-row  gap-2  '>
                     <View className=''>
                         <MaterialCommunityIcons name="account" size={32} color="#f8f8f8" />
                     </View>
@@ -58,7 +58,7 @@ const ContactDetails = () => {
                     </View>
                 </View>
 
-                <View className='pt-2 pb-4  bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none '>
+                <View className='py-4 bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none '>
                     <SegmentedControl
                         style={{ width: '70%', marginHorizontal: 'auto', borderRadius: 8 }}
                         values={['Details', 'Comments']}

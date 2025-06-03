@@ -1,42 +1,19 @@
 import { View, Text, Alert, ScrollView } from 'react-native'
-import React, { useEffect, useLayoutEffect } from 'react'
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { contacts_lst } from '@/constants/contacts';
+import Toast from 'react-native-toast-message';
 const editContactModal = () => {
 
     const { iContactId } = useLocalSearchParams();
-    const { setOptions } = useNavigation();
 
     const USER = contacts_lst.find(contact => contact.iContactId === parseInt(iContactId as string));
 
-    useLayoutEffect(() => {
-        setOptions({
-            headerLeft: () => <Text className='text-blue-400 text-lg' onPress={handleModalCancel}>Cancel</Text>,
-            headerRight: () => <Text className='text-blue-400  text-lg' onPress={handleSaveBTN} >Save</Text>,
-        });
-    }, []);
-
-
-    // type FormDataType = {
-    //     sEmail: string
-    //     sFullName: string
-    //     sJobTitle: string
-    //     sCompany: string;
-    //     sActive: string;
-    //     bPrivate: string;
-    //     sPhoneMobile?: string;
-    //     sPhoneBusiness?: string;
-    //     sArea: string;
-    //     sCity?: string;
-    //     sAddress?: string;
-    // }
-
     const FormSchema = z.object({
-        sEmail: z.string().nonempty({ message: 'User Id is required' }).email({ message: 'Invalid email address' }),
+        sEmail: z.string().nonempty({ message: 'Email is required' }).email({ message: 'Invalid email address' }),
         sFullName: z.string().nonempty({ message: 'Name is required' }).min(2, { message: 'Name must be at least 2 characters long' }),
         sJobTitle: z.string().nonempty({ message: 'Job Title is required' }),
         sCompany: z.string().nonempty({ message: 'Company is required' }),
@@ -77,13 +54,12 @@ const editContactModal = () => {
         }
     })
 
-    const handleModalCancel = () => {
 
-        if (isDirty) {
+    const handleModalCancel = () => {
+        if (control._getDirty()) {
             Alert.alert('Cancel Changes', 'Are you sure you want to discard changes made ?', [
                 {
                     text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
                     style: 'cancel',
                 },
                 { text: 'OK', onPress: () => router.back() },
@@ -91,160 +67,176 @@ const editContactModal = () => {
         } else {
             router.back();
         }
-
     }
 
-    const handleSaveBTN = async() => {
-        const isValid = await trigger(); // Trigger validation
+    const handleSaveBTN = () => {
 
-        if (!isValid) {
-            // 3. Get the first error message
-            console.log('Form is invalid:', errors);
+        const result = FormSchema.safeParse(control._formValues);
+
+        if (result.success) {
+            handleSubmit(handleModalSave)();
+        } else {
+
             Alert.alert(
-                'Validation Error',
-                `Error: ${errors.sEmail?.message || errors.sFullName?.message}`,
+                'OPS !',
+                `${result.error.errors[0].message}`,
                 [{ text: 'OK', }]
             );
-            return;
         }
 
-        // 4. Proceed if valid
-        handleSubmit(handleModalSave)();
     };
 
     const handleModalSave: SubmitHandler<FormData> = (data) => {
+        // **** Clean Data only is Recived "validated values"  ****
         console.log('Form Data X:', data);
         // Your save logic here
+
+        Toast.show(
+            {
+                type: 'success',
+                text1: 'Success',
+                text2: 'Contact Updated Successfully',
+                position: 'top',
+                visibilityTime: 2500,
+                swipeable: true,
+            }
+        );
+        router.back();
     };
 
-
-
-
     return (
-        <ScrollView showsVerticalScrollIndicator={false} className='flex-1 '>
-            <Text className='text-3xl text-green-600 ml-4 '>{iContactId}</Text>
-            <View className='px-3 gap-4 mb-12'>
-                <View>
-                    <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Personal Details</Text>
-                    <Controller
-                        control={control}
-                        name="sFullName"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                isReadOnly={false}
-                                title='Full Name'
-                                value={value}
-                                titleMarginLeft={4}
-                                className='rounded-tr-lg rounded-tl-lg ' />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="sEmail"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Email' titleMarginLeft={4} />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="sJobTitle"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Job Title' titleMarginLeft={4} />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="sCompany"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Company' titleMarginLeft={4} />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="sActive"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Status' titleMarginLeft={4} />
-                        )}
-                    />
+        <>
+            {/* Dynamic Stack Header  */}
+            <Stack.Screen options={{
+                headerLeft: () => <Text className='text-blue-400 text-xl' onPress={handleModalCancel}>Cancel</Text>,
+                headerRight: () => <Text className='text-blue-400  text-xl' onPress={handleSaveBTN} >Save</Text>,
+            }} />
+            <ScrollView showsVerticalScrollIndicator={false} className='flex-1 '>
+                <Text className='text-3xl text-green-600 ml-4 '>{iContactId}</Text>
+                <View className='px-3 gap-4 mb-12'>
+                    <View>
+                        <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Personal Details</Text>
+                        <Controller
+                            control={control}
+                            name="sFullName"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    isReadOnly={false}
+                                    title='Full Name'
+                                    value={value}
+                                    titleMarginLeft={4}
+                                    className='rounded-tr-lg rounded-tl-lg ' />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="sEmail"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Email' titleMarginLeft={4} />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="sJobTitle"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Job Title' titleMarginLeft={4} />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="sCompany"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Company' titleMarginLeft={4} />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="sActive"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Status' titleMarginLeft={4} />
+                            )}
+                        />
 
-                    <Controller
-                        control={control}
-                        name="bPrivate"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Private ( Limited Visibility )' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
-                        )}
-                    />
+                        <Controller
+                            control={control}
+                            name="bPrivate"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Private ( Limited Visibility )' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            )}
+                        />
 
+
+                    </View>
+                    {/* Phones Section  */}
+                    <View>
+                        <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Phones</Text>
+
+                        <Controller
+                            control={control}
+                            name="sPhoneBusiness"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    isReadOnly={false}
+                                    title='Bussiness'
+                                    value={value}
+                                    titleMarginLeft={4}
+                                    className='rounded-tr-lg rounded-tl-lg ' />
+                            )}
+                        />
+
+                        <Controller
+                            control={control}
+                            name="sPhoneMobile"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Mobile' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            )}
+                        />
+
+                    </View>
+                    {/* Address Section */}
+                    <View>
+                        <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Address</Text>
+
+                        <Controller
+                            control={control}
+                            name="sArea"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    isReadOnly={false}
+                                    title='Country'
+                                    value={value}
+                                    titleMarginLeft={4}
+                                    className='rounded-tr-lg rounded-tl-lg ' />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="sCity"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='City' titleMarginLeft={4} />
+                            )}
+                        />
+
+                        <Controller
+                            control={control}
+                            name="sAddress"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            )}
+                        />
+
+                    </View>
 
                 </View>
-                {/* Phones Section  */}
-                <View>
-                    <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Phones</Text>
+            </ScrollView>
+        </>
 
-                    <Controller
-                        control={control}
-                        name="sPhoneBusiness"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                isReadOnly={false}
-                                title='Bussiness'
-                                value={value}
-                                titleMarginLeft={4}
-                                className='rounded-tr-lg rounded-tl-lg ' />
-                        )}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="sPhoneMobile"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Mobile' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
-                        )}
-                    />
-
-                </View>
-                {/* Address Section */}
-                <View>
-                    <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Address</Text>
-
-                    <Controller
-                        control={control}
-                        name="sArea"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                isReadOnly={false}
-                                title='Country'
-                                value={value}
-                                titleMarginLeft={4}
-                                className='rounded-tr-lg rounded-tl-lg ' />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="sCity"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='City' titleMarginLeft={4} />
-                        )}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="sAddress"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
-                        )}
-                    />
-
-                </View>
-
-            </View>
-        </ScrollView>
     )
 }
 
