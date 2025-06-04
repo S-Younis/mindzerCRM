@@ -29,10 +29,9 @@ export default function Layout() {
     <Stack.Screen name="[iContactId]" options={{
       title: '',
     }} />
-    <Stack.Screen name="createContactModal" options={{
-      presentation: 'modal', title: 'Add Contact',
-      headerShown: false,
-      // animation: 'slide_from_bottom', // iOS-like
+    <Stack.Screen name="createContact" options={{
+      presentation: 'modal',
+      // Screens Options Are Defined in the component itself
     }} />
     <Stack.Screen name="editContact/[iContactId]" options={{
       presentation: 'modal', title: '',

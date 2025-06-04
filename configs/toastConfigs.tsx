@@ -22,12 +22,12 @@ export const toastConfig: ToastConfig = {
             }}
             contentContainerStyle={{ paddingHorizontal: 14 }}
             text1Style={{
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: '400',
                 color: '#166534', // Tailwind : text-green-800
             }}
             text2Style={{
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: '400',
                 color: '#737373', // Tailwind : text-nuetral-600
             }}

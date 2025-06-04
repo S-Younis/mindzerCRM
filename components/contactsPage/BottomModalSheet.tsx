@@ -8,6 +8,7 @@ import MindzerButton from "../shared/MindzerButton";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { myDarkTheme } from "@/configs/theme";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 
 
@@ -23,13 +24,13 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
     overshootClamping: true,
     restDisplacementThreshold: 0.1,
     restSpeedThreshold: 0.1,
-    stiffness: 150,
+    stiffness: 180,
   });
 
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   const showCreateContact = () => {
-    router.navigate('/contacts/createContactModal');
+    router.push('/contacts/createContact');
     // dismiss the bottom sheet
     ref?.current?.close()
   }
@@ -50,6 +51,12 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
           <AntDesign name="adduser" size={18} color="white" className="mr-2" />
           <Text className={`font-medium text-white   `}>
             Create New Contact
+          </Text>
+        </MindzerButton>
+        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
+          <MaterialCommunityIcons name="import"size={18}   className="mr-2" color="white" />
+          <Text className={`font-medium text-white   `}>
+            Import VCF
           </Text>
         </MindzerButton>
         <MindzerButton isTitleCentered variants='secondary' className="w-full " onPress={() => ref?.current?.close()}   >

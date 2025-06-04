@@ -5,7 +5,7 @@ import { contacts_lst } from "@/constants/contacts";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-import { useColorScheme } from 'nativewind';
+// import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/contactsPage/DetialsTabView';
 import Feather from '@expo/vector-icons/Feather';
 

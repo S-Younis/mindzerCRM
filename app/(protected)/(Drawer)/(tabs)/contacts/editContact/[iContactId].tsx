@@ -3,32 +3,18 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { contacts_lst } from '@/constants/contacts';
 import Toast from 'react-native-toast-message';
 import MindzerButton from '@/components/shared/MindzerButton';
+
+import { FormSchema, FormDataType } from '@/types/schemas/contact.sheme'
+
+
 const editContactModal = () => {
 
     const { iContactId } = useLocalSearchParams();
 
     const USER = contacts_lst.find(contact => contact.iContactId === parseInt(iContactId as string));
-
-    const FormSchema = z.object({
-        sEmail: z.string().nonempty({ message: 'Email is required' }).email({ message: 'Invalid email address' }),
-        sFullName: z.string().nonempty({ message: 'Name is required' }).min(2, { message: 'Name must be at least 2 characters long' }),
-        sJobTitle: z.string().nonempty({ message: 'Job Title is required' }),
-        sCompany: z.string().nonempty({ message: 'Company is required' }),
-        sActive: z.string().nonempty({ message: 'Status is required' }),
-        bPrivate: z.string().nonempty({ message: 'bPrivate is required' }),
-        sPhoneMobile: z.string().optional(),
-        sPhoneBusiness: z.string().optional(),
-        sArea: z.string().nonempty({ message: 'Country is required' }),
-        sCity: z.string().optional(),
-        sAddress: z.string().optional(),
-
-    });
-
-    type FormData = z.infer<typeof FormSchema>;
 
     const {
         control,
@@ -36,7 +22,7 @@ const editContactModal = () => {
         // formState: {
         //     errors,
         // },
-    } = useForm<FormData>({
+    } = useForm<FormDataType>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             sEmail: USER?.sEmail || '',
@@ -85,7 +71,7 @@ const editContactModal = () => {
 
     };
 
-    const handleModalSave: SubmitHandler<FormData> = (data) => {
+    const handleModalSave: SubmitHandler<FormDataType> = (data) => {
         // **** Clean Data only is Recived "validated values"  ****
         console.log('Form Data X:', data);
         // Your save logic here
