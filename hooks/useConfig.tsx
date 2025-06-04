@@ -10,7 +10,6 @@ import { useColorScheme } from 'nativewind'
 
 const useConfig = () => {
 
-
     // NativeWind Theme
     const { colorScheme, setColorScheme } = useColorScheme(); // Auto-detect system color scheme
     const theme = usePrefStore((state) => state.theme);
@@ -25,7 +24,19 @@ const useConfig = () => {
     }
 
     // React Navigation Theme
-    const themeProperties = theme == 'dark' ? myDarkTheme : myLightTheme
+    let themeProperties;
+    switch (theme) {
+        case 'dark':
+            themeProperties = myDarkTheme;
+            break;
+        case 'light':
+            themeProperties = myLightTheme;
+            break;
+        case 'system':
+            themeProperties = colorScheme == 'dark' ? myDarkTheme : myLightTheme;
+            break;
+    }
+
 
     return { themeProperties }
 }

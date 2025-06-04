@@ -2,14 +2,17 @@ import React, { useState, useRef } from 'react';
 import { Animated, TouchableOpacity, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
+import { usePrefStore } from '@/stores/pref.store';
+import { ThemeType } from '@/types/themeTypes';
 
 interface SimpleThemeToggleProps {
     className?: string;
     iconsSize?: number;
 }
 export const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps) => {
-    const { colorScheme, toggleColorScheme } = useColorScheme();
-
+    const { colorScheme, toggleColorScheme , setColorScheme } = useColorScheme();
+    const setTheme = usePrefStore((state) => state.setTheme)
+    
     const [isDarkMode, setIsDarkMode] = useState(!(colorScheme == 'dark'));
     const spinValue = useRef(new Animated.Value(0)).current;
 
@@ -25,6 +28,14 @@ export const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeTogg
         setIsDarkMode(!isDarkMode);
         toggleColorScheme();
     };
+
+    const handleOptionPress = (theme: ThemeType) => {
+        if (colorScheme == theme) return; // No change if the selected theme is already active 
+        if (theme) {
+            setColorScheme(theme);
+            setTheme(theme);
+        }
+    }
 
     const spin = spinValue.interpolate({
         inputRange: [0, 1],
