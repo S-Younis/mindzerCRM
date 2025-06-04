@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking } from 'react-native'
 import { useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { contacts_lst } from "@/constants/contacts";
@@ -7,6 +7,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/contactsPage/DetialsTabView';
+import Feather from '@expo/vector-icons/Feather';
 
 const ContactDetails = () => {
     // const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -24,6 +25,19 @@ const ContactDetails = () => {
             setRefreshing(false);
         }, 1200);
     };
+
+    const handleContactActions = (type: 'email' | 'phone') => {
+        if (type === 'email') {
+            Linking.openURL(`mailto:${USER?.sEmail}`);
+        } else if (type === 'phone') {
+            if (Platform.OS === 'android') {
+                Linking.openURL(`tel:${USER?.sPhoneBusiness}`)
+                return;
+            }
+            Linking.openURL(`telprompt:${USER?.sPhoneBusiness}`)
+        }
+    }
+
 
     return (
         <>
@@ -53,7 +67,16 @@ const ContactDetails = () => {
                             <Text className='text-blue-400 text-sm  '> {USER?.sEmail}</Text>
                             <MaterialCommunityIcons name="content-copy" size={12} color="#f8f8f8" />
                         </View>
-                        <View className=' mr-auto mt-2 bg-green-300 p-[1px] px-3  rounded-xl flex items-center justify-center'><Text className='text-sm'>{USER?.sActive ? 'Active' : 'Inactive'}</Text></View>
+                        <View className='flex-row items-center gap-2  mt-2 mr-auto '>
+                            <View className='  bg-green-300 p-[2px] px-4  rounded-xl flex items-center justify-center'><Text >{USER?.sActive ? 'Active' : 'Inactive'}</Text></View>
+                            <Text className='text-white '>.</Text>
+                            <Pressable onPress={() => handleContactActions('phone')} className=' bg-gray-400 p-[3px] px-[6px]  rounded-xl flex items-center justify-center'>
+                                <Feather name="phone" size={16} color={'black'} />
+                            </Pressable>
+                            <Pressable onPress={() => handleContactActions('email')} className=' bg-gray-400 p-[3px] px-[6px]  rounded-xl flex items-center justify-center'>
+                                <Feather name="mail" size={16} color="black" />
+                            </Pressable>
+                        </View>
 
                     </View>
                 </View>

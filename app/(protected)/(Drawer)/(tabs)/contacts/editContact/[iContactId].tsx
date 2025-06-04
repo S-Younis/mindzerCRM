@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { contacts_lst } from '@/constants/contacts';
 import Toast from 'react-native-toast-message';
+import MindzerButton from '@/components/shared/MindzerButton';
 const editContactModal = () => {
 
     const { iContactId } = useLocalSearchParams();
@@ -32,11 +33,9 @@ const editContactModal = () => {
     const {
         control,
         handleSubmit,
-        trigger,
-        formState: {
-            isDirty,
-            errors,
-        },
+        // formState: {
+        //     errors,
+        // },
     } = useForm<FormData>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -104,15 +103,39 @@ const editContactModal = () => {
         router.back();
     };
 
+    const handleContactDelete = () => {
+        Alert.alert(
+            'Delete Contact',
+            'Are you sure you want to delete this contact?',
+            [
+                { text: 'Cancel', style: 'cancel', },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                        // Your delete logic here
+                        Toast.show({
+                            type: 'success',
+                            text1: 'Contact Deleted Successfully',
+                            position: 'top',
+                            visibilityTime: 2500,
+                            swipeable: true,
+                        });
+                        router.navigate('/contacts');
+                    },
+                },
+            ]
+        );
+    }
     return (
         <>
             {/* Dynamic Stack Header  */}
             <Stack.Screen options={{
+                headerStyle: { backgroundColor: '#161f2e' },
                 headerLeft: () => <Text className='text-blue-400 text-xl' onPress={handleModalCancel}>Cancel</Text>,
                 headerRight: () => <Text className='text-blue-400  text-xl' onPress={handleSaveBTN} >Save</Text>,
             }} />
             <ScrollView showsVerticalScrollIndicator={false} className='flex-1 '>
-                <Text className='text-3xl text-green-600 ml-4 '>{iContactId}</Text>
                 <View className='px-3 gap-4 mb-12'>
                     <View>
                         <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Personal Details</Text>
@@ -232,6 +255,10 @@ const editContactModal = () => {
                         />
 
                     </View>
+
+                    <MindzerButton variants={'danger'} className='flex items-center justify-center mt-4' onPress={handleContactDelete}>
+                        <Text className='text-white text-center'>Delete Contact</Text>
+                    </MindzerButton>
 
                 </View>
             </ScrollView>
