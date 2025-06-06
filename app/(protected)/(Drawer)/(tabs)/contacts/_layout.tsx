@@ -33,6 +33,11 @@ export default function Layout() {
       presentation: 'modal',
       // Screens Options Are Defined in the component itself
     }} />
+    <Stack.Screen name="importContactPage" options={{
+      presentation: 'modal',
+      title: 'Import Contacts',
+      // Screens Options Are Defined in the component itself
+    }} />
     <Stack.Screen name="editContact/[iContactId]" options={{
       presentation: 'modal', title: '',
       // animation: 'slide_from_bottom',

@@ -20,13 +20,12 @@ export const CustomInput = ({
 }: CustomInputProps) => {
     const [isFocused, setIsFocused] = useState(false);
 
-
     return (
         <View
-            className={`flex-row gap-2 bg-slate-100 dark:bg-transparent  px-2 rounded-lg border  ${isFocused ? 'border-blue-600' : ' border-[#e4e4e4] dark:border-gray-600'}   ${isError && 'border-red-500'}    ${isError && 'dark:border-red-500'} shadow-xs ${containerClassName}`}
+            className={`flex-row gap-[6px] bg-slate-100 dark:bg-transparent px-2 rounded-lg border  ${isFocused ? 'border-blue-600' : ' border-[#e4e4e4] dark:border-gray-600'}   ${isError && 'border-red-500'}    ${isError && 'dark:border-red-500'} shadow-xs ${containerClassName}`}
         >
             {children ? (
-                <View className={`  pl-2 flex items-center justify-center dark:opacity-55 ${iconContainerClassName}   `}>
+                <View className={` pl-1 flex items-center justify-center dark:opacity-55 ${iconContainerClassName}   `}>
                     {children}
                 </View>
             ) : null}

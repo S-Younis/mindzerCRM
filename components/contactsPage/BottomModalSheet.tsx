@@ -35,6 +35,12 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
     ref?.current?.close()
   }
 
+  const showImportPage = () => {
+    router.push('/contacts/importContactPage');
+    // dismiss the bottom sheet
+    ref?.current?.close()
+  }
+
   return (
     <BottomSheet
       ref={ref}
@@ -53,8 +59,8 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
             Create New Contact
           </Text>
         </MindzerButton>
-        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
-          <MaterialCommunityIcons name="import"size={18}   className="mr-2" color="white" />
+        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showImportPage}  >
+          <MaterialCommunityIcons name="import" size={18} className="mr-2" color="white" />
           <Text className={`font-medium text-white   `}>
             Import VCF
           </Text>

@@ -1,13 +1,18 @@
 import { View, Text, Alert, ScrollView } from 'react-native'
 import React from 'react'
-import { router, Stack } from 'expo-router'
+import { router, Stack, useLocalSearchParams } from 'expo-router'
 import Toast from 'react-native-toast-message'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import ListFormOption from '@/components/shared/ListFormOption'
 import { FormSchema, FormDataType } from '@/types/schemas/contact.sheme'
+import { useContactStore } from '@/stores/contact.store'
 
 const createContact = () => {
+
+    // IF Navigated from import contact page  
+    const { importContact } = useLocalSearchParams() as { importContact: string };
+    const importContact_Obj = importContact == 'true' ? useContactStore((state) => state.importContact_Obj) : null;
 
     const {
         control,
@@ -15,17 +20,17 @@ const createContact = () => {
     } = useForm<FormDataType>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            sFullName: '',
-            sEmail: '',
-            sJobTitle: '',
+            sFullName: importContact_Obj?.name || '',
+            sEmail: importContact_Obj?.emails?.[0]?.email || '',
+            sJobTitle: importContact_Obj?.jobTitle || '',
             sCompany: '',
             sActive: 'Active',
             bPrivate: 'No',
-            sPhoneMobile: '',
-            sPhoneBusiness: '',
-            sArea: '',
-            sCity: '',
-            sAddress: ''
+            sPhoneMobile: importContact_Obj?.phoneNumbers?.[0]?.number || '',
+            sPhoneBusiness: importContact_Obj?.phoneNumbers?.[1]?.number || '',
+            sArea: importContact_Obj?.addresses?.[0]?.country || '',
+            sCity: importContact_Obj?.addresses?.[0]?.city || '',
+            sAddress: (importContact_Obj?.addresses?.[0]?.street) || '',
         }
     })
 
