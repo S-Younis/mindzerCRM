@@ -37,7 +37,8 @@
     "tailwindcss": "3.4.17",
     "zod": "^3.25.28",
     "zustand": "^5.0.5",
-    "expo-contacts": "~14.2.4"
+    "expo-contacts": "~14.2.4",
+    "expo-clipboard": "~7.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

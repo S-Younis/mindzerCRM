@@ -12,6 +12,7 @@ export const FormSchema = z.object({
   sArea: z.string().nonempty({ message: 'Country is required' }),
   sCity: z.string().optional(),
   sAddress: z.string().optional(),
+  sComment: z.string().optional(),
 });
 
 export type FormDataType = z.infer<typeof FormSchema>;

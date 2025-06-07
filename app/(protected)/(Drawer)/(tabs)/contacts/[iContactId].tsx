@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking } from 'react-native'
+import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { contacts_lst } from "@/constants/contacts";
@@ -8,6 +8,8 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 // import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/contactsPage/DetialsTabView';
 import Feather from '@expo/vector-icons/Feather';
+import Toast from 'react-native-toast-message';
+import * as Clipboard from 'expo-clipboard';
 
 const ContactDetails = () => {
     // const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -18,6 +20,9 @@ const ContactDetails = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
+    const [callActionIsLoading, setCallActionIsLoading] = useState(false);
+    const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
+
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -26,16 +31,36 @@ const ContactDetails = () => {
         }, 1200);
     };
 
-    const handleContactActions = (type: 'email' | 'phone') => {
+    const handleContactActions = async (type: 'email' | 'phone') => {
         if (type === 'email') {
-            Linking.openURL(`mailto:${USER?.sEmail}`);
+            setEmailActionIsLoading(true);
+            await Linking.openURL(`mailto:${USER?.sEmail}`);
+            setEmailActionIsLoading(false);
+
         } else if (type === 'phone') {
+            setCallActionIsLoading(true);
             if (Platform.OS === 'android') {
-                Linking.openURL(`tel:${USER?.sPhoneBusiness}`)
+                await Linking.openURL(`tel:${USER?.sPhoneBusiness}`)
+                setCallActionIsLoading(false);
                 return;
             }
-            Linking.openURL(`telprompt:${USER?.sPhoneBusiness}`)
+            await Linking.openURL(`telprompt:${USER?.sPhoneBusiness}`)
+            setCallActionIsLoading(false);
+
+
         }
+    }
+    const handleEamilOnClick = async () => {
+
+        await Clipboard.setStringAsync(USER?.sEmail || '');
+        Toast.show({
+            type: 'info',
+            text1: 'Email Copied',
+            text2: USER?.sEmail || '',
+            position: 'top',
+            visibilityTime: 2000,
+        })
+        // Linking.openURL(`mailto:${USER?.sEmail}`);
     }
 
 
@@ -57,25 +82,28 @@ const ContactDetails = () => {
                 }
                 className='h-full '>
 
-                <View className=' bg-[#161f2e]  p-4 pb-3 px-6 pt-6 flex-row  gap-2  '>
+                <View className=' bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  '>
                     <View className=''>
                         <MaterialCommunityIcons name="account" size={32} color="#f8f8f8" />
                     </View>
                     <View className='gap-1'>
                         <Text className='text-light text-xl font-bold pl-[2px] '>{USER?.sFullName}</Text>
-                        <View className='flex-row items-center gap-3 '>
+                        <View className='flex-row items-center gap-3  '>
                             <Text className='text-blue-400 text-sm  '> {USER?.sEmail}</Text>
-                            <MaterialCommunityIcons name="content-copy" size={12} color="#f8f8f8" />
+                            <MaterialCommunityIcons name="content-copy" size={14} color="#f8f8f8" onPress={handleEamilOnClick} />
                         </View>
                         <View className='flex-row items-center gap-2  mt-2 mr-auto '>
-                            <View className='  bg-green-300 p-[2px] px-4  rounded-xl flex items-center justify-center'><Text >{USER?.sActive ? 'Active' : 'Inactive'}</Text></View>
-                            <Text className='text-white '>.</Text>
-                            <Pressable onPress={() => handleContactActions('phone')} className=' bg-gray-400 p-[3px] px-[6px]  rounded-xl flex items-center justify-center'>
-                                <Feather name="phone" size={16} color={'black'} />
-                            </Pressable>
-                            <Pressable onPress={() => handleContactActions('email')} className=' bg-gray-400 p-[3px] px-[6px]  rounded-xl flex items-center justify-center'>
-                                <Feather name="mail" size={16} color="black" />
-                            </Pressable>
+                            <View className='  bg-green-300 p-[4px] px-4  rounded-xl flex items-center justify-center'><Text>{USER?.sActive ? 'Active' : 'Inactive'}</Text></View>
+                            <Text className='text-gray-600 mr-2 '>|</Text>
+                            <View className='flex-row gap-[12px]'>
+                                <TouchableOpacity onPress={() => handleContactActions('phone')} className=' bg-gray-300 rounded-full w-[35px] h-[35px]   flex items-center justify-center'>
+                                    {callActionIsLoading ? <ActivityIndicator size={'small'} className='text-black ' /> : <Feather name="phone-call" size={16} color={'black'} />}
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleContactActions('email')} className=' bg-gray-300 rounded-full w-[35px] h-[35px]   flex items-center justify-center'>
+                                    {emailActionIsLoading ? <ActivityIndicator size={'small'} className='text-black ' /> : <Feather name="mail" size={16} color={'black'} />}
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
 
                     </View>
@@ -100,10 +128,18 @@ const ContactDetails = () => {
                 )}
 
                 {selectedTabIndx === 1 && (
-                    <View>
-                        <Text className=' text-gray-300 text-xs mb-2 ml-4 '>Comments</Text>
-                        <View className='h-[1000px] bg-gray-200 dark:bg-slate-300 flex items-center justify-center '>
-                            <Text className='text-dark dark:text-light text-2xl font-bold text-center mt-4'>Contact 2222222</Text>
+                    <View className='px-3  mb-6 '>
+                        <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Comments</Text>
+                        <View className=' flex items-center justify-center '>
+                            <TextInput
+                                // onChangeText={onChange}
+                                // onBlur={onBlur}
+                                value={USER?.sComment || ''}
+                                placeholder='Add a comment...'
+                                readOnly={true}
+                                multiline
+                                numberOfLines={4}
+                                className='bg-[#161f2e] min-h-20  text-light text-sm px-4 pb-[20px] pt-4 rounded-lg border border-gray-800 placeholder:text-gray-400' />
                         </View>
                     </View>
                 )}

@@ -13,6 +13,7 @@ export type contactType = {
   sArea: string;
   sCity?: string;
   sAddress?: string;
+  sComment: string;
 };
 
 export const contacts_lst: contactType[] = [
@@ -31,6 +32,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'This is a sample contact for testing purposes. Please do not delete.',
   },
   {
     iContactId: 2,
@@ -47,6 +49,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'This contact is used for marketing campaigns and outreach.',
   },
   {
     iContactId: 3,
@@ -63,6 +66,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Alex is a key member of the development team, focusing on backend systems.',
   },
   {
     iContactId: 4,
@@ -79,6 +83,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Maria oversees all HR operations and employee relations at PeopleFirst Solutions.',
   },
   {
     iContactId: 5,
@@ -95,6 +100,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'David provides financial insights and analysis to support business decisions.',
   },
   {
     iContactId: 6,
@@ -111,6 +117,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 7,
@@ -127,6 +134,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 8,
@@ -143,6 +151,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 9,
@@ -159,6 +168,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 10,
@@ -175,6 +185,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 11,
@@ -191,6 +202,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 12,
@@ -207,6 +219,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 13,
@@ -223,6 +236,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 14,
@@ -239,6 +253,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
 
   {
@@ -256,39 +271,9 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
-  {
-    iContactId: 16,
-    sFullName: 'Emma Davis',
-    sEmail: 'emma.d@example.com',
-    sPhoneMobile: '+1 (416) 555-0145',
-    sJobTitle: 'Project Manager',
-    eCompany: 16,
-    sCompany: 'BuildIt Constructions',
-    sPhoneBusiness: '+1 (416) 555-0156',
-    sActive: true,
-    bEdit: false,
-    bPrivate: false,
-    sArea: 'Bahrain',
-    sCity: 'Manama',
-    sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
-  },
-  {
-    iContactId: 17,
-    sFullName: 'William Wilson',
-    sEmail: 'william.w@example.com',
-    sPhoneMobile: '+61 423 456 789',
-    sJobTitle: 'Legal Counsel',
-    eCompany: 17,
-    sCompany: 'City Law Partners',
-    sPhoneBusiness: '+61 2 3456 7890',
-    sActive: true,
-    bEdit: false,
-    bPrivate: false,
-    sArea: 'Bahrain',
-    sCity: 'Manama',
-    sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
-  },
+
   {
     iContactId: 18,
     sFullName: 'Ava Thompson',
@@ -304,6 +289,7 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
   {
     iContactId: 19,
@@ -320,21 +306,6 @@ export const contacts_lst: contactType[] = [
     sArea: 'Bahrain',
     sCity: 'Manama',
     sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
-  },
-  {
-    iContactId: 20,
-    sFullName: 'Isabella Garcia',
-    sEmail: 'isabella.g@example.com',
-    sPhoneMobile: '+34 677 123 456',
-    sJobTitle: 'Event Coordinator',
-    eCompany: 20,
-    sCompany: 'Premier Events Spain',
-    sPhoneBusiness: '+34 91 123 4567',
-    sActive: true,
-    bEdit: false,
-    bPrivate: false,
-    sArea: 'Bahrain',
-    sCity: 'Manama',
-    sAddress: '123 Tech Street, Suite 100, Manama, Bahrain',
+    sComment: 'Sarah leads product development and strategy at InnovateTech.',
   },
 ];

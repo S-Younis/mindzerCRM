@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView } from 'react-native'
+import { View, Text, Alert, ScrollView, TextInput } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import Toast from 'react-native-toast-message'
@@ -60,6 +60,7 @@ const createContact = () => {
             sArea: importContact_Obj?.addresses?.[0]?.country || '',
             sCity: importContact_Obj?.addresses?.[0]?.city || '',
             sAddress: (importContact_Obj?.addresses?.[0]?.street) || '',
+            sComment: importContact_Obj?.note || '',
         }
     })
 
@@ -117,6 +118,7 @@ const createContact = () => {
             sArea: data.sArea,
             sCity: data.sCity,
             sAddress: data.sAddress,
+            sComment: data.sComment || '', // Ensure comment is not undefined
         });
 
         Toast.show({
@@ -254,6 +256,26 @@ const createContact = () => {
                         name="sAddress"
                         render={({ field: { onChange, onBlur, value } }) => (
                             <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' className='rounded-br-lg rounded-bl-lg ' />
+                        )}
+                    />
+
+                </View>
+                {/* Comment Section */}
+                <View>
+                    <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Comment</Text>
+
+                    <Controller
+                        control={control}
+                        name="sComment"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <TextInput
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            value={value}
+                            placeholder='Add a comment...'
+                            multiline
+                            numberOfLines={4}
+                            className='bg-[#161f2e] min-h-20 text-light text-sm px-4 py-2 rounded-lg border border-gray-800 placeholder:text-gray-400'/>
                         )}
                     />
 

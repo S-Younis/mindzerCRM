@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView } from 'react-native'
+import { View, Text, Alert, ScrollView, TextInput } from 'react-native'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -36,6 +36,7 @@ const editContactModal = () => {
             sArea: USER?.sArea || '',
             sCity: USER?.sCity || '',
             sAddress: USER?.sAddress || '',
+            sComment: USER?.sComment || '',
         }
     })
 
@@ -239,6 +240,28 @@ const editContactModal = () => {
                                 <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
                             )}
                         />
+
+                    </View>
+
+                    <View>
+                        <Text className=' text-gray-400 text-xs mt-2 mb-[6px] ml-3 '>Commnet</Text>
+                        <Controller
+                            control={control}
+                            name="sComment"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <TextInput
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    // placeholder='Add a comment...'
+                                    readOnly={true}
+                                    multiline
+                                    numberOfLines={4}
+                                    className='bg-[#161f2e] min-h-20  text-light text-sm px-4 pb-[20px] pt-4 rounded-lg border border-gray-800 placeholder:text-gray-400' />
+                            )}
+                        />
+
+
 
                     </View>
 
