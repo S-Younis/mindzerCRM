@@ -46,8 +46,7 @@ const contactsSearch = () => {
                     {filterValue && <Text className={` text-gray-500 dark:text-gray-300 text-sm `} >Result ( {filteredContacts.length} )</Text>}
                 </View>}
                 data={filteredContacts}
-                renderItem={({ item }) => <ContactCard sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
-                // className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`} sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
+                renderItem={({ item }) => <ContactCard sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} onPress={() => { router.push(`/contacts/${item.iContactId}`) }} />}
                 keyExtractor={(item) => item.iContactId.toString()}
                 estimatedItemSize={80}
             />

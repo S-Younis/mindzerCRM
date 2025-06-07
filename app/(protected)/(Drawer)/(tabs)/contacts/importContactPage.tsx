@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import Spinner from '@/components/shared/Spinner';
 import { router, Stack } from 'expo-router';
-import { FlashList } from '@shopify/flash-list';
+// import { FlashList } from '@shopify/flash-list';
 import { CustomInput } from '@/components/shared/CustomInput';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';

@@ -1,5 +1,5 @@
 import { View, Text, Alert, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import Toast from 'react-native-toast-message'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
@@ -7,8 +7,37 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import ListFormOption from '@/components/shared/ListFormOption'
 import { FormSchema, FormDataType } from '@/types/schemas/contact.sheme'
 import { useContactStore } from '@/stores/contact.store'
+import { contacts_lst } from "@/constants/contacts";
+import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus'
+import BottomSheet from '@gorhom/bottom-sheet'
+import SelectPrivate from '@/components/contactsPage/formSelectionsModals/SelectPrivate'
+import SelectArea from '@/components/contactsPage/formSelectionsModals/SelectArea'
 
+type sAreaType = {
+    id: number;
+    name: string;
+}
 const createContact = () => {
+
+    const [isActiveField, setIsActiveField] = useState<boolean>(true); // State to manage the active status field
+    const [isbPrivateField, setIsbPrivateField] = useState<boolean>(false); // State to manage the active status field
+    const [sAreaField, setsAreaField] = useState<sAreaType[]>([
+        { id: 1, name: 'Egypt' },
+        { id: 2, name: 'USA' },
+        { id: 3, name: 'UAE' },
+        { id: 4, name: 'KSA' },
+        { id: 5, name: 'Qatar' },
+        { id: 6, name: 'Oman' },
+        { id: 7, name: 'Bahrain' },
+        { id: 8, name: 'Kuwait' },
+    ]);
+    const [selectedArea, setSelectedArea] = useState<sAreaType | null>(null); // State to manage the selected area
+
+
+    // Modals Refs
+    const select_status_modalRef = useRef<BottomSheet>(null);
+    const select_bPrivate_modalRef = useRef<BottomSheet>(null);
+    const select_sArea_modalRef = useRef<BottomSheet>(null);
 
     // IF Navigated from import contact page  
     const { importContact } = useLocalSearchParams() as { importContact: string };
@@ -24,7 +53,7 @@ const createContact = () => {
             sEmail: importContact_Obj?.emails?.[0]?.email || '',
             sJobTitle: importContact_Obj?.jobTitle || '',
             sCompany: '',
-            sActive: 'Active',
+            sActive: isActiveField ? 'Active' : 'Inactive',
             bPrivate: 'No',
             sPhoneMobile: importContact_Obj?.phoneNumbers?.[0]?.number || '',
             sPhoneBusiness: importContact_Obj?.phoneNumbers?.[1]?.number || '',
@@ -73,6 +102,22 @@ const createContact = () => {
         // **** Clean Data only is Recived "validated values"  ****
         console.log('Form Data X:', data);
         // Backend Logic here : 
+        contacts_lst.push({
+            iContactId: Math.random() * 100,
+            sFullName: data.sFullName,
+            sEmail: data.sEmail,
+            sPhoneMobile: data.sPhoneMobile || '', // Ensure mobile phone is not undefined
+            sJobTitle: data.sJobTitle,
+            eCompany: 0, // Assuming 0 means no company selected
+            sCompany: data.sCompany,
+            sPhoneBusiness: data.sPhoneBusiness || '', // Ensure business phone is not undefined
+            sActive: data.sActive === 'Active', // Convert string to boolean
+            bEdit: true, // Assuming new contacts are editable
+            bPrivate: data.bPrivate === 'Yes', // Convert string to boolean
+            sArea: data.sArea,
+            sCity: data.sCity,
+            sAddress: data.sAddress,
+        });
 
         Toast.show({
             type: 'success',
@@ -94,7 +139,7 @@ const createContact = () => {
             headerRight: () => <Text className='text-blue-400  text-xl' onPress={handleCreateBTN} >Save</Text>,
         }} />
         <ScrollView showsVerticalScrollIndicator={false} className='flex-1 '>
-            <View className='px-3 gap-4 mb-12'>
+            <View className='px-3 pt-2 gap-4 mb-12'>
                 <View>
                     <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Personal Details</Text>
                     <Controller
@@ -107,7 +152,6 @@ const createContact = () => {
                                 isReadOnly={false}
                                 title='Full Name'
                                 value={value}
-                                titleMarginLeft={4}
                                 className='rounded-tr-lg rounded-tl-lg ' />
                         )}
                     />
@@ -115,28 +159,28 @@ const createContact = () => {
                         control={control}
                         name="sEmail"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Email' titleMarginLeft={4} />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Email' />
                         )}
                     />
                     <Controller
                         control={control}
                         name="sJobTitle"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Job Title' titleMarginLeft={4} />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Job Title' />
                         )}
                     />
                     <Controller
                         control={control}
                         name="sCompany"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Company' titleMarginLeft={4} />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Company' />
                         )}
                     />
                     <Controller
                         control={control}
                         name="sActive"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Status' titleMarginLeft={4} />
+                            <ListFormOption hasOpenIcon onChangeText={onChange} onBlur={onBlur} value={isActiveField ? 'Active' : 'Inactive'} isReadOnly={true} title='Status' onPress={() => select_status_modalRef.current?.expand()} />
                         )}
                     />
 
@@ -144,7 +188,7 @@ const createContact = () => {
                         control={control}
                         name="bPrivate"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Private ( Limited Visibility )' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            <ListFormOption hasOpenIcon onChangeText={onChange} onBlur={onBlur} value={isbPrivateField ? 'Yes' : 'No'} isReadOnly={true} title='Private ( Limited Visibility )' onPress={() => select_bPrivate_modalRef.current?.expand()} className='rounded-br-lg rounded-bl-lg ' />
                         )}
                     />
 
@@ -164,7 +208,6 @@ const createContact = () => {
                                 isReadOnly={false}
                                 title='Bussiness'
                                 value={value}
-                                titleMarginLeft={4}
                                 className='rounded-tr-lg rounded-tl-lg ' />
                         )}
                     />
@@ -173,7 +216,7 @@ const createContact = () => {
                         control={control}
                         name="sPhoneMobile"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Mobile' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Mobile' className='rounded-br-lg rounded-bl-lg ' />
                         )}
                     />
 
@@ -189,9 +232,11 @@ const createContact = () => {
                             <ListFormOption
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                isReadOnly={false}
+                                isReadOnly={true}
                                 title='Country'
-                                value={value}
+                                hasOpenIcon
+                                onPress={() => select_sArea_modalRef.current?.expand()}
+                                value={selectedArea?.name}
                                 titleMarginLeft={4}
                                 className='rounded-tr-lg rounded-tl-lg ' />
                         )}
@@ -200,7 +245,7 @@ const createContact = () => {
                         control={control}
                         name="sCity"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='City' titleMarginLeft={4} />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='City' />
                         )}
                     />
 
@@ -208,7 +253,7 @@ const createContact = () => {
                         control={control}
                         name="sAddress"
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg ' />
+                            <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title='Full Address' className='rounded-br-lg rounded-bl-lg ' />
                         )}
                     />
 
@@ -217,6 +262,10 @@ const createContact = () => {
             </View>
         </ScrollView>
 
+        {/* Select Fields Modals */}
+        <SelectStatus ref={select_status_modalRef} isActiveField={isActiveField} setIsActiveField={setIsActiveField} />
+        <SelectPrivate ref={select_bPrivate_modalRef} isbPrivateField={isbPrivateField} setIsbPrivateField={setIsbPrivateField} />
+        <SelectArea ref={select_sArea_modalRef} sAreaField={sAreaField} selectedArea={selectedArea} setSelectedArea={setSelectedArea} />
     </>
 
 
