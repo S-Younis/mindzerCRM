@@ -21,6 +21,7 @@ export default function Layout() {
       <Tabs.Screen
         name="index"
         options={{
+          // animation: 'fade',
           title: 'Home',
           tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
@@ -28,6 +29,7 @@ export default function Layout() {
       <Tabs.Screen
         name="contacts"
         options={{
+          // animation: 'fade',
           headerShown: false,
           title: 'Contacts',
           tabBarIcon: ({ color }) => <Feather name="phone" size={22} color={color} />,
