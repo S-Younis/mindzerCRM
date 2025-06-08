@@ -60,9 +60,9 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
           </Text>
         </MindzerButton>
         <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showImportPage}  >
-          <MaterialCommunityIcons name="import" size={18} className="mr-2" color="white" />
+          <MaterialCommunityIcons name="import" size={19} className="mr-2" color="white" />
           <Text className={`font-medium text-white   `}>
-            Import VCF
+            Import from Phone Contacts
           </Text>
         </MindzerButton>
         <MindzerButton isTitleCentered variants='secondary' className="w-full " onPress={() => ref?.current?.close()}   >

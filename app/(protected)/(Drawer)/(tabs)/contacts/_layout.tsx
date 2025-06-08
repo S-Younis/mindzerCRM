@@ -26,6 +26,11 @@ export default function Layout() {
       headerShown: false,
       animation: 'fade',
     }} />
+    <Stack.Screen name="contactSortPage" options={{
+      title: 'Sort By',
+      presentation: 'fullScreenModal',
+      // animation: 'fade',
+    }} />
     <Stack.Screen name="[iContactId]" options={{
       title: '',
     }} />

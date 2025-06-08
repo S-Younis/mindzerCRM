@@ -268,14 +268,14 @@ const createContact = () => {
                         control={control}
                         name="sComment"
                         render={({ field: { onChange, onBlur, value } }) => (
-                          <TextInput
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder='Add a comment...'
-                            multiline
-                            numberOfLines={4}
-                            className='bg-[#161f2e] min-h-20 text-light text-sm px-4 py-2 rounded-lg border border-gray-800 placeholder:text-gray-400'/>
+                            <TextInput
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder='Add a comment...'
+                                multiline
+                                numberOfLines={4}
+                                className='bg-[#161f2e] min-h-20 text-light text-sm px-4 py-2 rounded-lg border border-gray-800 placeholder:text-gray-400' />
                         )}
                     />
 
@@ -285,7 +285,7 @@ const createContact = () => {
         </ScrollView>
 
         {/* Select Fields Modals */}
-        <SelectStatus ref={select_status_modalRef} isActiveField={isActiveField} setIsActiveField={setIsActiveField} />
+        < SelectStatus ref={select_status_modalRef} isActiveField={isActiveField} setIsActiveField={setIsActiveField} />
         <SelectPrivate ref={select_bPrivate_modalRef} isbPrivateField={isbPrivateField} setIsbPrivateField={setIsbPrivateField} />
         <SelectArea ref={select_sArea_modalRef} sAreaField={sAreaField} selectedArea={selectedArea} setSelectedArea={setSelectedArea} />
     </>

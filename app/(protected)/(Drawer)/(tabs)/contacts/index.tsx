@@ -11,11 +11,14 @@ import { contacts_lst } from "@/constants/contacts";
 import { useColorScheme } from "nativewind";
 import { myDarkTheme } from "@/configs/theme";
 import { router } from "expo-router";
+import { useContactStore } from "@/stores/contact.store";
 export default function contacts() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { colorScheme } = useColorScheme();
   const [refreshing, setRefreshing] = useState(false);
+
+  const sortByTitle = useContactStore((state) => state.sortByTitle);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -29,9 +32,9 @@ export default function contacts() {
 
       <View className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'} border`}>
         <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
-        <Pressable className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-lg  `} >
+        <Pressable onPress={() => router.push('/contacts/contactSortPage')} className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `} >
           <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-          <Text className="text-sm adaptive-text "> Sort By : Name  </Text>
+          <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`}  </Text>
         </Pressable>
       </View>
 
