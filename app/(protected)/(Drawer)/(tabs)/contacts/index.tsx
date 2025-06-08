@@ -12,6 +12,7 @@ import { useColorScheme } from "nativewind";
 import { myDarkTheme } from "@/configs/theme";
 import { router } from "expo-router";
 import { useContactStore } from "@/stores/contact.store";
+import SVGComponent from "@/assets/svg/SVGComponent";
 export default function contacts() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -38,18 +39,30 @@ export default function contacts() {
         </Pressable>
       </View>
 
-      <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        data={contacts_lst}
-        renderItem={({ item, index }) => <ContactCard onPress={() => { router.push(`/contacts/${item.iContactId}`) }}
-          className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`} sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
-        keyExtractor={(item) => item.iContactId.toString()}
-        estimatedItemSize={80}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+      {contacts_lst.length > 0 &&
+        <FlashList
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          data={contacts_lst}
+          renderItem={({ item, index }) => <ContactCard onPress={() => { router.push(`/contacts/${item.iContactId}`) }}
+            className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`} sFullName={item.sFullName} sJobTitle={item.sJobTitle} sEmail={item.sEmail} />}
+          keyExtractor={(item) => item.iContactId.toString()}
+          estimatedItemSize={80}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      }
+      {contacts_lst.length == 0 &&
 
+        <View className="flex-1 justify-center items-center p-8 gap-4">
+          <SVGComponent />
+          <Text className="text-md text-center mb-4 adaptive-text">
+            No Contacts
+          </Text>
+        </View>
+      }
+
+      {/* Floating Action Button */}
       <TouchableOpacity
         style={{
           position: 'absolute',
