@@ -17,9 +17,9 @@ export const CustomerCard = ({ sCustomer, sStatus, sCategory, sContactCount, sOp
         <Pressable onPress={props.onPress} className={` bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
 
             <View className='flex-row gap-4  flex-grow'>
-                <View className='  items-center pt-3 '>
+                {/* <View className='  items-center pt-3 '>
                     <FontAwesome5 name="user" size={21} className='p-2 bg-gray-300 rounded-lg' color="black" />
-                </View>
+                </View> */}
 
                 <View className='gap-[8px] flex-grow  '>
                     <Text className="text-light text-sm font-bold">{sCustomer}</Text>

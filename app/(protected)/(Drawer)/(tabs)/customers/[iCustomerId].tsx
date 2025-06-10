@@ -7,11 +7,9 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/customersPage/DetialsTabView';
-import Feather from '@expo/vector-icons/Feather';
 import Toast from 'react-native-toast-message';
-import * as Clipboard from 'expo-clipboard';
-import ListFormOption from '@/components/shared/ListFormOption';
 import { Entypo } from '@expo/vector-icons';
+import CustomerCommentsTabView from '@/components/customersPage/CustomerCommentsTabView';
 
 const ContactDetails = () => {
     const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -22,8 +20,6 @@ const ContactDetails = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
-    const [callActionIsLoading, setCallActionIsLoading] = useState(false);
-    const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
 
 
     const onRefresh = () => {
@@ -123,37 +119,7 @@ const ContactDetails = () => {
                 )}
 
                 {selectedTabIndx === 1 && (
-                    <View className='px-3  mb-6 '>
-
-                        <View className='flex-row items-center gap-[4px] mt-4 mb-[6px] ml-3'>
-                            <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-                            <Text className=' text-gray-400  text-xs  '>Next Step</Text>
-                        </View>
-
-                        <Pressable onPress={() => router.push('customers/nextStepPage')} className='bg-[#161f2e]  flex-row justify-between items-center gap-[2px] w-[100%] p-4 rounded-lg '>
-                            <View className='flex-1'>
-                                <Text className='adaptive-text'>sadsad asd sad sa das ds a</Text>
-                            </View>
-                            <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-                        </Pressable>
-
-                        <View className='flex-row items-center gap-[4px] mt-6 mb-[6px] ml-3'>
-                            <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-                            <Text className=' text-gray-400  text-xs  '>Comments</Text>
-                        </View>
-                        <View className='flex items-center justify-center '>
-                            <TextInput
-                                // onChangeText={onChange}
-                                // onBlur={onBlur}
-                                value={'CUSTOMER?.s'}
-                                placeholder='Add a comment...'
-                                readOnly={true}
-                                multiline
-                                numberOfLines={4}
-                                className='bg-[#161f2e] min-h-20  text-light text-sm px-4 pb-[20px] pt-4 rounded-lg border border-gray-800 placeholder:text-gray-400' />
-                        </View>
-
-                    </View>
+                    <CustomerCommentsTabView />
                 )}
 
 
