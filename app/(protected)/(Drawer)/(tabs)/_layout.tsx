@@ -38,6 +38,7 @@ export default function Layout() {
       <Tabs.Screen
         name="opportunities"
         options={{
+          headerShown: false,
           title: 'Opps',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={22} color={color} />,
         }}
@@ -46,6 +47,7 @@ export default function Layout() {
       <Tabs.Screen
         name="customers"
         options={{
+          headerShown: false,
           title: 'Customers',
           tabBarIcon: ({ color }) => <Feather name="users" size={22} color={color} />,
           // tabBarButton: () => (  ),

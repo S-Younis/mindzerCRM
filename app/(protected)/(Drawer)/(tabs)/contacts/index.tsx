@@ -1,6 +1,6 @@
-import { View, TouchableOpacity, Pressable, Text, RefreshControl } from "react-native";
+import { View, TouchableOpacity, Pressable, Text, RefreshControl, ActivityIndicator } from "react-native";
 import BottomModalSheet from "@/components/contactsPage/BottomModalSheet";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Feather from '@expo/vector-icons/Feather';
 import BottomSheet from "@gorhom/bottom-sheet";
 import { myLightTheme } from "@/configs/theme";
@@ -13,6 +13,7 @@ import { myDarkTheme } from "@/configs/theme";
 import { router } from "expo-router";
 import { useContactStore } from "@/stores/contact.store";
 import SVGComponent from "@/assets/svg/SVGComponent";
+
 export default function contacts() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -28,6 +29,22 @@ export default function contacts() {
     }, 1200);
   }, []);
 
+
+  // Loading
+  const [showContent, setShowContent] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowContent(true);
+    }, 400);
+  }, []);
+
+  if (!showContent) {
+    return <View className="flex-1 justify-center items-center">
+      <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : myLightTheme.colors.primary} />
+    </View>
+  }
+  // End Loading
+
   return (
     <View className="flex-1 ">
 
@@ -35,7 +52,7 @@ export default function contacts() {
         <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
         <Pressable onPress={() => router.push('/contacts/contactSortPage')} className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `} >
           <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-          <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`}  </Text>
+          <Text className="text-sm adaptive-text ">{sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`}</Text>
         </Pressable>
       </View>
 
@@ -53,12 +70,9 @@ export default function contacts() {
         />
       }
       {contacts_lst.length == 0 &&
-
         <View className="flex-1 justify-center items-center p-8 gap-4">
           <SVGComponent />
-          <Text className="text-md text-center mb-4 adaptive-text">
-            No Contacts
-          </Text>
+          <Text className="text-md text-center mb-4 adaptive-text">No Contacts</Text>
         </View>
       }
 

@@ -60,7 +60,7 @@ const contactSortPage = () => {
                     </View>
                     {sortByTitle != 'None' && <SegmentedControl
                         style={{ width: '36%', borderRadius: 8 }}
-                        values={['^ ASC', '> DESC']}
+                        values={['Asc', 'Desc']}
                         fontStyle={{ color: '#f8f8f8', fontSize: 14, fontWeight: '400' }}
                         backgroundColor='#33343E'
                         sliderStyle={{ backgroundColor: '#6A6B75' }}

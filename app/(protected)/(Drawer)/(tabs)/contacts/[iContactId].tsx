@@ -5,14 +5,14 @@ import { contacts_lst } from "@/constants/contacts";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-// import { useColorScheme } from 'nativewind';
+import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/contactsPage/DetialsTabView';
 import Feather from '@expo/vector-icons/Feather';
 import Toast from 'react-native-toast-message';
 import * as Clipboard from 'expo-clipboard';
 
 const ContactDetails = () => {
-    // const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+    const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
     const { iContactId } = useLocalSearchParams();
     const USER = contacts_lst.find(contact => contact.iContactId === parseInt(iContactId as string));
@@ -63,7 +63,9 @@ const ContactDetails = () => {
         // Linking.openURL(`mailto:${USER?.sEmail}`);
     }
 
-
+    const sFullNameArr = USER?.sFullName.split(' ') as string[];
+    const sFirstName = sFullNameArr[0];
+    const sLastName = sFullNameArr.length > 1 ? sFullNameArr[sFullNameArr.length - 1] : '';
     return (
         <>
             {/* Dynamic Stack Header  */}
@@ -83,8 +85,8 @@ const ContactDetails = () => {
                 className='h-full '>
 
                 <View className=' bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  '>
-                    <View className=''>
-                        <MaterialCommunityIcons name="account" size={32} color="#f8f8f8" />
+                    <View className='bg-gray-200 rounded-full h-12 w-12 flex items-center justify-center'>
+                        <Text>{sFirstName.charAt(0)}{sLastName.charAt(0)}</Text>
                     </View>
                     <View className='gap-1'>
                         <Text className='text-light text-xl font-bold pl-[2px] '>{USER?.sFullName}</Text>
@@ -129,7 +131,10 @@ const ContactDetails = () => {
 
                 {selectedTabIndx === 1 && (
                     <View className='px-3  mb-6 '>
-                        <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Comments</Text>
+                        <View className='flex-row items-center gap-[4px] mt-4 mb-[6px] ml-3'>
+                            <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                            <Text className=' text-gray-400  text-xs  '>Comments</Text>
+                        </View>
                         <View className=' flex items-center justify-center '>
                             <TextInput
                                 // onChangeText={onChange}

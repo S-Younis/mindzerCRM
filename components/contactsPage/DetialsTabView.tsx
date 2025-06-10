@@ -69,6 +69,8 @@ const DetialsTabView = ({ contactDetials }: DetialsTabViewProps) => {
                 </ListFormOption>
 
             </View>
+
+            <Text className='mt-4 mb-2 text-sm text-center text-gray-400'> Last Updated on {new Date().getMonth()}/{new Date().getFullYear()}</Text>
         </View>
 
     )
