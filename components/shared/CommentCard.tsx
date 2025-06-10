@@ -11,7 +11,7 @@ const CommentCard = ({ sUser, sComment, dateCreated }: CommentCardProps) => {
         <View className='flex-row bg-[#161f2e]  py-4 rounded-lg mb-2 '>
             <View className='flex-row items-start justify-center pt-[2px] w-[15%]'>
                 <View className='w-[30px] h-[30px] rounded-full bg-gray-300 items-center justify-center'>
-                    <Text className='text-slate-900'>A</Text>
+                    <Text className='text-slate-900'>C</Text>
                 </View>
             </View>
             <View className='flex-1 flex gap-[6px] pr-4 '>

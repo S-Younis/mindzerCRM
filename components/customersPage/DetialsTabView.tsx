@@ -1,12 +1,11 @@
 import { View, Text } from 'react-native'
-import FontAwesome6 from '@expo/vector-icons/build/FontAwesome6';
 import { useColorScheme } from 'nativewind';
 import { customerType } from '@/constants/customers';
 import ListFormOption from '@/components/shared/ListFormOption';
 import Entypo from '@expo/vector-icons/Entypo';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import ListOption from '../shared/ListOption';
 
 type DetialsTabViewProps = {
     customerDetails: customerType | undefined;
@@ -18,7 +17,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
     const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
     return (
-        <View className='px-3 gap-4 mb-6'>
+        <View className='px-3 gap-6 mb-6'>
             <View>
                 <Text className=' text-gray-400  text-xs mt-4 mb-[6px] ml-3 '>Customer Details</Text>
 
@@ -54,6 +53,21 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
                     <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </ListFormOption>
 
+            </View>
+
+
+            <View>
+                <ListOption title='Related Contacts' titleMarginLeft={4} className='rounded-tr-lg rounded-tl-lg'  >
+                    <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                </ListOption>
+                <ListOption title='Related Opps' titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg'  >
+                    <MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                </ListOption>
+            </View>
+
+            <View className='my-[6px] flex-row justify-between px-[10px]'>
+                <Text className=' text-sm text-gray-400'>Existing Transaction : 0</Text>
+                <Text className=' text-sm text-gray-400'>Date Created : 20/4/2004</Text>
             </View>
 
         </View >

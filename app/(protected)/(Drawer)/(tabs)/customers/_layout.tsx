@@ -23,6 +23,9 @@ export default function Layout() {
         headerLeft: () => <DrawerToggle />,
         headerRight: () => <SearchIconModalButton onPress={() => router.push('/customers/customersSearch')} />,
       }} />
+    <Stack.Screen name="[iCustomerId]" options={{
+      title: '',
+    }} />
     <Stack.Screen name="nextStepPage"
       options={{
         presentation: 'fullScreenModal',

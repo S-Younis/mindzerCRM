@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { lst_customers, lst_customers_areas, lst_customers_users } from "@/constants/customers";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -8,11 +8,15 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/customersPage/DetialsTabView';
 import Toast from 'react-native-toast-message';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, Feather } from '@expo/vector-icons';
 import CustomerCommentsTabView from '@/components/customersPage/CustomerCommentsTabView';
+import { myLightTheme } from '@/configs/theme';
+import CommentsBottomSheet from '@/components/customersPage/CommentsBottomSheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 const ContactDetails = () => {
     const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+    const bottomSheetRef = useRef<BottomSheet>(null);
 
     const { iCustomerId } = useLocalSearchParams();
     const CUSTOMER = lst_customers.find(customer => customer.iCustomerId === parseInt(iCustomerId as string));
@@ -97,6 +101,8 @@ const ContactDetails = () => {
                             </View>
                         </View>
 
+
+
                     </View>
                 </View>
 
@@ -122,9 +128,37 @@ const ContactDetails = () => {
                     <CustomerCommentsTabView />
                 )}
 
-
             </ScrollView>
+
+            {/* Floating Action Button */}
+            {selectedTabIndx === 1 && (
+                <TouchableOpacity
+                    style={{
+                        position: 'absolute',
+                        bottom: 20,
+                        right: 24,
+                        backgroundColor: myLightTheme.colors.primary,
+                        width: 56,
+                        height: 56,
+                        borderRadius: 30,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        elevation: 5, // For Android shadow
+
+                    }}
+                    onPress={() =>
+                        bottomSheetRef.current?.expand()
+                    }
+                >
+                    <Feather name="plus" size={24} color="white" />
+                </TouchableOpacity>
+            )}
+
+            {/* Bottom Sheet for Add Customer */}
+            <CommentsBottomSheet ref={bottomSheetRef} />
         </>
+
+
 
     );
 

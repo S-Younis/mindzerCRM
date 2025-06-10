@@ -52,7 +52,7 @@ export default function contacts() {
         <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
         <Pressable onPress={() => router.push('/contacts/contactSortPage')} className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `} >
           <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-          <Text className="text-sm adaptive-text ">{sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`}</Text>
+          <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`}  </Text>
         </Pressable>
       </View>
 
