@@ -29,12 +29,12 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactC
                     <View className='gap-[2px] pl-[3px]  '>
                         {sJobTitle &&
                             <View className='flex-row gap-[1px] items-center'>
-                                <Entypo name="dot-single" size={11} color="white" />
+                                {/* <Entypo name="dot-single" size={11} color="white" /> */}
                                 <Text className="text-gray-300 text-sm  mr-auto py-[2px] rounded-xl">{sJobTitle}</Text>
                             </View>
                         }
                         <View className='flex-row gap-[1px] items-center'>
-                            <Entypo name="dot-single" size={11} color="#f8f8f8" />
+                            {/* <Entypo name="dot-single" size={11} color="#f8f8f8" /> */}
                             <Text className="text-blue-400 text-sm">{sEmail}</Text>
                         </View>
                     </View>

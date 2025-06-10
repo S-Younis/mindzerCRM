@@ -26,19 +26,16 @@ export const CustomerCard = ({ sCustomer, sStatus, sCategory, sContactCount, sOp
                     <View className='gap-[4px] pl-[2px] '>
                         <View className="gap-2">
                             <View className='flex-row gap-1 items-center'>
-                                <Entypo name="dot-single" size={11} color="#f8f8f8" />
                                 <Text className='text-gray-300 text-sm'>Opps</Text>
                                 <Text className='text-blue-400 text-sm font-medium'>( {sOppsCount} )</Text>
                             </View>
                             <View className='flex-row gap-1 items-center'>
-                                <Entypo name="dot-single" size={11} color="#f8f8f8" />
                                 <Text className='text-gray-300 text-sm'>Contacts</Text>
                                 <Text className='text-blue-400 text-sm font-medium'>( {sContactCount} )</Text>
                             </View>
                         </View>
                         <View className=" text-sm  flex-row items-center gap-3 mt-1 ">
                             <View className='flex-row items-center gap-1'>
-                                <Entypo name="dot-single" size={11} color="#f8f8f8" />
                                 <Text className={`text-sm font-medium ${sStatus == 'Active' ? 'text-green-400' : 'text-yellow-500'}`}>{sStatus}</Text>
                             </View>
 
