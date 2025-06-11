@@ -12,9 +12,9 @@ export default function _layout() {
 
     const [isHydrated, setIsHydrated] = useState(false);
     useEffect(() => {
-        const isPrfHydrated = usePrefStore.persist.hasHydrated();
-        const isAuthHydrated = useAuthStore.persist.hasHydrated();
-        setIsHydrated(isPrfHydrated && isAuthHydrated);
+        const isPref_StoreHydrated = usePrefStore.persist.hasHydrated();
+        const isAuth_StoreHydrated = useAuthStore.persist.hasHydrated();
+        setIsHydrated(isPref_StoreHydrated && isAuth_StoreHydrated);
     }, []);
 
     const isLoggedIn = useAuthStore((state) => state.isLoggedIn);

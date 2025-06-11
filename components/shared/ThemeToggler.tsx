@@ -5,19 +5,19 @@ import { useColorScheme } from 'nativewind';
 import { usePrefStore } from '@/stores/pref.store';
 import { ThemeType } from '@/types/themeTypes';
 
-interface SimpleThemeToggleProps {
+interface LoginThemeToggleProps {
     className?: string;
     iconsSize?: number;
 }
-export const SimpleThemeToggle = ({ className, iconsSize = 24 }: SimpleThemeToggleProps) => {
-    const { colorScheme, toggleColorScheme , setColorScheme } = useColorScheme();
+export const LoginThemeToggle = ({ className, iconsSize = 24 }: LoginThemeToggleProps) => {
+    const { colorScheme, toggleColorScheme, setColorScheme } = useColorScheme();
     const setTheme = usePrefStore((state) => state.setTheme)
-    
+
     const [isDarkMode, setIsDarkMode] = useState(!(colorScheme == 'dark'));
     const spinValue = useRef(new Animated.Value(0)).current;
 
 
-
+    
     const toggleTheme = () => {
         Animated.timing(spinValue, {
             toValue: isDarkMode ? 0 : 1,

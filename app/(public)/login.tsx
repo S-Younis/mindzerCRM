@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { LoginFooter } from "@/components/loginPage/LoginFooter";
-import { SimpleThemeToggle } from "@/components/shared/ThemeToggler";
+import { LoginThemeToggle } from "@/components/shared/ThemeToggler";
 import { CustomInput } from "@/components/shared/CustomInput";
 import { Divider } from "@/components/shared/Divider";
 import { LoginHeader } from "@/components/loginPage/LoginHeader";
@@ -95,7 +95,7 @@ export default function login() {
     <SafeAreaView className="px-4 h-full">
 
       <View className="pt-3 pr-8 h-12 mt-5">
-        <SimpleThemeToggle className=" ml-auto " />
+        <LoginThemeToggle className=" ml-auto " />
       </View>
 
       <View className="mt-2  rounded-xl pt-2 ">
