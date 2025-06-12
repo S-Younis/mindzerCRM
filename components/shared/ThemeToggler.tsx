@@ -3,21 +3,20 @@ import { Animated, TouchableOpacity, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { usePrefStore } from '@/stores/pref.store';
-import { ThemeType } from '@/types/themeTypes';
+
 
 interface LoginThemeToggleProps {
     className?: string;
     iconsSize?: number;
 }
 export const LoginThemeToggle = ({ className, iconsSize = 24 }: LoginThemeToggleProps) => {
-    const { colorScheme, toggleColorScheme, setColorScheme } = useColorScheme();
+    const {  toggleColorScheme } = useColorScheme();
     const setTheme = usePrefStore((state) => state.setTheme)
+    const theme = usePrefStore((state) => state.theme)
 
-    const [isDarkMode, setIsDarkMode] = useState(!(colorScheme == 'dark'));
+    const [isDarkMode, setIsDarkMode] = useState(!(theme == 'dark'));
     const spinValue = useRef(new Animated.Value(0)).current;
 
-
-    
     const toggleTheme = () => {
         Animated.timing(spinValue, {
             toValue: isDarkMode ? 0 : 1,
@@ -26,16 +25,10 @@ export const LoginThemeToggle = ({ className, iconsSize = 24 }: LoginThemeToggle
             useNativeDriver: true,
         }).start();
         setIsDarkMode(!isDarkMode);
-        toggleColorScheme();
+        toggleColorScheme(); 
+        setTheme(isDarkMode ? 'dark' : 'light');
     };
 
-    const handleOptionPress = (theme: ThemeType) => {
-        if (colorScheme == theme) return; // No change if the selected theme is already active 
-        if (theme) {
-            setColorScheme(theme);
-            setTheme(theme);
-        }
-    }
 
     const spin = spinValue.interpolate({
         inputRange: [0, 1],
