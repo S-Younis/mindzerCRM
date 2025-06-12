@@ -386,3 +386,15 @@ export const lst_customers_users = [
   { iUserAppManagerId: 308, sUserAppManager: 'Hannah Montana' },
   { iUserAppManagerId: 309, sUserAppManager: 'Ian Malcolm' },
 ];
+export const comments = [
+  { id: '1', sComment: 'This is a comment', iUser: 'User1', date: '2024-03-20' },
+  { id: '2', sComment: 'This is another comment', iUser: 'User2', date: '2024-03-21' },
+  { id: '3', sComment: 'Yet another comment', iUser: 'User3', date: '2024-03-22' },
+  { id: '4', sComment: 'This is a comment', iUser: 'User4', date: '2024-03-23' },
+  { id: '5', sComment: 'This is a comment', iUser: 'User5', date: '2024-03-24' },
+  { id: '6', sComment: 'This is a comment', iUser: 'User6', date: '2024-03-25' },
+  { id: '7', sComment: 'This is a comment', iUser: 'User7', date: '2024-03-26' },
+  { id: '8', sComment: 'This is a comment', iUser: 'User8', date: '2024-03-27' },
+  { id: '9', sComment: 'This is a comment', iUser: 'User9', date: '2024-03-28' },
+  { id: '10', sComment: 'This is a comment', iUser: 'User10', date: '2024-03-29' },
+];

@@ -26,6 +26,10 @@ export default function Layout() {
     <Stack.Screen name="[iCustomerId]" options={{
       title: '',
     }} />
+    <Stack.Screen name="comments/[id]" options={{
+      title: 'Comment Details',
+      presentation: 'fullScreenModal',
+    }} />
     <Stack.Screen name="nextStepPage"
       options={{
         presentation: 'fullScreenModal',

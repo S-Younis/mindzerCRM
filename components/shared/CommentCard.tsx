@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable, Touchable, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-type CommentCardProps = {
+interface CommentCardProps extends TouchableOpacityProps {
     sUser: string;
     sComment: string;
     dateCreated: string;
 }
-const CommentCard = ({ sUser, sComment, dateCreated }: CommentCardProps) => {
+const CommentCard = ({ sUser, sComment, dateCreated, ...props }: CommentCardProps) => {
 
     return (
-        <View className='flex-row bg-[#161f2e]  py-4 rounded-lg mb-2 '>
+        <TouchableOpacity {...props} activeOpacity={0.8} className='flex-row bg-[#161f2e]  py-4 rounded-lg mb-2 '>
             <View className='flex-row items-start justify-center pt-[2px] w-[15%]'>
                 <View className='w-[30px] h-[30px] rounded-full bg-gray-300 items-center justify-center'>
                     <Text className='text-slate-900'>C</Text>
@@ -27,7 +27,7 @@ const CommentCard = ({ sUser, sComment, dateCreated }: CommentCardProps) => {
                 </View>
             </View>
 
-        </View>
+        </TouchableOpacity>
     )
 }
 
