@@ -22,17 +22,17 @@ export const CustomInput = ({
 
     return (
         <View
-            className={`flex-row gap-[6px] bg-slate-100 dark:bg-transparent px-2 rounded-lg border  ${isFocused ? 'border-blue-600' : ' border-[#e4e4e4] dark:border-gray-600'}   ${isError && 'border-red-500'}    ${isError && 'dark:border-red-500'} shadow-xs ${containerClassName}`}
+            className={`flex-row  gap-[6px] bg-[#eff0f7] dark:bg-transparent px-2 rounded-lg border   ${isFocused ? 'border-blue-600' : ' border-[#dee0e7] dark:border-gray-600'}   ${isError && 'border-red-500'}    ${isError && 'dark:border-red-500'} shadow-xs ${containerClassName}`}
         >
             {children ? (
-                <View className={` pl-1 flex items-center justify-center dark:opacity-55 ${iconContainerClassName}   `}>
+                <View className={` pl-1 flex items-center justify-center  ${iconContainerClassName}   `}>
                     {children}
                 </View>
             ) : null}
 
             <TextInput
-                className={`   text-gray-500 ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
-                placeholderTextColor={isError ? '#7f1d1d' : '#A9A9A9'}
+                className={`   text-slate-800  ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
+                placeholderTextColor={isError ? '#ef4444' : '#A9A9A9'}
                 autoCapitalize="none"
                 autoCorrect={false}
                 onFocus={() => setIsFocused(true)}

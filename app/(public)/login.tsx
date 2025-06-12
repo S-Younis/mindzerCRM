@@ -25,8 +25,8 @@ type FormDataType = {
 }
 
 const FormSchema = z.object({
-  userId: z.string().nonempty({ message: 'User Id is required' }),
-  password: z.string().nonempty({ message: 'Password is required' }).min(4, { message: 'Password must be at least 4 characters long' }),
+  userId: z.string().nonempty({ message: 'Required' }),
+  password: z.string().nonempty({ message: 'Required' }).min(4, { message: 'Password must be at least 4 characters long' }),
 });
 
 
@@ -108,7 +108,7 @@ export default function login() {
             name="userId"
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomInput
-                placeholder="User Id"
+                placeholder="UserId"
                 containerClassName="relative mb-10 py-2"
                 onBlur={onBlur}
                 value={value}
@@ -117,7 +117,7 @@ export default function login() {
                 clearButtonMode='while-editing' // NOTE: IOS ONLY 
               >
                 <MaterialCommunityIcons name="account-outline" size={20} color={errors.userId?.message ? '#ef4444' : '#A9A9A9'} />
-                {errors.userId && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.userId.message} </Text>)}
+                {errors.userId && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[310px] "> {errors.userId.message} </Text>)}
               </CustomInput>
             )}
           />
@@ -137,7 +137,7 @@ export default function login() {
                 clearButtonMode='while-editing' // NOTE: IOS ONLY 
               >
                 <MaterialCommunityIcons name="lock-outline" size={20} color={errors.password?.message ? '#ef4444' : '#A9A9A9'} />
-                {errors.password && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[250px] "> {errors.password.message} </Text>)}
+                {errors.password && (<Text className="text-red-500 text-sm mt-0 absolute bottom-[-30px] left-[-6px] w-[310px]"> {errors.password.message} </Text>)}
               </CustomInput>
 
             )}

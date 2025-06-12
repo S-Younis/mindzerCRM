@@ -12,7 +12,7 @@
     @apply bg-[#f1f1f1] dark:bg-gray-600  py-[12px] px-5 rounded-lg text-black dark:text-white  active:bg-gray-200 dark:active:bg-gray-500  ;
   }
   .btn-outline {
-    @apply  bg-slate-100 dark:bg-transparent border border-gray-600  dark:border-[#444442] py-[12px] px-5 rounded-lg active:bg-gray-100 dark:active:bg-[#0d0d16] text-black dark:text-white;
+    @apply  bg-slate-100 dark:bg-transparent border border-slate-300  dark:border-[#444442] py-[12px] px-5 rounded-lg active:bg-gray-100 dark:active:bg-[#0d0d16] text-black dark:text-white;
   }
   .btn-success {
     @apply bg-green-800 py-[12px] px-5 rounded-lg active:bg-green-700  ;
