@@ -15,7 +15,7 @@ const CustomerCommentsTabView = () => {
             <View className='px-3  mb-14 '>
 
                 <View className='flex-row items-center gap-[4px] mt-4 mb-[6px] ml-3'>
-                    <MaterialCommunityIcons name="comment-arrow-right-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    <MaterialCommunityIcons name="comment-arrow-right-outline" size={10} color={colorScheme == 'dark' ? '#9ca3af' : 'black'} />
                     <Text className=' text-gray-400  text-xs  '>Next Step</Text>
                 </View>
 
@@ -27,7 +27,7 @@ const CustomerCommentsTabView = () => {
                 </Pressable>
 
                 <View className='flex-row items-center gap-[4px] mt-6 mb-[6px] ml-3'>
-                    <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#9ca3af' : 'black'} />
                     <Text className=' text-gray-400  text-xs  '>Comments</Text>
                 </View>
                 <FlashList

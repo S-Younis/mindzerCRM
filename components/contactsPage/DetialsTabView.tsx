@@ -8,6 +8,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 type DetialsTabViewProps = {
     contactDetials: contactType | undefined;
@@ -70,7 +71,11 @@ const DetialsTabView = ({ contactDetials }: DetialsTabViewProps) => {
 
             </View>
 
-            <Text className='mt-4 mb-2 text-sm text-center text-gray-400'> Last Updated on {new Date().getMonth()}/{new Date().getFullYear()}</Text>
+            <View style={{ marginTop: 10 }} className=' mb-2 flex-row items-center justify-center gap-1 '>
+                <Text className=' text-xs text-center text-gray-500'>Last Updated</Text>
+                <AntDesign name="arrowright" size={9} style={{ marginTop: 1 }} color="#6b7280" />
+                <Text className=' text-xs text-gray-500'>{new Date().getMonth()}/{new Date().getFullYear()}</Text>
+            </View>
         </View>
 
     )

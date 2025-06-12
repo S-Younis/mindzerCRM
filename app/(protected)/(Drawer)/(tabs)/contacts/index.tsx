@@ -78,6 +78,7 @@ export default function contacts() {
 
       {/* Floating Action Button */}
       <TouchableOpacity
+        className="shadow-md"
         style={{
           position: 'absolute',
           bottom: 20,

@@ -9,18 +9,17 @@ type ContactCardProps = PressableProps & {
 
 export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactCardProps) => {
 
-    const sFullNameArr = sFullName.split(' ');
-    const sFirstName = sFullNameArr[0];
-    const sLastName = sFullNameArr.length > 1 ? sFullNameArr[sFullNameArr.length - 1] : '';
-    return (
+    const FULL_NAME = sFullName.split(' ');
+    const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
 
+    return (
         <Pressable onPress={props.onPress} className={` bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
 
             <View className='flex-row gap-4  flex-grow'>
                 <View className='items-center pt-3 '>
                     {/* <FontAwesome5 name="user" size={21} className='p-2 bg-gray-500 rounded-lg' color="#9ca3af" /> */}
                     <View className='bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center'>
-                        <Text>{sFirstName.charAt(0)}{sLastName.charAt(0)}</Text>
+                        <Text>{INTIALS}</Text>
                     </View>
                 </View>
 

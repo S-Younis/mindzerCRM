@@ -81,6 +81,7 @@ export default function customers() {
 
         {/* Floating Action Button */}
         <TouchableOpacity
+          className="shadow-md"
           style={{
             position: 'absolute',
             bottom: 20,

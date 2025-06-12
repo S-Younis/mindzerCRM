@@ -32,7 +32,7 @@ export default function Layout() {
     }} />
     <Stack.Screen name="nextStepPage"
       options={{
-        presentation: 'fullScreenModal',
+        presentation: 'modal',
         title: 'Next Step',
       }} />
 

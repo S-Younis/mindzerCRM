@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity } from 'react-native'
 import { useRef, useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { lst_customers, lst_customers_areas, lst_customers_users } from "@/constants/customers";
@@ -7,8 +7,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/customersPage/DetialsTabView';
-import Toast from 'react-native-toast-message';
-import { Entypo, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import CustomerCommentsTabView from '@/components/customersPage/CustomerCommentsTabView';
 import { myLightTheme } from '@/configs/theme';
 import CommentsBottomSheet from '@/components/customersPage/CommentsBottomSheet';
@@ -25,47 +24,12 @@ const ContactDetails = () => {
     const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
 
-
     const onRefresh = () => {
         setRefreshing(true);
         setTimeout(() => {
             setRefreshing(false);
         }, 1200);
     };
-
-    // const handleContactActions = async (type: 'email' | 'phone') => {
-    //     if (type === 'email') {
-    //         setEmailActionIsLoading(true);
-    //         await Linking.openURL(`mailto:${CUSTOMER?.sEmail}`);
-    //         setEmailActionIsLoading(false);
-
-    //     } else if (type === 'phone') {
-    //         setCallActionIsLoading(true);
-    //         if (Platform.OS === 'android') {
-    //             await Linking.openURL(`tel:${CUSTOMER?.sPhoneBusiness}`)
-    //             setCallActionIsLoading(false);
-    //             return;
-    //         }
-    //         await Linking.openURL(`telprompt:${CUSTOMER?.sPhoneBusiness}`)
-    //         setCallActionIsLoading(false);
-
-
-    //     }
-    // }
-
-    // const handleEamilOnClick = async () => {
-
-    //     await Clipboard.setStringAsync(CUSTOMER?.sEmail || '');
-    //     Toast.show({
-    //         type: 'info',
-    //         text1: 'Email Copied',
-    //         text2: CUSTOMER?.sEmail || '',
-    //         position: 'top',
-    //         visibilityTime: 2000,
-    //     })
-    //     // Linking.openURL(`mailto:${CUSTOMER?.sEmail}`);
-    // }
-
 
     return (
         <>
@@ -109,7 +73,7 @@ const ContactDetails = () => {
                 <View className='py-4 bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none '>
                     <SegmentedControl
                         style={{ width: '90%', marginHorizontal: 'auto', borderRadius: 8 }}
-                        values={['Details', 'Comments', 'Attachments', 'History']}
+                        values={['Details', 'Comments', 'History']}
                         fontStyle={{ color: '#f8f8f8', fontSize: 11, fontWeight: '500' }}
                         backgroundColor='#33343E'
                         sliderStyle={{ backgroundColor: '#6A6B75' }}
@@ -133,6 +97,7 @@ const ContactDetails = () => {
             {/* Floating Action Button */}
             {selectedTabIndx === 1 && (
                 <TouchableOpacity
+                    className="shadow-md"
                     style={{
                         position: 'absolute',
                         bottom: 20,

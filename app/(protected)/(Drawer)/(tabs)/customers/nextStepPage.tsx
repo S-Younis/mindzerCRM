@@ -26,24 +26,27 @@ const nextStepPage = () => {
                     headerRight: () => isEditing ? null : <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => setIsEditing(true)} />,
                 }} />
             }
-            <SafeAreaView className='pt-4 flex-1  ' >
-                <View className=' pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ' >
+            <View className='pt-4 flex-1 justify-between  ' >
+                <View className='pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ' >
                     <Text className='adaptive-text'>d ipsum dolor sit amet consectetur adipisicing elit. Perferendis, corrupti aspernatur minus impedit, explicabo quod esse itaque animi temporibus nulla reiciendis voluptates quidem praesentium, quam id excepturi consequatur omnis ducimus.</Text>
                 </View>
-                {isEditing &&
-                    <MindzerButton onPress={hanldeSaveStepBTN} isTitleCentered variants='primary' className='mt-auto mb-4' >
+                <View className='justify-end gap-4  '>
+                    {isEditing &&
+                        <MindzerButton onPress={hanldeSaveStepBTN} isTitleCentered variants='primary'  >
+                            <Text className={`font-medium  text-light`}>
+                                Save Changes
+                            </Text>
+                        </MindzerButton>
+                    }
+                    <MindzerButton isTitleCentered variants='success' className='mb-8' onPress={hanldeStepDoneBTN} >
                         <Text className={`font-medium  text-light`}>
-                            Save Changes
+                            Mark as Done
                         </Text>
                     </MindzerButton>
-                }
-                <MindzerButton isTitleCentered variants='success' className={isEditing ? `mb-8` : 'mt-auto mb-8'} onPress={hanldeStepDoneBTN} >
-                    <Text className={`font-medium  text-light`}>
-                        Mark as Done
-                    </Text>
-                </MindzerButton>
+                </View>
 
-            </SafeAreaView>
+
+            </View>
         </>
     )
 }
