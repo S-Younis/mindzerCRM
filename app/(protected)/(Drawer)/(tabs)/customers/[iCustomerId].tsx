@@ -70,7 +70,7 @@ const ContactDetails = () => {
                     </View>
                 </View>
 
-                <View className='py-4 bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none '>
+                <View className='py-4 bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none  '>
                     <SegmentedControl
                         style={{ width: '90%', marginHorizontal: 'auto', borderRadius: 8 }}
                         values={['Details', 'Comments', 'History']}
