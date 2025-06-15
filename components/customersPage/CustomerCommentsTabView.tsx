@@ -4,7 +4,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
 import CommentCard from '../shared/CommentCard';
-import { FlashList } from '@shopify/flash-list';
+// import { FlashList } from '@shopify/flash-list';
 import { comments } from '@/constants/customers'; // Assuming you have a comments data file
 
 const CustomerCommentsTabView = () => {
@@ -30,12 +30,16 @@ const CustomerCommentsTabView = () => {
                     <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#9ca3af' : 'black'} />
                     <Text className=' text-gray-400  text-xs  '>Comments</Text>
                 </View>
-                <FlashList
+
+                {/* Comments List */}
+                {comments.map((comment) => <CommentCard key={comment.id} sUser={comment.iUser} sComment={comment.sComment} dateCreated={comment.date} onPress={() => router.push(`customers/comments/${comment.id}`)} />)}
+                {/* <FlashList
                     data={comments}
                     estimatedItemSize={60}
                     keyExtractor={(item) => item.id}
+                    stickyHeaderIndices={[0]}
                     renderItem={({ item }) => <CommentCard sUser={item.iUser} sComment={item.sComment} dateCreated={item.date} onPress={() => router.push(`customers/comments/${item.id}`)} />}
-                />
+                /> */}
             </View>
 
         </>

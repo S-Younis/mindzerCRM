@@ -5,7 +5,6 @@ import { lst_customers, lst_customers_areas, lst_customers_users } from "@/const
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-import { useColorScheme } from 'nativewind';
 import DetialsTabView from '@/components/customersPage/DetialsTabView';
 import { Feather } from '@expo/vector-icons';
 import CustomerCommentsTabView from '@/components/customersPage/CustomerCommentsTabView';
@@ -14,7 +13,7 @@ import CommentsBottomSheet from '@/components/customersPage/CommentsBottomSheet'
 import BottomSheet from '@gorhom/bottom-sheet';
 
 const ContactDetails = () => {
-    const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+    // const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
     const bottomSheetRef = useRef<BottomSheet>(null);
 
     const { iCustomerId } = useLocalSearchParams();

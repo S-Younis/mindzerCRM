@@ -3,10 +3,11 @@ import { useColorScheme } from 'nativewind';
 import { customerType } from '@/constants/customers';
 import ListFormOption from '@/components/shared/ListFormOption';
 import Entypo from '@expo/vector-icons/Entypo';
-import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import ListOption from '../shared/ListOption';
+// import ListOption from '../shared/ListOption';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 type DetialsTabViewProps = {
     customerDetails: customerType | undefined;
@@ -35,11 +36,13 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
                 </ListFormOption>
 
                 <ListFormOption title='Location' value={customerDetails?.sLocation} titleMarginLeft={4}   >
-                    <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    {/* <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
+                    <Ionicons name="locate" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </ListFormOption>
 
                 <ListFormOption title='Account Manager' value={lstManagers?.find((id) => id.iUserAppManagerId == customerDetails?.iUserAppManagerId)?.sUserAppManager} titleMarginLeft={4}   >
-                    <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    {/* <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
+                    <MaterialCommunityIcons name="account-tie" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </ListFormOption>
 
 
@@ -48,10 +51,12 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
                 </ListFormOption>
 
                 <ListFormOption title='Category' value={customerDetails?.sCategory} titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg '  >
-                    <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    {/* <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
+                    <MaterialIcons name="type-specimen" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </ListFormOption>
                 <ListFormOption title='ERP Customer' value={'[34e3]'} titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg '  >
-                    <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                    {/* <MaterialCommunityIcons name="account-network-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'}size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
+                    <MaterialCommunityIcons name="account-switch-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'}/>
                 </ListFormOption>
 
             </View>
