@@ -8,6 +8,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { router } from 'expo-router';
 
 type DetialsTabViewProps = {
     customerDetails: customerType | undefined;
@@ -56,17 +57,14 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
                 </ListFormOption>
                 <ListFormOption title='ERP Customer' value={'[34e3]'} titleMarginLeft={4} className='rounded-br-lg rounded-bl-lg '  >
                     {/* <MaterialCommunityIcons name="account-network-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'}size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
-                    <MaterialCommunityIcons name="account-switch-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'}/>
+                    <MaterialCommunityIcons name="account-switch-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </ListFormOption>
 
             </View>
 
             {/* CTA Options */}
             <View>
-                {/* <ListOption title='Related Contacts ( 213 ) ' titleMarginLeft={4} className='rounded-tr-lg rounded-tl-lg'  >
-                    <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-                </ListOption> */}
-                <Pressable className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-tr-lg rounded-tl-lg active:opacity-70`}>
+                <Pressable onPress={() => router.push('customers/contacts/relatedContacts')} className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-tr-lg rounded-tl-lg active:opacity-70`}>
                     <View className='flex-row items-center gap-2'>
                         <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                         <View className='flex-row gap-1' style={{ marginLeft: 4 }}>
@@ -77,7 +75,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
                     <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                 </Pressable>
 
-                <Pressable className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-br-lg rounded-bl-lg active:opacity-70`}>
+                <Pressable onPress={() => router.push('customers/contacts/relatedContacts')} className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-br-lg rounded-bl-lg active:opacity-70`}>
                     <View className='flex-row items-center gap-2'>
                         <MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
                         <View className='flex-row gap-1 ' style={{ marginLeft: 4 }}>

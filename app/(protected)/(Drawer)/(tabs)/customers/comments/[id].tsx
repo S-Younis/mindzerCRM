@@ -44,6 +44,7 @@ const CustomerComment = () => {
 
     // to change the color of the editor text 
     useEffect(() => {
+
         const retryInterval = setInterval(() => {
             editor.webviewRef.current?.injectJavaScript(`
       (function() {
@@ -85,6 +86,7 @@ const CustomerComment = () => {
     document.head.appendChild(style);
     true;
   `);
+
         }, 0); // Retry every 0 ms until it works
 
         return () => clearInterval(retryInterval);
@@ -152,6 +154,7 @@ const CustomerComment = () => {
                             value={postTitleText}
                             onChangeText={setPostTitleText}
                             placeholder='Post Title'
+                            style={{ paddingHorizontal: 0, marginHorizontal: 0 }}
                             className='w-full adaptive-text placeholder:text-gray-400 '
                         />
                     </View>
