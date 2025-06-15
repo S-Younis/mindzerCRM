@@ -13,7 +13,7 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactC
     const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
 
     return (
-        <Pressable onPress={props.onPress} className={` bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
+        <Pressable onPress={props.onPress} className={` bg-[#161f2e] border-[#262f3a] border flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
 
             <View className='flex-row gap-4  flex-grow'>
                 <View className='items-center pt-3 '>

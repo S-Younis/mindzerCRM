@@ -1,5 +1,4 @@
 import { View, Text, PressableProps, Pressable } from 'react-native'
-import { FontAwesome5 } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
 
 type CustomerCardProps = PressableProps & {

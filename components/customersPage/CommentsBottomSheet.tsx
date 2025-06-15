@@ -28,8 +28,8 @@ const CommentsBottomSheet = (({ ref }: CommentsBottomSheetProps) => {
 
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
-  const showCreateCustomer = () => {
-    router.push('/customers/createComment');
+  const showAddCommentPage = () => {
+    router.push('/customers/comments/addComment');
     ref?.current?.close()
   }
 
@@ -46,7 +46,7 @@ const CommentsBottomSheet = (({ ref }: CommentsBottomSheetProps) => {
     >
       <BottomSheetView className="flex gap-4 p-4   " >
 
-        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateCustomer}  >
+        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showAddCommentPage}  >
           <MaterialCommunityIcons name="comment-plus-outline" size={18} color="white" className="mr-2" />
 
           <Text className={`font-medium text-white `}>

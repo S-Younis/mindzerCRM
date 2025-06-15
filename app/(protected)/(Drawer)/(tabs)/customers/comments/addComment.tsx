@@ -7,7 +7,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import AttachmentsTab from '@/components/customersPage/AttachmentsTab';
 import Toast from 'react-native-toast-message';
 
-const CustomerComment = () => {
+const AddComment = () => {
 
     const [selectedTabIndx, setSelectedTabIndx] = useState(0);
     const [richTextContent, setRichTextContent] = useState('');
@@ -91,7 +91,7 @@ const CustomerComment = () => {
     }, [editor]);
 
 
-    const handleSaveComment = async () => {
+    const handleAddComment = async () => {
         // get the rich text content
         const HtmlContent = await editor.getHTML();
 
@@ -139,7 +139,7 @@ const CustomerComment = () => {
                                 setSelectedTabIndx(event.nativeEvent.selectedSegmentIndex);
                             }}
                         />
-                        <Text onPress={handleSaveComment} className='text-blue-400 text-lg'>Save</Text>
+                        <Text onPress={handleAddComment} className='text-blue-400 text-lg'>Add</Text>
                     </View>),
                     contentStyle: { paddingTop: 8 },
                 }}
@@ -178,7 +178,7 @@ const CustomerComment = () => {
 
 }
 
-export default CustomerComment;
+export default AddComment;
 
 
 const exampleStyles = StyleSheet.create({

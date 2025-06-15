@@ -11,7 +11,7 @@ const CommentCard = ({ sUser, sComment, dateCreated, ...props }: CommentCardProp
     const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
 
     return (
-        <TouchableOpacity {...props} activeOpacity={0.8} className='flex-row bg-[#161f2e]  py-4 rounded-lg mb-4 '>
+        <TouchableOpacity {...props} activeOpacity={0.8} className='flex-row bg-[#161f2e] border border-[#262f3a]  py-5 rounded-lg mb-4 '>
             <View className='flex-row items-start justify-center pt-[2px] w-[15%]'>
                 <View className='w-[30px] h-[30px] rounded-full bg-gray-300 items-center justify-center'>
                     <Text className='text-slate-900'>{INTIALS}</Text>

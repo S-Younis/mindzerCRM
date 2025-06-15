@@ -56,6 +56,7 @@ export default function Layout() {
       <Tabs.Screen
         name="more"
         options={{
+          animation: 'shift',
           headerShown: false,
           tabBarIcon: ({ color }) => <Feather name="more-horizontal" size={22} color={color} />,
         }}

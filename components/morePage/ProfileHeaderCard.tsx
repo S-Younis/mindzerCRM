@@ -10,7 +10,7 @@ export const ProfileHeaderCard = () => {
     const USER = useAuthStore((state) => state.user);
 
     return (
-        <Pressable className="p-4 bg-[#161f2e] border-[#262f3a] border-[1px] flex-row gap-4 rounded-xl active:opacity-70 ">
+        <Pressable className="p-4 bg-[#161f2e] border-[#262f3a] border flex-row gap-4 rounded-xl active:opacity-70 ">
             <View className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
                 <Text className=" font-bold text-xl ">YM</Text>
             </View>
@@ -22,7 +22,7 @@ export const ProfileHeaderCard = () => {
             </View>
 
             <View className="flex-1 items-end justify-center ">
-                <Entypo name="chevron-small-right" size={32} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                <Entypo name="chevron-small-right" size={32} color={colorScheme == 'dark' ? '#4b5563' : 'black'} />
             </View>
         </Pressable>
 

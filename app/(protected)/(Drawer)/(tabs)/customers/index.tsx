@@ -48,7 +48,7 @@ export default function customers() {
     <>
       <View className="flex-1 ">
 
-        <View className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'} border`}>
+        <View className={`h-14 flex-row items-center justify-between border border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'} border`}>
           <Text className="text-md text-light  ">Customers ( {lst_customers.length} ) </Text>
           <Pressable onPress={() => router.push('/contacts/contactSortPage')} className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `} >
             <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />

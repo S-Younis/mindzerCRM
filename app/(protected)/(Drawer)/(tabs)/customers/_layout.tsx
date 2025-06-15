@@ -27,7 +27,13 @@ export default function Layout() {
       title: '',
     }} />
     <Stack.Screen name="comments/[id]" options={{
+      headerShown: false,
       title: 'Comment Details',
+      presentation: 'fullScreenModal',
+
+    }} />
+    <Stack.Screen name="comments/addComment" options={{
+      headerShown: false,
       presentation: 'fullScreenModal',
     }} />
     <Stack.Screen name="nextStepPage"

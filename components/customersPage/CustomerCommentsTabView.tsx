@@ -19,7 +19,7 @@ const CustomerCommentsTabView = () => {
                     <Text className=' text-gray-400  text-xs  '>Next Step</Text>
                 </View>
 
-                <Pressable onPress={() => router.push('customers/nextStepPage')} className='bg-[#161f2e]  flex-row justify-between items-center gap-[2px] w-[100%] p-4 rounded-lg '>
+                <Pressable onPress={() => router.push('customers/nextStepPage')} className='bg-[#161f2e] border border-[#262f3a]   flex-row justify-between items-center gap-[2px] w-[100%] p-4 rounded-lg '>
                     <View className='flex-1'>
                         <Text className='adaptive-text'>sadsad asd sad sa das ds a</Text>
                     </View>

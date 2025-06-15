@@ -14,13 +14,13 @@ interface ListOptionProps extends PressableProps {
 const ListOption = ({ children, title = '', titleMarginLeft, mode = 'default', isChecked, ...props }: ListOptionProps) => {
     const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
     return (
-        <Pressable  {...props} className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 ${props.className} active:opacity-70`}>
+        <Pressable  {...props} className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a] p-4 border-b-[1px] flex-row justify-between gap-4 ${props.className} active:opacity-70`}>
             <View className='flex-row items-center gap-2'>
                 {children}
-                <Text style={{ marginLeft: titleMarginLeft }} className="text-dark dark:text-light   ">{title}</Text>
+                <Text style={{ marginLeft: titleMarginLeft }} className="text-dark dark:text-light">{title}</Text>
             </View>
-            {mode == 'default' && <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
-            {mode == 'checkbox' && isChecked ? <Octicons name="check" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> : ''}
+            {mode == 'default' && <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#4b5563' : 'black'} />}
+            {mode == 'checkbox' && isChecked ? <Octicons name="check" size={20} color={colorScheme == 'dark' ? '#4b5563' : 'black'} /> : ''}
         </Pressable>
     )
 }
