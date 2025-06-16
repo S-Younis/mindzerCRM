@@ -17,18 +17,14 @@ type sAreaType = {
   sArea: string;
 };
 const createCustomer = () => {
-  const [isActiveField, setIsActiveField] = useState<boolean>(true);
-
   const [selectedIndustriesId, setSelectedIndustriesId] = useState<number[] | undefined>(undefined);
-  const [selectedArea, setSelectedArea] = useState<sAreaType | null>(null);
+  const industryOnChangeRef = useRef<(ids: number[]) => void>(null);
 
-  const formIndustryText = lst_customers_industries
-    .filter(industry => selectedIndustriesId?.includes(industry.industryId))
-    .map(item => item.sIndustry)
-    .join(',');
+  const [selectedAreaId, setSelectedAreaId] = useState<number>(-1);
+  const areaOnChangeRef = useRef<(id: number) => void>(null);
 
   // Modals Refs
-  const select_status_modalRef = useRef<BottomSheet>(null);
+  //   const select_status_modalRef = useRef<BottomSheet>(null);
   const select_industry_modalRef = useRef<BottomSheet>(null);
   const select_sArea_modalRef = useRef<BottomSheet>(null);
 
@@ -36,8 +32,9 @@ const createCustomer = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       sName: '',
+      lstIndustryIds: [],
+      iAreaId: -1,
       //   iCategoryId: 0,
-      //   iAreaId: 0,
       //   iUserAppManagerId: 0,
       //   iCustomerStatusId: 0,
       //   sLocation: '',
@@ -46,7 +43,6 @@ const createCustomer = () => {
       //   sCapacity: '',
       //   sWebUrl: '',
       //   iGp_CustomerId_: null,
-      lstIndustryIds: [],
     },
   });
 
@@ -92,10 +88,6 @@ const createCustomer = () => {
     // router.push('/contacts');
   };
 
-  const openIndustrySelectModal = (onChange: (value: string[]) => void) => {
-    select_status_modalRef.current?.expand();
-  };
-
   return (
     <>
       {/* Dynamic Stack Header  */}
@@ -136,32 +128,48 @@ const createCustomer = () => {
             <Controller
               control={control}
               name="lstIndustryIds"
-              render={({ field: { onBlur } }) => (
-                <ListFormOption
-                  onPress={() => {
-                    select_industry_modalRef.current?.expand();
-                  }}
-                  onBlur={onBlur}
-                  value={formIndustryText}
-                  isReadOnly={true}
-                  title="Industries"
-                  hasOpenIcon
-                />
-              )}
+              render={({ field: { onBlur, value, onChange } }) => {
+                const formIndustryText = lst_customers_industries
+                  .filter(industry => value?.includes(industry.industryId))
+                  .map(item => item.sIndustry)
+                  .join(',');
+
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      industryOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_industry_modalRef.current?.expand();
+                    }}
+                    onBlur={onBlur}
+                    value={formIndustryText}
+                    isReadOnly={true}
+                    title="Industries"
+                    hasOpenIcon
+                  />
+                );
+              }}
             />
-            {/* <Controller
+            <Controller
               control={control}
-              name="sJobTitle"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Job Title"
-                />
-              )}
+              name="iAreaId"
+              render={({ field: { onChange, onBlur, value } }) => {
+                const formIndustryText = lst_customers_areas.find(area => area.iAreaId === value)?.sArea || 'Select Area';
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      areaOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_sArea_modalRef.current?.expand();
+                    }}
+                    onBlur={onBlur}
+                    value={formIndustryText}
+                    isReadOnly={true}
+                    title="Country"
+                    hasOpenIcon
+                  />
+                );
+              }}
             />
+            {/*
             <Controller
               control={control}
               name="sCompany"
@@ -300,10 +308,17 @@ const createCustomer = () => {
       <SelectIndustry
         ref={select_industry_modalRef}
         industries_lst={lst_customers_industries}
+        industryOnChangeFunc={ids => industryOnChangeRef.current?.(ids)} // 👈 Execute stored function
         selectedIndustriesId={selectedIndustriesId}
         setSelectedIndustriesId={setSelectedIndustriesId}
       />
-      {/* <SelectArea ref={select_sArea_modalRef} areas_lst={lst_customers_areas} selectedArea={selectedArea} setSelectedArea={setSelectedArea} /> */}
+      <SelectArea
+        ref={select_sArea_modalRef}
+        areas_lst={lst_customers_areas}
+        areaOnChangeFunc={id => areaOnChangeRef.current?.(id)} // 👈 Execute stored function
+        selectedAreaId={selectedAreaId}
+        setSelectedAreaId={setSelectedAreaId}
+      />
     </>
   );
 };
