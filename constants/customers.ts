@@ -375,6 +375,13 @@ export const lst_customers_areas = [
   { iAreaId: 204, sArea: 'South America' },
   { iAreaId: 205, sArea: 'Africa' },
 ];
+export const lst_customers_industries = [
+  { industryId: 1, sIndustry: 'Technology && fsfsd' },
+  { industryId: 2, sIndustry: 'Finance && food' },
+  { industryId: 3, sIndustry: 'Healthcare' },
+  { industryId: 4, sIndustry: 'Retail' },
+  { industryId: 5, sIndustry: 'Manufacturing' },
+];
 export const lst_customers_users = [
   { iUserAppManagerId: 301, sUserAppManager: 'Alice Johnson' },
   { iUserAppManagerId: 302, sUserAppManager: 'Bob Smith' },

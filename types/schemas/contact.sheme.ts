@@ -13,6 +13,19 @@ export const FormSchema = z.object({
   sCity: z.string().optional(),
   sAddress: z.string().optional(),
   sComment: z.string().optional(),
+
+    //  sFullName: "",
+    // sPhoneBusiness: "",
+    // sPhoneMobile: "",
+    // sComment: "",
+    // sEmail: "",
+    // sBusinessAddressCity: "",
+    // sBusinessAddressCountry: "",
+    // sFullAddress: "",
+    // sJobTitle: "",
+    // eCompany: 0,
+    // iCompanyId: 0,
+    // bPrivate: false,
 });
 
 export type FormDataType = z.infer<typeof FormSchema>;

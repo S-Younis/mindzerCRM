@@ -15,10 +15,7 @@ export default function Layout() {
         headerTitleStyle: { fontSize: 18, color: '#fafafa' },
         headerTintColor: '#fafafa',
         headerStyle: {
-          backgroundColor:
-            colorScheme === 'dark'
-              ? myDarkTheme.colors.card
-              : myLightTheme.colors.primary,
+          backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
         },
       }}>
       <Stack.Screen
@@ -26,11 +23,14 @@ export default function Layout() {
         options={{
           title: 'Customers',
           headerLeft: () => <DrawerToggle />,
-          headerRight: () => (
-            <SearchIconModalButton
-              onPress={() => router.push('/customers/customersSearch')}
-            />
-          ),
+          headerRight: () => <SearchIconModalButton onPress={() => router.push('/customers/customersSearch')} />,
+        }}
+      />
+      <Stack.Screen
+        name="createCustomer"
+        options={{
+          title: '',
+          presentation: 'fullScreenModal',
         }}
       />
       <Stack.Screen
