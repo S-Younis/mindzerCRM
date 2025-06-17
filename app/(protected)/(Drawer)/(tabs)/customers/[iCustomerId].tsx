@@ -48,7 +48,7 @@ const ContactDetails = () => {
                 }
                 className='h-full '>
 
-                <View className=' bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  '>
+                <View className='bg-[#161f2e] p-4 pb-2 px-6 pt-6 flex-row gap-2  '>
                     <View className=''>
                         <MaterialCommunityIcons name="account" size={32} color="#f8f8f8" />
                     </View>

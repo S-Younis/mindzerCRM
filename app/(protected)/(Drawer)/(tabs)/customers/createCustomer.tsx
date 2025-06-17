@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView } from 'react-native';
+import { View, Text, Alert, ScrollView, Pressable } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { router, Stack } from 'expo-router';
 import Toast from 'react-native-toast-message';
@@ -6,27 +6,41 @@ import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { FormSchema, FormDataType } from '@/types/schemas/customer.sheme';
-import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus';
 import BottomSheet from '@gorhom/bottom-sheet';
-import SelectIndustry from '@/components/customersPage/formSelectionsModals/SelectIndustry';
+import SelectIndustry from '@/components/contactsPage/formSelectionsModals/SelectIndustry';
 import SelectArea from '@/components/contactsPage/formSelectionsModals/SelectArea';
-import { lst_customers_areas, lst_customers_industries } from '@/constants/customers';
+import SelectManager from '@/components/contactsPage/formSelectionsModals/SelectManager';
+import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus';
+import SelectCategory from '@/components/contactsPage/formSelectionsModals/SelectCategory';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { lst_customers_areas, lst_customers_industries, lst_customers_users, lst_customers_status, lst_customers_categories } from '@/constants/customers';
+import Entypo from '@expo/vector-icons/Entypo';
+import { useColorScheme } from 'nativewind';
 
-type sAreaType = {
-  iAreaId: number;
-  sArea: string;
-};
 const createCustomer = () => {
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+
   const [selectedIndustriesId, setSelectedIndustriesId] = useState<number[] | undefined>(undefined);
   const industryOnChangeRef = useRef<(ids: number[]) => void>(null);
 
   const [selectedAreaId, setSelectedAreaId] = useState<number>(-1);
   const areaOnChangeRef = useRef<(id: number) => void>(null);
 
+  const [selectedManagerId, setSelectedManagerId] = useState<number>(-1);
+  const managerOnChangeRef = useRef<(id: number) => void>(null);
+
+  const [selectedStatusId, setSelectedStatusId] = useState<number>(1);
+  const statusOnChangeRef = useRef<(id: number) => void>(null);
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
+  const categoryOnChangeRef = useRef<(id: number) => void>(null);
+
   // Modals Refs
-  //   const select_status_modalRef = useRef<BottomSheet>(null);
   const select_industry_modalRef = useRef<BottomSheet>(null);
   const select_sArea_modalRef = useRef<BottomSheet>(null);
+  const select_manager_modalRef = useRef<BottomSheet>(null);
+  const select_status_modalRef = useRef<BottomSheet>(null);
+  const select_category_modalRef = useRef<BottomSheet>(null);
 
   const { control, handleSubmit } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
@@ -34,10 +48,11 @@ const createCustomer = () => {
       sName: '',
       lstIndustryIds: [],
       iAreaId: -1,
-      //   iCategoryId: 0,
-      //   iUserAppManagerId: 0,
+      sLocation: '',
+      iUserAppManagerId: 0,
+      iStatusId: 1,
+      iCategoryId: -1,
       //   iCustomerStatusId: 0,
-      //   sLocation: '',
       //   sLicensor: '',
       //   sProcess: '',
       //   sCapacity: '',
@@ -119,6 +134,7 @@ const createCustomer = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   isReadOnly={false}
+                  isRequired
                   title="Customer Name"
                   value={value}
                   className="rounded-tr-lg rounded-tl-lg "
@@ -164,147 +180,127 @@ const createCustomer = () => {
                     value={formIndustryText}
                     isReadOnly={true}
                     title="Country"
+                    isRequired
                     hasOpenIcon
                   />
                 );
               }}
             />
-            {/*
             <Controller
               control={control}
-              name="sCompany"
+              name="sLocation"
               render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Company"
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="sActive"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  hasOpenIcon
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={isActiveField ? 'Active' : 'Inactive'}
-                  isReadOnly={true}
-                  title="Status"
-                  onPress={() => select_status_modalRef.current?.expand()}
-                />
+                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title="Location" />
               )}
             />
 
             <Controller
               control={control}
-              name="bPrivate"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  hasOpenIcon
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={isbPrivateField ? 'Yes' : 'No'}
-                  isReadOnly={true}
-                  title="Private ( Limited Visibility )"
-                  onPress={() => select_industry_modalRef.current?.expand()}
-                  className="rounded-br-lg rounded-bl-lg "
-                /> */}
-            {/* )} */}
-            {/* /> */}
+              name="iUserAppManagerId"
+              render={({ field: { onChange, onBlur, value } }) => {
+                const AccountManagerText = lst_customers_users.find(area => area.iUserAppManagerId === value)?.sUserAppManager || 'Select Manager';
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      managerOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_manager_modalRef.current?.expand();
+                    }}
+                    onBlur={onBlur}
+                    value={AccountManagerText}
+                    isReadOnly={true}
+                    title="Account Manager"
+                    isRequired
+                    hasOpenIcon
+                  />
+                );
+              }}
+            />
+
+            <Controller
+              control={control}
+              name="iStatusId"
+              render={({ field: { onChange, onBlur, value } }) => {
+                const StatusText = lst_customers_status.find(status => status.iStatusId === value)?.sStatus || 'Select Status';
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      statusOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_status_modalRef.current?.expand();
+                    }}
+                    onBlur={onBlur}
+                    value={StatusText}
+                    isReadOnly={true}
+                    title="Status"
+                    hasOpenIcon
+                  />
+                );
+              }}
+            />
+
+            <Controller
+              control={control}
+              name="iCategoryId"
+              render={({ field: { onChange, onBlur, value } }) => {
+                const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || 'Select Category';
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      categoryOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_category_modalRef.current?.expand();
+                    }}
+                    onBlur={onBlur}
+                    value={CategoryText}
+                    isReadOnly={true}
+                    isRequired
+                    title="Category"
+                    hasOpenIcon
+                  />
+                );
+              }}
+            />
+            <Controller
+              control={control}
+              name="iCategoryId"
+              render={({ field: { onChange, onBlur, value } }) => {
+                const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || 'Select Category';
+                return (
+                  <ListFormOption
+                    onPress={() => {
+                      categoryOnChangeRef.current = onChange; // 👈 Update ref on render
+                      select_category_modalRef.current?.expand();
+                    }}
+                    className="rounded-br-lg rounded-bl-lg border-b-0"
+                    onBlur={onBlur}
+                    value={CategoryText}
+                    isReadOnly={true}
+                    isRequired
+                    title="ERP Customer"
+                    hasOpenIcon
+                  />
+                );
+              }}
+            />
           </View>
-          {/* Phones Section  */}
+          {/* Contats Section  */}
           <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Phones</Text>
-
-            {/* <Controller
-              control={control}
-              name="sPhoneBusiness"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  isReadOnly={false}
-                  title="Bussiness"
-                  value={value}
-                  className="rounded-tr-lg rounded-tl-lg "
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="sPhoneMobile"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Mobile"
-                  className="rounded-br-lg rounded-bl-lg "
-                />
-              )}
-            /> */}
-          </View>
-          {/* Address Section */}
-          <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Address</Text>
-            {/* 
-            <Controller
-              control={control}
-              name="sArea"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  isReadOnly={true}
-                  title="Country"
-                  hasOpenIcon
-                  onPress={() => select_sArea_modalRef.current?.expand()}
-                  value={selectedArea?.name}
-                  titleMarginLeft={4}
-                  className="rounded-tr-lg rounded-tl-lg "
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="sCity"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="City"
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="sAddress"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Full Address"
-                  className="rounded-br-lg rounded-bl-lg "
-                />
-              )}
-            /> */}
+            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Contacts</Text>
+            <Pressable
+              onPress={() => router.push('customers/contacts/relatedContacts')}
+              className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-0 flex-row justify-between gap-4 rounded-lg rounded-tl-lg active:opacity-70`}>
+              <View className="flex-row items-center gap-2">
+                <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+                <View className="flex-row gap-1" style={{ marginLeft: 4 }}>
+                  <Text className="text-dark dark:text-light">Associated Contacts</Text>
+                  {false && <Text className="text-dark dark:text-gray-400 ml-1">( 21 )</Text>}
+                </View>
+              </View>
+              <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
+            </Pressable>
           </View>
         </View>
       </ScrollView>
 
       {/* Select Fields Modals */}
-      {/* <SelectStatus ref={select_status_modalRef} isActiveField={isActiveField} setIsActiveField={setIsActiveField} /> */}
       <SelectIndustry
         ref={select_industry_modalRef}
         industries_lst={lst_customers_industries}
@@ -315,9 +311,30 @@ const createCustomer = () => {
       <SelectArea
         ref={select_sArea_modalRef}
         areas_lst={lst_customers_areas}
-        areaOnChangeFunc={id => areaOnChangeRef.current?.(id)} // 👈 Execute stored function
         selectedAreaId={selectedAreaId}
         setSelectedAreaId={setSelectedAreaId}
+        areaOnChangeFunc={id => areaOnChangeRef.current?.(id)} // 👈 Execute stored function
+      />
+      <SelectManager
+        ref={select_manager_modalRef}
+        managers_lst={lst_customers_users}
+        selectedManagerId={selectedManagerId}
+        setSelectedManagerId={setSelectedManagerId}
+        managerOnChangeFunc={id => managerOnChangeRef.current?.(id)} // 👈 Execute stored function
+      />
+      <SelectStatus
+        ref={select_status_modalRef}
+        status_lst={lst_customers_status}
+        selectedStatusId={selectedStatusId}
+        setSelectedStatusId={setSelectedStatusId}
+        statusOnChangeFunc={id => statusOnChangeRef.current?.(id)} // 👈 Execute stored function
+      />
+      <SelectCategory
+        ref={select_category_modalRef}
+        category_lst={lst_customers_categories}
+        selectedCategoryId={selectedCategoryId}
+        setSelectedCategoryId={setSelectedCategoryId}
+        categoryOnChangeFunc={id => categoryOnChangeRef.current?.(id)} // 👈 Execute stored function
       />
     </>
   );

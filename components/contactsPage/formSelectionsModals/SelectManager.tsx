@@ -9,25 +9,26 @@ import ListOptionCheckBox from '@/components/shared/ListOptionCheckBox';
 import { CustomInput } from '@/components/shared/CustomInput';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { FlashList } from '@shopify/flash-list';
+import { ScrollView } from 'react-native-gesture-handler';
 import MindzerButton from '@/components/shared/MindzerButton';
 
-type sAreaType = {
-  iAreaId: number;
-  sArea: string;
+type sManagerType = {
+  iUserAppManagerId: number;
+  sUserAppManager: string;
 };
 
 type BottomModalSheetProps = {
   ref?: React.RefObject<BottomSheetMethods | null>;
-  areas_lst: sAreaType[];
-  areaOnChangeFunc?: ((value: number) => void) | undefined;
-  selectedAreaId: number;
-  setSelectedAreaId: (id: number) => void;
+  managers_lst: sManagerType[];
+  selectedManagerId: number;
+  setSelectedManagerId: (value: number) => void;
+  managerOnChangeFunc?: ((value: number) => void) | undefined;
 };
 
-const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelectedAreaId }: BottomModalSheetProps) => {
+const SelectManager = ({ ref, managers_lst, selectedManagerId, setSelectedManagerId, managerOnChangeFunc }: BottomModalSheetProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredAreaField = areas_lst.filter(item => item.sArea.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredManagerField = managers_lst.filter(item => item.sUserAppManager.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop opacity={0.7} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
@@ -43,9 +44,9 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
 
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
-  const handleAreaSelection = (item: sAreaType) => {
-    setSelectedAreaId(item.iAreaId);
-    areaOnChangeFunc?.(item.iAreaId); // 👈 Update form state
+  const handleAreaSelection = (item: sManagerType) => {
+    setSelectedManagerId(item.iUserAppManagerId);
+    managerOnChangeFunc?.(item.iUserAppManagerId); // 👈 Update form state
     ref?.current?.close();
   };
 
@@ -58,8 +59,8 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
       animationConfigs={animationConfigs}
       backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
       handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}>
-      <BottomSheetView className="justify-between px-4 pb-12 h-full ">
-        <View className="p-2 h-[54px] mb-4">
+      <BottomSheetView className="justify-between  px-4 pb-12 h-full ">
+        <View className="p-2 h-[54px] mb-4 ">
           <CustomInput placeholder="Search" containerClassName="py-[1px]  pr-2 flex-1" clearButtonMode="while-editing" onChangeText={e => setSearchQuery(e)}>
             <MaterialCommunityIcons name="magnify" size={18} color={'#fafafa'} />
           </CustomInput>
@@ -67,21 +68,20 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
 
         <View style={{ height: 400, marginBottom: 4 }}>
           <FlashList
-            data={filteredAreaField}
+            data={filteredManagerField}
             renderItem={({ item }) => (
               <ListOptionCheckBox
                 onPress={() => handleAreaSelection(item)}
-                isChecked={selectedAreaId == item.iAreaId}
+                isChecked={selectedManagerId == item.iUserAppManagerId}
                 className="!bg-transparent"
-                title={item.sArea}
+                title={item.sUserAppManager}
               />
             )}
-            keyExtractor={item => item.iAreaId.toString()}
-            estimatedItemSize={filteredAreaField.length == 0 ? 5 : 70}
+            keyExtractor={item => item.iUserAppManagerId.toString()}
+            estimatedItemSize={filteredManagerField.length == 0 ? 5 : 70}
           />
         </View>
-
-        <View className=" mt-auto  px-4 ">
+        <View className=" mt-auto px-4 ">
           <MindzerButton isTitleCentered variants="secondary" onPress={() => ref?.current?.close()}>
             <Text className={`font-medium text-white`}>Close</Text>
           </MindzerButton>
@@ -91,4 +91,4 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
   );
 };
 
-export default SelectArea;
+export default SelectManager;

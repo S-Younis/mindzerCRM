@@ -360,8 +360,8 @@ export const lst_customers = [
 ];
 export const lst_customers_status = [
   { iStatusId: 1, sStatus: 'Active' },
-  { iStatusId: 2, sStatus: 'Pending' },
-  { iStatusId: 3, sStatus: 'Completed' },
+  { iStatusId: 2, sStatus: 'Project' },
+  { iStatusId: 3, sStatus: 'Inactive' },
 ];
 export const lst_customers_categories = [
   { iCategoryId: 101, sCategory: 'A' },

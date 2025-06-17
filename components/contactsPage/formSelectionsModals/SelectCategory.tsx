@@ -2,33 +2,27 @@ import { Text, View } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
 import ListOptionCheckBox from '@/components/shared/ListOptionCheckBox';
-import { CustomInput } from '@/components/shared/CustomInput';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { FlashList } from '@shopify/flash-list';
 import MindzerButton from '@/components/shared/MindzerButton';
 
-type sAreaType = {
-  iAreaId: number;
-  sArea: string;
+type sCategoryType = {
+  iCategoryId: number;
+  sCategory: string;
 };
 
 type BottomModalSheetProps = {
   ref?: React.RefObject<BottomSheetMethods | null>;
-  areas_lst: sAreaType[];
-  areaOnChangeFunc?: ((value: number) => void) | undefined;
-  selectedAreaId: number;
-  setSelectedAreaId: (id: number) => void;
+  category_lst: sCategoryType[];
+  selectedCategoryId: number;
+  setSelectedCategoryId: (value: number) => void;
+  categoryOnChangeFunc?: ((value: number) => void) | undefined;
 };
 
-const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelectedAreaId }: BottomModalSheetProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredAreaField = areas_lst.filter(item => item.sArea.toLowerCase().includes(searchQuery.toLowerCase()));
-
+const SelectCategory = ({ ref, category_lst, selectedCategoryId, setSelectedCategoryId, categoryOnChangeFunc }: BottomModalSheetProps) => {
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop opacity={0.7} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
     []
@@ -43,9 +37,9 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
 
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
-  const handleAreaSelection = (item: sAreaType) => {
-    setSelectedAreaId(item.iAreaId);
-    areaOnChangeFunc?.(item.iAreaId); // 👈 Update form state
+  const handleAreaSelection = (item: sCategoryType) => {
+    setSelectedCategoryId(item.iCategoryId);
+    categoryOnChangeFunc?.(item.iCategoryId); // 👈 Update form state
     ref?.current?.close();
   };
 
@@ -58,30 +52,24 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
       animationConfigs={animationConfigs}
       backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
       handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}>
-      <BottomSheetView className="justify-between px-4 pb-12 h-full ">
-        <View className="p-2 h-[54px] mb-4">
-          <CustomInput placeholder="Search" containerClassName="py-[1px]  pr-2 flex-1" clearButtonMode="while-editing" onChangeText={e => setSearchQuery(e)}>
-            <MaterialCommunityIcons name="magnify" size={18} color={'#fafafa'} />
-          </CustomInput>
-        </View>
-
+      <BottomSheetView className="justify-between  px-4 pb-12 h-full ">
         <View style={{ height: 400, marginBottom: 4 }}>
           <FlashList
-            data={filteredAreaField}
+            data={category_lst}
             renderItem={({ item }) => (
               <ListOptionCheckBox
                 onPress={() => handleAreaSelection(item)}
-                isChecked={selectedAreaId == item.iAreaId}
+                isChecked={selectedCategoryId == item.iCategoryId}
                 className="!bg-transparent"
-                title={item.sArea}
+                title={item.sCategory}
               />
             )}
-            keyExtractor={item => item.iAreaId.toString()}
-            estimatedItemSize={filteredAreaField.length == 0 ? 5 : 70}
+            extraData={selectedCategoryId}
+            keyExtractor={item => item.iCategoryId.toString()}
+            estimatedItemSize={70}
           />
         </View>
-
-        <View className=" mt-auto  px-4 ">
+        <View className=" mt-auto px-4 ">
           <MindzerButton isTitleCentered variants="secondary" onPress={() => ref?.current?.close()}>
             <Text className={`font-medium text-white`}>Close</Text>
           </MindzerButton>
@@ -91,4 +79,4 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
   );
 };
 
-export default SelectArea;
+export default SelectCategory;
