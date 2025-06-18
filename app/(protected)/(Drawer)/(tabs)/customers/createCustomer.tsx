@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView, Pressable } from 'react-native';
+import { View, Text, Alert, ScrollView } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { router, Stack } from 'expo-router';
 import Toast from 'react-native-toast-message';
@@ -12,9 +12,9 @@ import SelectArea from '@/components/contactsPage/formSelectionsModals/SelectAre
 import SelectManager from '@/components/contactsPage/formSelectionsModals/SelectManager';
 import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus';
 import SelectCategory from '@/components/contactsPage/formSelectionsModals/SelectCategory';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { lst_customers_areas, lst_customers_industries, lst_customers_users, lst_customers_status, lst_customers_categories } from '@/constants/customers';
-import Entypo from '@expo/vector-icons/Entypo';
+import ListOptionSection from '@/components/shared/ListOptionSection';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
 
 const createCustomer = () => {
@@ -52,12 +52,11 @@ const createCustomer = () => {
       iUserAppManagerId: 0,
       iStatusId: 1,
       iCategoryId: -1,
-      //   iCustomerStatusId: 0,
+      //   iGp_CustomerId_: null,
       //   sLicensor: '',
       //   sProcess: '',
       //   sCapacity: '',
       //   sWebUrl: '',
-      //   iGp_CustomerId_: null,
     },
   });
 
@@ -284,18 +283,11 @@ const createCustomer = () => {
           {/* Contats Section  */}
           <View>
             <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Contacts</Text>
-            <Pressable
+            <ListOptionSection
+              title="Associated Contacts"
+              icon={<MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
               onPress={() => router.push('customers/contacts/relatedContacts')}
-              className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-0 flex-row justify-between gap-4 rounded-lg rounded-tl-lg active:opacity-70`}>
-              <View className="flex-row items-center gap-2">
-                <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-                <View className="flex-row gap-1" style={{ marginLeft: 4 }}>
-                  <Text className="text-dark dark:text-light">Associated Contacts</Text>
-                  {false && <Text className="text-dark dark:text-gray-400 ml-1">( 21 )</Text>}
-                </View>
-              </View>
-              <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-            </Pressable>
+            />
           </View>
         </View>
       </ScrollView>

@@ -1,14 +1,14 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import { customerType } from '@/constants/customers';
 import ListFormOption from '@/components/shared/ListFormOption';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-// import ListOption from '../shared/ListOption';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
+import ListOptionSection from '../shared/ListOptionSection';
 
 type DetialsTabViewProps = {
   customerDetails: customerType | undefined;
@@ -44,7 +44,6 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
           title="Account Manager"
           value={lstManagers?.find(id => id.iUserAppManagerId == customerDetails?.iUserAppManagerId)?.sUserAppManager}
           titleMarginLeft={4}>
-          {/* <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
           <MaterialCommunityIcons name="account-tie" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
         </ListFormOption>
 
@@ -53,42 +52,29 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
         </ListFormOption>
 
         <ListFormOption title="Category" value={customerDetails?.sCategory} titleMarginLeft={4} className="rounded-br-lg rounded-bl-lg ">
-          {/* <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
           <MaterialIcons name="type-specimen" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
         </ListFormOption>
         <ListFormOption title="ERP Customer" value={'[34e3]'} titleMarginLeft={4} className="rounded-br-lg rounded-bl-lg ">
-          {/* <MaterialCommunityIcons name="account-network-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'}size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
           <MaterialCommunityIcons name="account-switch-outline" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
         </ListFormOption>
       </View>
 
       {/* CTA Options */}
       <View>
-        <Pressable
+        <ListOptionSection
+          title="Related Contacts"
+          hasTag
+          tagContent={21}
+          icon={<MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
           onPress={() => router.push('customers/contacts/relatedContacts')}
-          className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-tr-lg rounded-tl-lg active:opacity-70`}>
-          <View className="flex-row items-center gap-2">
-            <MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-            <View className="flex-row gap-1" style={{ marginLeft: 4 }}>
-              <Text className="text-dark dark:text-light">Related Contacts</Text>
-              <Text className="text-dark dark:text-gray-400 ml-1">( 21 )</Text>
-            </View>
-          </View>
-          <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </Pressable>
-
-        <Pressable
+        />
+        <ListOptionSection
+          title="Related Opps"
+          hasTag
+          tagContent={424}
+          icon={<MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
           onPress={() => router.push('customers/contacts/relatedContacts')}
-          className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-[1px] flex-row justify-between gap-4 rounded-br-lg rounded-bl-lg active:opacity-70`}>
-          <View className="flex-row items-center gap-2">
-            <MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-            <View className="flex-row gap-1 " style={{ marginLeft: 4 }}>
-              <Text className="text-dark dark:text-light">Related Opps</Text>
-              <Text className="text-dark dark:text-gray-400 ml-1">( 424 )</Text>
-            </View>
-          </View>
-          <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </Pressable>
+        />
       </View>
       {/* CTA Options */}
 

@@ -19,9 +19,17 @@ type BottomModalSheetProps = {
   selectedIndustriesId: number[] | undefined;
   setSelectedIndustriesId: (value: number[]) => void;
   industryOnChangeFunc?: ((value: number[]) => void) | undefined;
+  isMultipleSelection?: boolean; // Optional prop to indicate if multiple selection is allowed
 };
 
-const SelectIndustry = ({ ref, industryOnChangeFunc, industries_lst, selectedIndustriesId, setSelectedIndustriesId }: BottomModalSheetProps) => {
+const SelectIndustry = ({
+  ref,
+  industryOnChangeFunc,
+  industries_lst,
+  selectedIndustriesId,
+  setSelectedIndustriesId,
+  isMultipleSelection = false,
+}: BottomModalSheetProps) => {
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop opacity={0.7} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
     []
