@@ -264,10 +264,7 @@ const createCustomer = () => {
                 const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || 'Select Category';
                 return (
                   <ListFormOption
-                    onPress={() => {
-                      categoryOnChangeRef.current = onChange; // 👈 Update ref on render
-                      select_category_modalRef.current?.expand();
-                    }}
+                    onPress={() => {}}
                     className="rounded-br-lg rounded-bl-lg border-b-0"
                     onBlur={onBlur}
                     value={CategoryText}
