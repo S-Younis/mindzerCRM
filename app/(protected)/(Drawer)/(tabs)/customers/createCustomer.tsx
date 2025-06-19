@@ -12,10 +12,19 @@ import SelectArea from '@/components/contactsPage/formSelectionsModals/SelectAre
 import SelectManager from '@/components/contactsPage/formSelectionsModals/SelectManager';
 import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus';
 import SelectCategory from '@/components/contactsPage/formSelectionsModals/SelectCategory';
-import { lst_customers_areas, lst_customers_industries, lst_customers_users, lst_customers_status, lst_customers_categories } from '@/constants/customers';
+import SelectERP from '@/components/contactsPage/formSelectionsModals/SelectERP';
+import {
+  lst_customers_areas,
+  lst_customers_industries,
+  lst_customers_users,
+  lst_customers_status,
+  lst_customers_categories,
+  lst_customers_erp,
+} from '@/constants/customers';
 import ListOptionSection from '@/components/shared/ListOptionSection';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
+import { useCustomerStore } from '@/stores/customer.store';
 
 const createCustomer = () => {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -35,12 +44,18 @@ const createCustomer = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
   const categoryOnChangeRef = useRef<(id: number) => void>(null);
 
+  const [selectedErpId, setSelectedErpId] = useState<number>(1);
+  const erpOnChangeRef = useRef<(id: number) => void>(null);
+
+  const xx = useCustomerStore(state => state.setSelectedCustomerId);
+
   // Modals Refs
   const select_industry_modalRef = useRef<BottomSheet>(null);
   const select_sArea_modalRef = useRef<BottomSheet>(null);
   const select_manager_modalRef = useRef<BottomSheet>(null);
   const select_status_modalRef = useRef<BottomSheet>(null);
   const select_category_modalRef = useRef<BottomSheet>(null);
+  const select_erp_modalRef = useRef<BottomSheet>(null);
 
   const { control, handleSubmit } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
@@ -52,7 +67,7 @@ const createCustomer = () => {
       iUserAppManagerId: 0,
       iStatusId: 1,
       iCategoryId: -1,
-      //   iGp_CustomerId_: null,
+      iGp_CustomerId_: null,
       //   sLicensor: '',
       //   sProcess: '',
       //   sCapacity: '',
@@ -259,17 +274,18 @@ const createCustomer = () => {
             />
             <Controller
               control={control}
-              name="iCategoryId"
+              name="iGp_CustomerId_"
               render={({ field: { onChange, onBlur, value } }) => {
-                const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || 'Select Category';
+                const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || '';
                 return (
                   <ListFormOption
-                    onPress={() => {}}
+                    onPress={() => {
+                      router.push('/customers/modals/erpSelectModal'); // Navigate to ERP Select Modal
+                    }}
                     className="rounded-br-lg rounded-bl-lg border-b-0"
                     onBlur={onBlur}
-                    value={CategoryText}
+                    value={CategoryText ? `[${CategoryText}]` : ''}
                     isReadOnly={true}
-                    isRequired
                     title="ERP Customer"
                     hasOpenIcon
                   />
@@ -281,7 +297,7 @@ const createCustomer = () => {
           <View>
             <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Contacts</Text>
             <ListOptionSection
-              title="Associated Contacts"
+              title="Related Contacts"
               icon={<MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
               onPress={() => router.push('customers/contacts/relatedContacts')}
             />
@@ -324,6 +340,13 @@ const createCustomer = () => {
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}
         categoryOnChangeFunc={id => categoryOnChangeRef.current?.(id)} // 👈 Execute stored function
+      />
+      <SelectERP
+        ref={select_erp_modalRef}
+        erp_lst={lst_customers_erp}
+        selectedErpId={selectedErpId}
+        setSelectedErpId={setSelectedErpId}
+        erpOnChangeFunc={id => erpOnChangeRef.current?.(id)} // 👈 Execute stored function
       />
     </>
   );

@@ -84,6 +84,15 @@ export default function Layout() {
           title: 'Opps',
         }}
       />
+
+      <Stack.Screen
+        name="modals/erpSelectModal"
+        options={{
+          presentation: 'modal',
+          title: '',
+          // animation: 'slide_from_bottom',
+        }}
+      />
     </Stack>
   );
 }

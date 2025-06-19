@@ -1,14 +1,23 @@
+import { useRef } from 'react';
 import { create } from 'zustand';
 
-interface CustomerStoreType {
+interface createCustomerStoreType {
+  selectedErpId: number | null;
+  setSelectedErpId: (id: number | null) => void;
+  erpOnChangeRef: React.RefObject<((id: number) => void) | null>;
+
   // importContact_Obj: Contacts.Contact | null;
   // setImportContact_Obj: (contactInfo: Contacts.Contact) => void;
   // sortByTitle: string;
   // setSortByTitle: (title: string) => void;
 }
 
-export const useCustomerStore = create<CustomerStoreType>()(
-  (set) => ({
+export const useCreateCustomerStore = create<createCustomerStoreType>()(
+  set => ({
+    selectedErpId: null,
+    setSelectedErpId: id => set(() => ({ selectedErpId: id })),
+    erpOnChangeRef: useRef<(id: number) => void>(null),
+
     // importContact_Obj: null,
     // setImportContact_Obj: (contactInfo) => set(() => ({ importContact_Obj: contactInfo })),
     // sortByTitle: 'None',

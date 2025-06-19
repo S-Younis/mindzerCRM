@@ -368,6 +368,17 @@ export const lst_customers_categories = [
   { iCategoryId: 102, sCategory: 'B' },
   { iCategoryId: 103, sCategory: 'C' },
 ];
+export const lst_customers_erp = [
+  // VALUE =>   oGp.value = `[${oGp.sCustomerId}] / ${oGp.sCustomer} / ${oGp.sCompany}`;
+  { iGpCustomerId: 1, sCustomerId: 'CUST001', sCustomer: 'daasd sxa', sCompany: 'ABC Corp', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 2, sCustomerId: 'CUST002', sCustomer: 'XYZ Enterprises', sCompany: 'XYZ Ent', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 3, sCustomerId: 'CUST003', sCustomer: 'Global Tech', sCompany: 'Global Tech', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 4, sCustomerId: 'CUST004', sCustomer: 'Sunrise Solutions', sCompany: 'Sunrise Sol', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 5, sCustomerId: 'CUST005', sCustomer: 'Oceanic Services', sCompany: 'Oceanic Srv', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 6, sCustomerId: 'CUST006', sCustomer: 'Mountain View Inc', sCompany: 'Mountain View', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 7, sCustomerId: 'CUST007', sCustomer: 'Silver Linings LLC', sCompany: 'Silver Linings', value: '[Cust001]/Dasdsadsa/xxxxx' },
+  { iGpCustomerId: 8, sCustomerId: 'CUST008', sCustomer: 'Golden Gate Partners', sCompany: 'Golden Gate', value: '[Cust001]/Dasdsadsa/xxxxx' },
+];
 export const lst_customers_areas = [
   { iAreaId: 201, sArea: 'North America' },
   { iAreaId: 202, sArea: 'Europe' },

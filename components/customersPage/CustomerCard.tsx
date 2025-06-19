@@ -18,7 +18,7 @@ export const CustomerCard = ({ sCustomer, sStatus, sCategory, sContactCount, sOp
         {/* <View className='  items-center pt-3 '>
                     <FontAwesome5 name="user" size={21} className='p-2 bg-gray-300 rounded-lg' color="black" />
                 </View> */}
-        <View className="gap-[10px] flex-grow ">
+        <View className="gap-[8px] flex-grow ">
           <View className="gap-2">
             <Text className="text-light text-sm font-bold">{sCustomer}</Text>
             <View style={{ height: 1 }} className="w-[90%] opacity-75  bg-gray-700"></View>

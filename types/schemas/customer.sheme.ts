@@ -8,11 +8,11 @@ export const FormSchema = z.object({
   iUserAppManagerId: z.number().int(),
   iStatusId: z.number().int().optional(),
   iCategoryId: z.number().int(),
+  iGp_CustomerId_: z.number().nullable().optional(),
   // sLicensor: z.string().optional(),
   // sProcess: z.string().optional(),
   // sCapacity: z.string().optional(),
   // sWebUrl: z.string().url({ message: 'Invalid URL format' }).optional(),
-  // iGp_CustomerId_: z.number().nullable().optional(),
 });
 
 export type FormDataType = z.infer<typeof FormSchema>;
