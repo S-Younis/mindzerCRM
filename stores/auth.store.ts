@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { createJSONStorage } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import expoSecureStorage from '@/configs/secureStorageAdapter';
+
 interface AuthType {
   token: string | null;
   user: { id: string; name: string; email: string } | null;
@@ -11,17 +13,17 @@ interface AuthType {
 }
 export const useAuthStore = create<AuthType>()(
   persist(
-    (set) => ({
+    set => ({
       token: null,
       user: null,
       isLoggedIn: false,
-      logIn: (user) => set(() => ({ isLoggedIn: true, user })),
+      logIn: user => set(() => ({ isLoggedIn: true, user })),
       logOut: () => set(() => ({ isLoggedIn: false, token: null, user: null })),
     }),
     {
       name: 'auth-store',
-      storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({
+      storage: createJSONStorage(() => expoSecureStorage),
+      partialize: state => ({
         user: state.user, // Only persist user data
         isLoggedIn: state.isLoggedIn, // Only persist login state
       }),
