@@ -30,7 +30,7 @@ export default function Layout() {
         name="createCustomer"
         options={{
           title: '',
-          presentation: 'fullScreenModal',
+          // presentation: 'fullScreenModal',
         }}
       />
       <Stack.Screen
@@ -73,7 +73,6 @@ export default function Layout() {
       <Stack.Screen
         name="contacts/[iContactId]"
         options={{
-          // presentation: '',
           title: '',
         }}
       />
@@ -88,9 +87,8 @@ export default function Layout() {
       <Stack.Screen
         name="modals/erpSelectModal"
         options={{
-          presentation: 'modal',
+          // presentation: 'modal',
           title: '',
-          // animation: 'slide_from_bottom',
         }}
       />
     </Stack>

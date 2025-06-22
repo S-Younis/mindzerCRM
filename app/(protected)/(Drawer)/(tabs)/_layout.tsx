@@ -10,18 +10,19 @@ export default function Layout() {
   const { colorScheme } = useColorScheme();
 
   return (
-    <Tabs screenOptions={{
-      tabBarActiveTintColor: colorScheme === 'dark' ? '#fafafa' : myLightTheme.colors.primary,
-      headerTitleAlign: 'center',
-      headerTitleStyle: { 'fontSize': 18, color: '#fafafa' },
-      headerStyle: {
-        backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
-      }, headerLeft: () => <DrawerToggle hasMargins />,
-    }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: colorScheme === 'dark' ? '#fafafa' : myLightTheme.colors.primary,
+        headerTitleAlign: 'center',
+        headerTitleStyle: { fontSize: 18, color: '#fafafa' },
+        headerStyle: {
+          backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
+        },
+        headerLeft: () => <DrawerToggle hasMargins />,
+      }}>
       <Tabs.Screen
         name="index"
         options={{
-          // animation: 'fade',
           title: 'Home',
           tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
@@ -50,7 +51,6 @@ export default function Layout() {
           headerShown: false,
           title: 'Customers',
           tabBarIcon: ({ color }) => <Feather name="users" size={22} color={color} />,
-          // tabBarButton: () => (  ),
         }}
       />
       <Tabs.Screen

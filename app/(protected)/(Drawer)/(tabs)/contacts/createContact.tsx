@@ -170,7 +170,7 @@ const createContact = () => {
               render={({ field: { onChange, onBlur, value } }) => {
                 return (
                   <ListFormOption
-                    className="rounded-tr-lg rounded-tl-lg "
+                    className="rounded-br-lg rounded-bl-lg border-b-0 "
                     onPress={() => {
                       bPrivateOnChangeRef.current = onChange; // 👈 Update ref on render
                       select_bPrivate_modalRef.current?.expand();
@@ -215,7 +215,7 @@ const createContact = () => {
                   value={value}
                   isReadOnly={false}
                   title="Mobile"
-                  className="rounded-br-lg rounded-bl-lg "
+                  className="rounded-br-lg rounded-bl-lg border-b-0 "
                 />
               )}
             />

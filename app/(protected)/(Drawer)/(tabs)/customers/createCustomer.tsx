@@ -1,5 +1,5 @@
 import { View, Text, Alert, ScrollView } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { router, Stack } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
@@ -12,7 +12,6 @@ import SelectArea from '@/components/contactsPage/formSelectionsModals/SelectAre
 import SelectManager from '@/components/contactsPage/formSelectionsModals/SelectManager';
 import SelectStatus from '@/components/contactsPage/formSelectionsModals/SelectStatus';
 import SelectCategory from '@/components/contactsPage/formSelectionsModals/SelectCategory';
-import SelectERP from '@/components/contactsPage/formSelectionsModals/SelectERP';
 import {
   lst_customers_areas,
   lst_customers_industries,
@@ -24,10 +23,10 @@ import {
 import ListOptionSection from '@/components/shared/ListOptionSection';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useColorScheme } from 'nativewind';
-import { useCustomerStore } from '@/stores/customer.store';
+import { useCreateCustomerStore } from '@/stores/customer.store';
 
 const createCustomer = () => {
-  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+  const { colorScheme } = useColorScheme();
 
   const [selectedIndustriesId, setSelectedIndustriesId] = useState<number[] | undefined>(undefined);
   const industryOnChangeRef = useRef<(ids: number[]) => void>(null);
@@ -44,10 +43,7 @@ const createCustomer = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
   const categoryOnChangeRef = useRef<(id: number) => void>(null);
 
-  const [selectedErpId, setSelectedErpId] = useState<number>(1);
-  const erpOnChangeRef = useRef<(id: number) => void>(null);
-
-  const xx = useCustomerStore(state => state.setSelectedCustomerId);
+  const { setErpOnChange, clearErpOnChange } = useCreateCustomerStore();
 
   // Modals Refs
   const select_industry_modalRef = useRef<BottomSheet>(null);
@@ -55,7 +51,6 @@ const createCustomer = () => {
   const select_manager_modalRef = useRef<BottomSheet>(null);
   const select_status_modalRef = useRef<BottomSheet>(null);
   const select_category_modalRef = useRef<BottomSheet>(null);
-  const select_erp_modalRef = useRef<BottomSheet>(null);
 
   const { control, handleSubmit } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
@@ -276,15 +271,24 @@ const createCustomer = () => {
               control={control}
               name="iGp_CustomerId_"
               render={({ field: { onChange, onBlur, value } }) => {
-                const CategoryText = lst_customers_categories.find(category => category.iCategoryId === value)?.sCategory || '';
+                const customerText = lst_customers_erp.find(customer => customer.iGpCustomerId === value)?.value || '';
+
+                // Update the store whenever onChange changes
+                useEffect(() => {
+                  setErpOnChange(onChange);
+                  return () => {
+                    // Clean up when component unmounts
+                    clearErpOnChange();
+                  };
+                }, [onChange]);
                 return (
                   <ListFormOption
                     onPress={() => {
-                      router.push('/customers/modals/erpSelectModal'); // Navigate to ERP Select Modal
+                      router.push('/customers/modals/erpSelectModal');
                     }}
                     className="rounded-br-lg rounded-bl-lg border-b-0"
                     onBlur={onBlur}
-                    value={CategoryText ? `[${CategoryText}]` : ''}
+                    value={customerText}
                     isReadOnly={true}
                     title="ERP Customer"
                     hasOpenIcon
@@ -340,13 +344,6 @@ const createCustomer = () => {
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}
         categoryOnChangeFunc={id => categoryOnChangeRef.current?.(id)} // 👈 Execute stored function
-      />
-      <SelectERP
-        ref={select_erp_modalRef}
-        erp_lst={lst_customers_erp}
-        selectedErpId={selectedErpId}
-        setSelectedErpId={setSelectedErpId}
-        erpOnChangeFunc={id => erpOnChangeRef.current?.(id)} // 👈 Execute stored function
       />
     </>
   );

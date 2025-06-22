@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, Pressable, Platform, Linking, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, RefreshControl, Platform, Linking, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useState } from 'react';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { contacts_lst } from '@/constants/contacts';
@@ -62,6 +62,7 @@ const ContactDetails = () => {
   const sFullNameArr = USER?.sFullName.split(' ') as string[];
   const sFirstName = sFullNameArr[0];
   const sLastName = sFullNameArr.length > 1 ? sFullNameArr[sFullNameArr.length - 1] : '';
+
   return (
     <>
       {/* Dynamic Stack Header  */}
