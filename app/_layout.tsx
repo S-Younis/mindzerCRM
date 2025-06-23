@@ -6,7 +6,10 @@ import Toast from 'react-native-toast-message';
 import { toastConfig } from '@/configs/toastConfigs';
 import useConfig from '@/hooks/useConfig';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+// Reactotron Dev Tools
+if (__DEV__) {
+  require('../ReactotronConfig');
+}
 export default function RootLayout() {
   const { themeProperties } = useConfig();
   const queryClient = new QueryClient();
