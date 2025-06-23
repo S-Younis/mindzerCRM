@@ -34,7 +34,7 @@ export default function customers() {
     }, 1200);
   }, []);
 
-  const handleListtOnEndReached = () => {
+  const handleListOnEndReached = () => {
     if (!hasMoreData) return;
     console.log('End reached');
   };
@@ -91,7 +91,7 @@ export default function customers() {
             )}
             ListFooterComponent={() => (hasMoreData && moreDataIsLoading ? <ActivityIndicator className="mb-4" size={'small'} /> : null)}
             onEndReachedThreshold={0.01}
-            onEndReached={handleListtOnEndReached}
+            onEndReached={handleListOnEndReached}
             keyExtractor={item => item.iCustomerId.toString()}
             estimatedItemSize={95}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

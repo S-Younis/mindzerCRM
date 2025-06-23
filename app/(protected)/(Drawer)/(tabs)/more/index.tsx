@@ -1,9 +1,9 @@
-import { ActionSheetIOS, ActivityIndicator, Platform, Text, View } from 'react-native';
+import { ActionSheetIOS, ActivityIndicator, Platform, SafeAreaView, Text, View } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import BottomModalSheet from '@/components/morePage/BottomModalSheet';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
 import { useEffect, useRef, useState } from 'react';
@@ -13,13 +13,12 @@ import Toast from 'react-native-toast-message';
 import ListOption from '@/components/shared/ListOption';
 import { ProfileHeaderCard } from '@/components/morePage/ProfileHeaderCard';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const logOut = useAuthStore((state) => state.logOut);
+  const logOut = useAuthStore(state => state.logOut);
 
   // Loading
   // const [showContent, setShowContent] = useState(false);
@@ -37,7 +36,6 @@ export default function App() {
   // End Loading
 
   const handleLogoutBTN = () => {
-
     // Use Native ActionSheet for ios only
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
@@ -58,50 +56,43 @@ export default function App() {
               position: 'top',
               visibilityTime: 1500,
               swipeable: true,
-            })
-
+            });
           }
-        });
+        }
+      );
     } else {
-      bottomSheetRef.current?.expand()
-
+      bottomSheetRef.current?.expand();
     }
-  }
+  };
 
   return (
-    <SafeAreaView className="flex-1 ">
-      <View className='px-5 flex-1 pt-5  '>
-
+    <SafeAreaView className="flex-1 mb-6">
+      <View className="px-5 flex-1 pt-5  ">
         <ProfileHeaderCard />
 
         <Text className="text-gray-400 text-xs  mt-4 mb-2 ml-2">General</Text>
 
         {/* General Options  */}
         <View className="flex">
-          <ListOption title='Edit Profile' className='rounded-tr-lg rounded-tl-lg'  >
+          <ListOption title="Edit Profile" className="rounded-tr-lg rounded-tl-lg">
             <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
           </ListOption>
 
-          <ListOption title='Theme Preference' className='rounded-br-lg rounded-bl-lg' onPress={() => router.push('/more/themeSettings')} >
+          <ListOption title="Theme Preference" className="rounded-br-lg rounded-bl-lg" onPress={() => router.push('/more/themeSettings')}>
             <Ionicons name="color-palette-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
           </ListOption>
-
         </View>
         {/* General Options  */}
 
-        <MindzerButton isTitleCentered variants='danger' onPress={handleLogoutBTN} className='mt-auto'>
-          <View className='max-w-5 max-h-5 flex-row items-center mr-2'>
+        <MindzerButton isTitleCentered variants="danger" onPress={handleLogoutBTN} className="mt-auto">
+          <View className="max-w-5 max-h-5 flex-row items-center mr-2">
             <AntDesign name="logout" size={16} color={'white'} />
           </View>
-          <Text className={`font-medium  text-light `}>
-            Logout
-          </Text>
+          <Text className={`font-medium  text-light `}>Logout</Text>
         </MindzerButton>
       </View>
       {/* Logout Modal  */}
       <BottomModalSheet ref={bottomSheetRef} />
-    </SafeAreaView >
-
-
+    </SafeAreaView>
   );
 }
