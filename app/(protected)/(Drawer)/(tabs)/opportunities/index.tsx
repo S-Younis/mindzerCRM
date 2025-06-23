@@ -12,11 +12,10 @@ import { myDarkTheme } from '@/configs/theme';
 import { router } from 'expo-router';
 import { useContactStore } from '@/stores/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
-import { CustomerCard } from '@/components/customersPage/CustomerCard';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
-import MindzerButton from '@/components/shared/MindzerButton';
+
 export default function customers() {
   // Refs
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -27,15 +26,15 @@ export default function customers() {
   const [refreshing, setRefreshing] = useState(false);
 
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['products'],
-    queryFn: async ({ pageParam = 1 }) => {
+    queryKey: ['posts'],
+    queryFn: async ({ pageParam = 0 }) => {
       await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
-      const response = await axios.get(`https://fakestoreapi.in/api/products?page=${pageParam}&limit=10`);
+      const response = await axios.get(`https://dummyjson.com/posts?limit=10&skip=${pageParam}`);
       return response.data;
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length == 0 || lastPage.length < 9 ? undefined : allPages.length + 1;
+      return lastPage.posts.length == 0 ? undefined : lastPage.skip + 10;
     },
   });
 
@@ -43,9 +42,10 @@ export default function customers() {
     console.log('Data fetched:', data);
   }, [data]);
 
-  // Flatten all products from all pages
-  const allProducts = data?.pages.flatMap(page => page.products) || [];
-  // console.log('All Products:', allProducts);
+  const totalPosts = data?.pages[0].total;
+  // Flatten all posts from all pages
+  const allPosts = data?.pages.flatMap(page => page.posts) || [];
+  // console.log('All posts:', allPosts);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -90,7 +90,7 @@ export default function customers() {
           className={`h-14 flex-row items-center justify-between border border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${
             colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'
           } border`}>
-          <Text className="text-md text-light  ">Opps ( {allProducts.length} ) </Text>
+          <Text className="text-md text-light  ">Opps ( {totalPosts} ) </Text>
           <Pressable
             onPress={() => router.push('/contacts/contactSortPage')}
             className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
@@ -102,19 +102,22 @@ export default function customers() {
         {
           <FlashList
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-            data={allProducts} // Flatten the array of pages
-            extraData={allProducts}
+            data={allPosts} // Flatten the array of pages
+            extraData={allPosts}
             renderItem={({ item }) => {
               return (
                 <View className="h-32 bg-gray-500 p-4 mx-6 rounded-lg gap-2 items-center justify-center">
-                  <Text className="text-blue-400 text-lg">{item.title}</Text>
+                  <Text className="text-blue-400 text-lg">{item.title} </Text>
+                  <Text className="text-blue-400 text-lg">
+                    {item.views} - {item.id}
+                  </Text>
                 </View>
               );
             }}
             ListFooterComponent={() => (isFetchingNextPage ? <ActivityIndicator className="mb-4 mt-2" size={'small'} /> : null)}
             onEndReachedThreshold={0.01}
             onEndReached={handleListOnEndReached}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.id.toString()}
             estimatedItemSize={95}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           />

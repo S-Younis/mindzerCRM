@@ -22,7 +22,7 @@ export default function Layout() {
       options={{
         title: 'Opportunities',
         headerLeft: () => <DrawerToggle />,
-        headerRight: () => <SearchIconModalButton onPress={() => router.push('/opportunities/opportunitiesSearch')} />,
+        headerRight: () => <SearchIconModalButton onPress={() => router.push('/opportunities/oppsSearch')} />,
       }} />
 
   </Stack>;
