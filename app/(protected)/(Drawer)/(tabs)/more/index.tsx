@@ -1,4 +1,4 @@
-import { ActionSheetIOS, ActivityIndicator, Platform, SafeAreaView, Text, View } from 'react-native';
+import { ActionSheetIOS, Platform, Text, View } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '@/components/shared/MindzerButton';
@@ -6,34 +6,23 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import BottomModalSheet from '@/components/morePage/BottomModalSheet';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { router } from 'expo-router';
 import { useAuthStore } from '@/stores/auth.store';
 import Toast from 'react-native-toast-message';
 import ListOption from '@/components/shared/ListOption';
 import { ProfileHeaderCard } from '@/components/morePage/ProfileHeaderCard';
-import { myDarkTheme, myLightTheme } from '@/configs/theme';
+// import { myDarkTheme, myLightTheme } from '@/configs/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
   const bottomSheetRef = useRef<BottomSheet>(null);
 
+  // get safe area insets for padding
+  const { bottom, top } = useSafeAreaInsets();
+
   const logOut = useAuthStore(state => state.logOut);
-
-  // Loading
-  // const [showContent, setShowContent] = useState(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowContent(true);
-  //   }, 300);
-  // }, []);
-
-  // if (!showContent) {
-  //   return <View className="flex-1 justify-center items-center">
-  //     <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : myLightTheme.colors.primary} />
-  //   </View>
-  // }
-  // End Loading
 
   const handleLogoutBTN = () => {
     // Use Native ActionSheet for ios only
@@ -66,7 +55,7 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView className="flex-1 mb-6">
+    <View className="flex-1  " style={{ paddingBottom: bottom, paddingTop: top }}>
       <View className="px-5 flex-1 pt-5  ">
         <ProfileHeaderCard />
 
@@ -78,7 +67,7 @@ export default function App() {
             <MaterialCommunityIcons name="account-edit-outline" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
           </ListOption>
 
-          <ListOption title="Theme Preference" className="rounded-br-lg rounded-bl-lg" onPress={() => router.push('/more/themeSettings')}>
+          <ListOption title="Theme Preference" className="rounded-br-lg rounded-bl-lg !border-b-0  " onPress={() => router.push('/more/themeSettings')}>
             <Ionicons name="color-palette-outline" size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
           </ListOption>
         </View>
@@ -93,6 +82,6 @@ export default function App() {
       </View>
       {/* Logout Modal  */}
       <BottomModalSheet ref={bottomSheetRef} />
-    </SafeAreaView>
+    </View>
   );
 }

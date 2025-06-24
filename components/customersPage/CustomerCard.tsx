@@ -1,4 +1,4 @@
-import { View, Text, PressableProps, Pressable } from 'react-native';
+import { View, Text, PressableProps, Pressable, StyleSheet } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
 type CustomerCardProps = PressableProps & {
@@ -21,7 +21,7 @@ export const CustomerCard = ({ sCustomer, sStatus, sCategory, sContactCount, sOp
         <View className="gap-[8px] flex-grow ">
           <View className="gap-2">
             <Text className="text-light text-sm font-bold">{sCustomer}</Text>
-            <View style={{ height: 1 }} className="w-[90%] opacity-75  bg-gray-700"></View>
+            <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, height: 1 }} className="w-[90%] opacity-75  bg-gray-700"></View>
           </View>
           <View className="gap-8 pl-[2px]  flex-row   ">
             <View className="gap-2">

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, PressableProps, TextInput } from 'react-native';
+import { View, Text, Pressable, PressableProps, TextInput , StyleSheet } from 'react-native';
 import React from 'react';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
@@ -32,8 +32,9 @@ const ListFormOption = ({
   return (
     <Pressable
       {...props}
-      className={`bg-[#161f2e] border-[#262f3a]  h-[66px]  px-4 border-b-[1px] flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
-      <View className={`flex-row items-center ${children? 'gap-[8px]' : 'gap-[4px]'} w-[100%] `}>
+      style={{ borderBottomWidth: StyleSheet.hairlineWidth }}
+      className={`bg-[#161f2e] border-[#262f3a]  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
+      <View className={`flex-row items-center ${children ? 'gap-[8px]' : 'gap-[4px]'} w-[100%] `}>
         <View className="w-fit">{children}</View>
         <Pressable
           onPress={isReadOnly ? props.onPress : () => textInputRef.current?.focus()}

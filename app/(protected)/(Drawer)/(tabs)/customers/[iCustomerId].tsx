@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRef, useState } from 'react';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { lst_customers, lst_customers_areas, lst_customers_users } from '@/constants/customers';

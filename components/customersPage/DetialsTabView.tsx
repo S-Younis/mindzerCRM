@@ -19,7 +19,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   return (
-    <View className="px-3 gap-6 mb-6">
+    <View className="px-4 gap-6 mb-6">
       <View>
         <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Customer Details</Text>
 
@@ -51,7 +51,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
           <MaterialCommunityIcons name="account-question" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
         </ListFormOption>
 
-        <ListFormOption title="Category" value={customerDetails?.sCategory} titleMarginLeft={4} className="rounded-br-lg rounded-bl-lg ">
+        <ListFormOption title="Category" value={customerDetails?.sCategory} titleMarginLeft={4}>
           <MaterialIcons name="type-specimen" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
         </ListFormOption>
         <ListFormOption title="ERP Customer" value={'[34e3]'} titleMarginLeft={4} className="rounded-br-lg rounded-bl-lg ">
@@ -65,6 +65,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
           title="Related Contacts"
           hasTag
           tagContent={21}
+          className="rounded-tr-lg rounded-tl-lg"
           icon={<MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
           onPress={() => router.push('customers/contacts/relatedContacts')}
         />
@@ -72,6 +73,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
           title="Related Opps"
           hasTag
           tagContent={424}
+          className="rounded-br-lg rounded-bl-lg border-b-0"
           icon={<MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
           onPress={() => router.push('customers/contacts/relatedContacts')}
         />

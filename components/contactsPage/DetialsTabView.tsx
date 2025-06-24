@@ -18,7 +18,7 @@ const DetialsTabView = ({ contactDetials, lstAreas }: DetialsTabViewProps) => {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   return (
-    <View className="px-3 gap-4 mb-6">
+    <View className="px-4 gap-4 mb-6">
       <View>
         <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Personal Details</Text>
 

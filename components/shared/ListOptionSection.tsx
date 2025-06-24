@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useColorScheme } from 'nativewind';
 import { PressableProps } from 'react-native';
@@ -15,7 +15,8 @@ const ListOptionSection = ({ title, hasTag, tagContent, icon, ...props }: ListOp
   return (
     <Pressable
       {...props}
-      className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b-0 flex-row justify-between gap-4 rounded-lg rounded-tl-lg active:opacity-70`}>
+      style={{ borderBottomWidth: StyleSheet.hairlineWidth }}
+      className={`bg-slate-200 dark:bg-[#161f2e] border-[#262f3a]  p-4 border-b flex-row justify-between gap-4  active:opacity-70 ${props.className}`}>
       <View className="flex-row items-center gap-2">
         {icon}
         <View className="flex-row gap-1" style={{ marginLeft: 4 }}>

@@ -38,7 +38,7 @@ const themeSettings = () => {
                 <ListOption title='Light' isChecked={colorScheme == 'light' && !isThemeSystem}  mode='checkbox' onPress={() => handleOptionPress('light')}  >
                 </ListOption>
 
-                <ListOption title='System' isChecked={isThemeSystem} className='rounded-br-lg rounded-bl-lg' mode='checkbox' onPress={() => handleOptionPress('system')}  >
+                <ListOption title='System' isChecked={isThemeSystem} className='rounded-br-lg rounded-bl-lg !border-b-0' mode='checkbox' onPress={() => handleOptionPress('system')}  >
                 </ListOption>
 
             </View>
