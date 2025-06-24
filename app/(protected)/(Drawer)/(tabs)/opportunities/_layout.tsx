@@ -8,22 +8,34 @@ import SearchIconModalButton from '@/components/shared/SearchIconModalButton';
 export default function Layout() {
   const { colorScheme } = useColorScheme();
 
-  return <Stack screenOptions={{
-    headerShown: true,
-    headerTitleAlign: 'center',
-    headerTitleStyle: { 'fontSize': 18, color: '#fafafa' },
-    headerTintColor: '#fafafa',
-    headerStyle: {
-      backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
-    },
-  }} >
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerTitleAlign: 'center',
+        headerTitleStyle: { fontSize: 18, color: '#fafafa' },
+        headerTintColor: '#fafafa',
+        headerStyle: {
+          backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
+        },
+      }}>
+      <Stack.Screen
+        name="index"
+        options={{
+          title: 'Opportunities',
+          headerLeft: () => <DrawerToggle />,
+          headerRight: () => <SearchIconModalButton onPress={() => router.push('/opportunities/oppsSearch')} />,
+        }}
+      />
 
-    <Stack.Screen name="index"
-      options={{
-        title: 'Opportunities',
-        headerLeft: () => <DrawerToggle />,
-        headerRight: () => <SearchIconModalButton onPress={() => router.push('/opportunities/oppsSearch')} />,
-      }} />
-
-  </Stack>;
+      <Stack.Screen
+        name="oppsSearch"
+        options={{
+          title: 'Search Opps',
+          presentation: 'modal',
+          animation: 'fade',
+        }}
+      />
+    </Stack>
+  );
 }

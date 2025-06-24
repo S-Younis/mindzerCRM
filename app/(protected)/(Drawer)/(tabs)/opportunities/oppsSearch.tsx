@@ -1,29 +1,29 @@
 import { View, Text, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { CustomInput } from '@/components/shared/CustomInput';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';
-import { ContactCard } from '@/components/contactsPage/ContactCard';
-import { contacts_lst } from '@/constants/contacts';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'redaxios';
+import { useDebounce } from '@/hooks/util/useDebounce';
 
+type res = {
+  posts: any[];
+  total: number;
+};
 const OppsSearch = () => {
   const [filterValue, setFilterValue] = useState('');
-  // const debouncedValue = useDebounce(filterValue, 300); // Debounce the input value to avoid excessive filtering
-  const [filteredContacts, setFilteredContacts] = useState<any[]>([]);
+  const debouncedValue = useDebounce(filterValue, 900); // Debounce the input value to avoid excessive filtering
 
-  useEffect(() => {
-    if (filterValue.trim() === '') {
-      setFilteredContacts([]);
-      return;
-    }
-    const temp = contacts_lst.filter(item => {
-      if (item.sFullName.toLowerCase().includes(filterValue.toLowerCase())) {
-        return item;
-      }
-    });
-    setFilteredContacts(temp);
-  }, [filterValue]);
+  const { data, isLoading } = useQuery<res>({
+    queryKey: ['posts', debouncedValue],
+    queryFn: async () => {
+      const res = await axios.get(`https://dummyjson.com/posts/search?q=${debouncedValue}`);
+      return res.data;
+    },
+    staleTime: 1000 * 60 * 3, // Time The data will be considered fresh (new , or updated ) till then it will not refetch and use the cache
+    enabled: !!debouncedValue,
+  });
 
   // on Page show input focus
   const textInputRef = React.useRef<TextInput>(null);
@@ -32,8 +32,8 @@ const OppsSearch = () => {
   }, []);
 
   return (
-    <SafeAreaView className="pt-2 flex-1  ">
-      <View className=" bg-red-200  pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ">
+    <View className=" flex-1  ">
+      <View className=" mt-2   pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b border-gray-900 ">
         <CustomInput
           ref={textInputRef}
           placeholder="Search"
@@ -47,28 +47,29 @@ const OppsSearch = () => {
         </Text>
       </View>
 
-      <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        ListHeaderComponent={() => (
-          <View className="px-6 mt-4 mb-2 h-5">
-            {filterValue && <Text className={` text-gray-500 dark:text-gray-300 text-sm `}>Result ( {filteredContacts.length} )</Text>}
-          </View>
-        )}
-        data={filteredContacts}
-        renderItem={({ item }) => (
-          <ContactCard
-            sFullName={item.sFullName}
-            sJobTitle={item.sJobTitle}
-            sEmail={item.sEmail}
-            onPress={() => {
-              router.push(`/opportunities/${item.iContactId}`);
-            }}
-          />
-        )}
-        keyExtractor={item => item.iContactId.toString()}
-        estimatedItemSize={80}
-      />
-    </SafeAreaView>
+      {data && (
+        <FlashList
+          extraData={data.posts}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          ListHeaderComponent={() => (
+            <View className="px-6 mt-4 mb-2 h-5">
+              <Text className={` text-gray-500 dark:text-gray-300 text-sm `}>Result ( {data.total} )</Text>
+            </View>
+          )}
+          data={data.posts}
+          renderItem={({ item }) => (
+            <View className="h-32 bg-gray-500 p-4 mx-6 rounded-lg gap-2 items-center justify-center">
+              <Text className="text-blue-400 text-lg">{item.title} </Text>
+              <Text className="text-blue-400 text-lg">
+                {item.views} - {item.id}
+              </Text>
+            </View>
+          )}
+          keyExtractor={item => item.id}
+          estimatedItemSize={80}
+        />
+      )}
+    </View>
   );
 };
 
