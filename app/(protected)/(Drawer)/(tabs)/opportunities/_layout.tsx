@@ -24,16 +24,7 @@ export default function Layout() {
         options={{
           title: 'Opportunities',
           headerLeft: () => <DrawerToggle />,
-          headerRight: () => <SearchIconModalButton onPress={() => router.push('/opportunities/oppsSearch')} />,
-        }}
-      />
-
-      <Stack.Screen
-        name="oppsSearch"
-        options={{
-          title: 'Search Opps',
-          presentation: 'modal',
-          animation: 'fade',
+          headerRight: () => <SearchIconModalButton onPress={() => router.push('/(modals)/search-modals/oppsSearch')} />,
         }}
       />
     </Stack>

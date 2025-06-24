@@ -1,19 +1,19 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { CustomInput } from '@/components/shared/CustomInput';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
 import { useDebounce } from '@/hooks/util/useDebounce';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 type res = {
   posts: any[];
   total: number;
 };
 const OppsSearch = () => {
   const [filterValue, setFilterValue] = useState('');
-  const debouncedValue = useDebounce(filterValue, 900); // Debounce the input value to avoid excessive filtering
+  const { debouncedValue, isDebouncing } = useDebounce(filterValue, 900); // Debounce the input value to avoid excessive filtering
 
   const { data, isLoading } = useQuery<res>({
     queryKey: ['posts', debouncedValue],
@@ -21,7 +21,7 @@ const OppsSearch = () => {
       const res = await axios.get(`https://dummyjson.com/posts/search?q=${debouncedValue}`);
       return res.data;
     },
-    staleTime: 1000 * 60 * 3, // Time The data will be considered fresh (new , or updated ) till then it will not refetch and use the cache
+    staleTime: 1000 * 20, // Time The data will be considered fresh (new , or updated ) till then it will not refetch and use the cache
     enabled: !!debouncedValue,
   });
 
@@ -32,8 +32,14 @@ const OppsSearch = () => {
   }, []);
 
   return (
-    <View className=" flex-1  ">
-      <View className=" mt-2   pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b border-gray-900 ">
+    <SafeAreaView className=" flex-1  ">
+      <Stack.Screen
+        options={{
+          animation: 'fade',
+          animationDuration: 300,
+        }}
+      />
+      <View className=" mt-2 pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b border-gray-900 ">
         <CustomInput
           ref={textInputRef}
           placeholder="Search"
@@ -47,7 +53,20 @@ const OppsSearch = () => {
         </Text>
       </View>
 
-      {data && (
+      {(isLoading || isDebouncing) && (
+        <View className="flex-1 mt-10 items-center gap-3">
+          <ActivityIndicator size="small" />
+          <Text className="text-gray-500 dark:text-gray-300">Loading</Text>
+        </View>
+      )}
+
+      {data?.total == 0 && !isLoading && !isDebouncing && filterValue.length > 0 && (
+        <View className="flex-1 mt-10 items-center gap-3">
+          <Text className="text-gray-500 dark:text-gray-300">No results found</Text>
+        </View>
+      )}
+
+      {data && data.total > 0 && !isDebouncing && filterValue && (
         <FlashList
           extraData={data.posts}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
@@ -69,7 +88,7 @@ const OppsSearch = () => {
           estimatedItemSize={80}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
