@@ -29,6 +29,12 @@ const ContactDetails = () => {
     }, 1200);
   };
 
+  const statusColors: any = {
+    active: 'bg-green-600',
+    project: 'bg-yellow-600',
+    inactive: 'bg-red-600',
+  };
+
   return (
     <>
       {/* Dynamic Stack Header  */}
@@ -55,7 +61,10 @@ const ContactDetails = () => {
             <Text className="text-light text-xl font-bold pl-[2px] ">{CUSTOMER?.sCustomer}</Text>
 
             <View className="flex-row items-center gap-2  mt-2 mr-auto ">
-              <View className="  bg-green-300 p-[4px] px-4  rounded-xl flex items-center justify-center">
+              <View
+                className={` ${
+                  CUSTOMER ? statusColors[CUSTOMER.sStatus.toLowerCase()] : 'bg-gray-400'
+                } p-[4px] px-4  rounded-xl flex items-center justify-center`}>
                 <Text>{CUSTOMER?.sStatus}</Text>
               </View>
               <Text className="text-gray-600 mr-1">|</Text>
