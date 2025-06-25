@@ -65,7 +65,7 @@ const ContactDetails = () => {
                 className={` ${
                   CUSTOMER ? statusColors[CUSTOMER.sStatus.toLowerCase()] : 'bg-gray-400'
                 } p-[4px] px-4  rounded-xl flex items-center justify-center`}>
-                <Text>{CUSTOMER?.sStatus}</Text>
+                <Text className="text-gray-300 ">{CUSTOMER?.sStatus}</Text>
               </View>
               <Text className="text-gray-600 mr-1">|</Text>
               <View className="flex-row items-center gap-1">

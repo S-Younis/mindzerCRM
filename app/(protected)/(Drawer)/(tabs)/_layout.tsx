@@ -24,6 +24,7 @@ export default function Layout() {
         name="index"
         options={{
           title: 'Home',
+          headerTitle: 'Dashboard',
           tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
       />
