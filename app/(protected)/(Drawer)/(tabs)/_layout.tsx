@@ -45,6 +45,14 @@ export default function Layout() {
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={22} color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="opps2"
+        options={{
+          headerShown: false,
+          title: 'Opps',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="handshake-outline" size={22} color={color} />,
+        }}
+      />
 
       <Tabs.Screen
         name="customers"

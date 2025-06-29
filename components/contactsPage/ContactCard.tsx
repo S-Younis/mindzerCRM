@@ -1,38 +1,67 @@
-import { View, Text, PressableProps, Pressable } from 'react-native';
+import { View, Text, PressableProps, Pressable, Linking, Platform, ActivityIndicator } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated, { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Feather from '@expo/vector-icons/Feather';
+import { useState } from 'react';
 
 type ContactCardProps = PressableProps & {
   sFullName: string;
   sJobTitle?: string;
   sEmail: string;
+  sPhoneBusiness: string;
+  isSwipable?: boolean;
 };
 
-function RightSwipeAction(prog: SharedValue<number>, drag: SharedValue<number>) {
-  const styleAnimation = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: drag.value + 50 }],
-    };
-  });
-  return (
-    <Reanimated.View style={styleAnimation}>
-      <View className="h-full w-[50px] pr-6 items-center justify-center">
-        <Pressable
-          onPress={() => {
-            console.log('Right action pressed');
-          }}
-          className="  items-center justify-center rounded-r-xl">
-          <Entypo name="trash" size={21} color="#ef4444" />
-        </Pressable>
-      </View>
-    </Reanimated.View>
-  );
-}
+export const ContactCard = ({ sFullName, sJobTitle, sEmail, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
+  const [callActionIsLoading, setCallActionIsLoading] = useState(false);
+  const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
 
-export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactCardProps) => {
   const FULL_NAME = sFullName.split(' ');
   const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
+
+  function RightSwipeAction(prog: SharedValue<number>, drag: SharedValue<number>) {
+    const styleAnimation = useAnimatedStyle(() => {
+      return {
+        transform: [{ translateX: drag.value + (sPhoneBusiness ? 90 : 50) }],
+      };
+    });
+    return (
+      <Reanimated.View style={styleAnimation}>
+        <View className={`h-full w-[${sPhoneBusiness ? '90px' : '50px'}] pr-6 flex-row gap-6 items-center justify-center`}>
+          <Pressable
+            className="flex-basis-1/2"
+            onPress={async () => {
+              setEmailActionIsLoading(true);
+              await Linking.openURL(`mailto:${sEmail}`);
+              setEmailActionIsLoading(false);
+            }}>
+            {emailActionIsLoading ? <ActivityIndicator size={'small'} className="text-white px-[1.5px] " /> : <Feather name="mail" size={23} color="#ca8a04" />}
+          </Pressable>
+          {sPhoneBusiness && (
+            <Pressable
+              onPress={async () => {
+                setCallActionIsLoading(true);
+                if (Platform.OS === 'android') {
+                  await Linking.openURL(`tel:${sPhoneBusiness}`);
+                  setCallActionIsLoading(false);
+                  return;
+                }
+                await Linking.openURL(`telprompt:${sPhoneBusiness}`);
+                setCallActionIsLoading(false);
+              }}>
+              {callActionIsLoading ? (
+                <ActivityIndicator size={'small'} className="text-white px-[1.5px] " />
+              ) : (
+                <Ionicons name="call-outline" size={23} color="green" />
+              )}
+            </Pressable>
+          )}
+        </View>
+      </Reanimated.View>
+    );
+  }
 
   return (
     <>
@@ -40,8 +69,8 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, ...props }: ContactC
         friction={2}
         enableTrackpadTwoFingerGesture
         leftThreshold={30}
-        rightThreshold={50}
-        enabled={true}
+        rightThreshold={30}
+        enabled={isSwipable}
         renderRightActions={RightSwipeAction}>
         <Pressable
           onPress={props.onPress}

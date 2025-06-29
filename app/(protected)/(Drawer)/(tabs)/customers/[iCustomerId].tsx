@@ -22,6 +22,7 @@ const ContactDetails = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedTabIndx, setSelectedTabIndx] = useState(0);
 
+  const [isEditingComment, setIsEditingComment] = useState(false);
   const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
@@ -43,6 +44,29 @@ const ContactDetails = () => {
           options={{
             headerRight: () => (
               <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => router.push(`/customers/editCustomer/${iCustomerId}`)} />
+            ),
+          }}
+        />
+      )}
+      {CUSTOMER?.bEdit && selectedTabIndx == 1 && (
+        <Stack.Screen
+          options={{
+            headerRight: () => (
+              <View className="w-20   flex-row justify-end items-center mr-14">
+                {isEditingComment ? (
+                  <Text className={` text-blue-400 text-lg h-full`} onPress={() => setIsEditingComment(prev => !prev)}>
+                    Done
+                  </Text>
+                ) : (
+                  <MaterialCommunityIcons
+                    className=""
+                    name="circle-edit-outline"
+                    size={22}
+                    color="#f8f8f8"
+                    onPress={() => setIsEditingComment(prev => !prev)}
+                  />
+                )}
+              </View>
             ),
           }}
         />
@@ -92,7 +116,7 @@ const ContactDetails = () => {
 
         {selectedTabIndx === 0 && <DetialsTabView customerDetails={CUSTOMER} lstAreas={lst_customers_areas} lstManagers={lst_customers_users} />}
 
-        {selectedTabIndx === 1 && <CustomerCommentsTabView />}
+        {selectedTabIndx === 1 && <CustomerCommentsTabView isEditingComment={isEditingComment} />}
       </ScrollView>
 
       {/* Floating Action Button */}

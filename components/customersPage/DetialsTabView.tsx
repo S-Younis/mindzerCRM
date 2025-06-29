@@ -75,7 +75,7 @@ const DetialsTabView = ({ customerDetails, lstAreas, lstManagers }: DetialsTabVi
           tagContent={424}
           className="rounded-br-lg rounded-bl-lg border-b-0"
           icon={<MaterialCommunityIcons name="handshake" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
-          onPress={() => router.push('customers/contacts/relatedContacts')}
+          onPress={() => router.push('customers/opps/relatedOpps')}
         />
       </View>
       {/* CTA Options */}

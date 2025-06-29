@@ -95,20 +95,24 @@ const ContactDetails = () => {
               <MaterialCommunityIcons name="content-copy" size={14} color="#f8f8f8" onPress={handleEamilOnClick} />
             </View>
             <View className="flex-row items-center gap-2  mt-2 mr-auto ">
-              <View className="  bg-green-300 p-[4px] px-4  rounded-xl flex items-center justify-center">
-                <Text>{USER?.sActive ? 'Active' : 'Inactive'}</Text>
+              <View className="  bg-green-500 p-[4px] px-4  rounded-xl flex items-center justify-center">
+                <Text className="text-light">{USER?.sActive ? 'Active' : 'Inactive'}</Text>
               </View>
               <Text className="text-gray-600 mr-2 ">|</Text>
               <View className="flex-row gap-[12px]">
                 <TouchableOpacity
                   onPress={() => handleContactActions('phone')}
-                  className=" bg-gray-300 rounded-full w-[35px] h-[35px]   flex items-center justify-center">
-                  {callActionIsLoading ? <ActivityIndicator size={'small'} className="text-black " /> : <Feather name="phone-call" size={16} color={'black'} />}
+                  className=" bg-gray-700  rounded-full w-[35px] h-[35px]   flex items-center justify-center">
+                  {callActionIsLoading ? (
+                    <ActivityIndicator size={'small'} className="text-white " />
+                  ) : (
+                    <Feather name="phone-call" size={16} color={'#16a34a'} />
+                  )}
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleContactActions('email')}
-                  className=" bg-gray-300 rounded-full w-[35px] h-[35px]   flex items-center justify-center">
-                  {emailActionIsLoading ? <ActivityIndicator size={'small'} className="text-black " /> : <Feather name="mail" size={16} color={'black'} />}
+                  className=" bg-gray-700 rounded-full w-[35px] h-[35px]   flex items-center justify-center">
+                  {emailActionIsLoading ? <ActivityIndicator size={'small'} className="text-white " /> : <Feather name="mail" size={16} color={'#ca8a04'} />}
                 </TouchableOpacity>
               </View>
             </View>

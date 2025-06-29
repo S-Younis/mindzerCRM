@@ -55,7 +55,7 @@ export default function App() {
   };
 
   return (
-    <View className="flex-1  " style={{ paddingBottom: bottom, paddingTop: top }}>
+    <View className="flex-1" style={{ paddingBottom: bottom-10, paddingTop: top+4 }}>
       <View className="px-5 flex-1 pt-5  ">
         <ProfileHeaderCard />
 

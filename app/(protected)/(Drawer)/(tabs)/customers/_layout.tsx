@@ -64,8 +64,8 @@ export default function Layout() {
       <Stack.Screen
         name="contacts/relatedContacts"
         options={{
-          presentation: 'modal',
-          title: 'Related Contacts',
+          // presentation: 'modal',
+          title: '',
         }}
       />
 
@@ -76,10 +76,10 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name="relatedOpps"
+        name="opps/relatedOpps"
         options={{
-          presentation: 'modal',
-          title: 'Opps',
+          // presentation: 'modal',
+          title: '',
         }}
       />
 

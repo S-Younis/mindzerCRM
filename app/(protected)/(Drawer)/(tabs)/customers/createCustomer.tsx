@@ -299,8 +299,9 @@ const createCustomer = () => {
           </View>
           {/* Contats Section  */}
           <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Contacts</Text>
+            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3  ">Contacts</Text>
             <ListOptionSection
+              className="rounded-xl"
               title="Related Contacts"
               icon={<MaterialCommunityIcons name="account-multiple" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
               onPress={() => router.push('customers/contacts/relatedContacts')}

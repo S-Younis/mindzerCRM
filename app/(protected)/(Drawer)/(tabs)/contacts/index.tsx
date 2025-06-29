@@ -13,13 +13,14 @@ import { myDarkTheme } from '@/configs/theme';
 import { router } from 'expo-router';
 import { useContactStore } from '@/stores/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import Animated, { FadeIn, LinearTransition } from 'react-native-reanimated';
 
 export default function contacts() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { colorScheme } = useColorScheme();
   const [refreshing, setRefreshing] = useState(false);
 
+  const AnimatedComponent = Animated.createAnimatedComponent(FlashList);
   const sortByTitle = useContactStore(state => state.sortByTitle);
 
   const onRefresh = useCallback(() => {
@@ -60,7 +61,6 @@ export default function contacts() {
           <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`} </Text>
         </Pressable>
       </View>
-
       {contacts_lst.length > 0 && (
         <FlashList
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
@@ -74,6 +74,7 @@ export default function contacts() {
               sFullName={item.sFullName}
               sJobTitle={item.sJobTitle}
               sEmail={item.sEmail}
+              sPhoneBusiness={item.sPhoneBusiness}
             />
           )}
           keyExtractor={item => item.iContactId.toString()}
