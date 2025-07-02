@@ -50,13 +50,13 @@ export default function Layout() {
           title: '',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="createContact"
         options={{
           presentation: 'fullScreenModal',
           // Screens Options Are Defined in the component itself
         }}
-      />
+      /> */}
       <Stack.Screen
         name="importContactPage"
         options={{
@@ -65,14 +65,14 @@ export default function Layout() {
           // Screens Options Are Defined in the component itself
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="editContact/[iContactId]"
         options={{
           presentation: 'modal',
           title: '',
           // animation: 'slide_from_bottom',
         }}
-      />
+      /> */}
     </Stack>
   );
 }

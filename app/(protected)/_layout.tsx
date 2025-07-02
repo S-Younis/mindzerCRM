@@ -30,10 +30,17 @@ export default function _layout() {
     return <Redirect href="/login" />;
   }
 
-  // User is Authenticated
+  // User is Authenticated : 
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(Drawer)" />
+      <Stack.Screen
+        name="(modals)"
+        options={{
+          gestureEnabled: false, // Disable swipe to dismiss (IOS)
+          presentation: 'modal',
+        }}
+      />
     </Stack>
   );
 }

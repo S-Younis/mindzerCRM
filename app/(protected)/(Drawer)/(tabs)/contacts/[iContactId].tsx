@@ -70,7 +70,7 @@ const ContactDetails = () => {
         <Stack.Screen
           options={{
             headerRight: () => (
-              <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => router.push(`/contacts/editContact/${iContactId}`)} />
+              <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => router.push(`/(modals)/contacts/editContact/${iContactId}`)} />
             ),
           }}
         />

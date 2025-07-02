@@ -1,24 +1,24 @@
-import { Text } from "react-native";
+import { Text } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
-import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
-import { useCallback } from "react";
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { useCallback } from 'react';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import MindzerButton from "../shared/MindzerButton";
-import { router } from "expo-router";
-import { useColorScheme } from "nativewind";
-import { myDarkTheme } from "@/configs/theme";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
-
+import MindzerButton from '../shared/MindzerButton';
+import { router } from 'expo-router';
+import { useColorScheme } from 'nativewind';
+import { myDarkTheme } from '@/configs/theme';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type BottomModalSheetProps = {
-  ref?: React.RefObject<BottomSheetMethods | null>
-}
+  ref?: React.RefObject<BottomSheetMethods | null>;
+};
 
-const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
-
-  const renderBackdrop = useCallback((props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop opacity={0.7} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, [])
+const BottomModalSheet = ({ ref }: BottomModalSheetProps) => {
+  const renderBackdrop = useCallback(
+    (props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop opacity={0.7} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
+    []
+  );
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
     overshootClamping: true,
@@ -30,16 +30,15 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   const showCreateContact = () => {
-    router.push('/contacts/createContact');
+    router.navigate('/(modals)/contacts/createContact');
     // dismiss the bottom sheet
-    ref?.current?.close()
-  }
+    ref?.current?.close();
+  };
 
   const showImportPage = () => {
     router.push('/contacts/importContactPage');
-    // dismiss the bottom sheet
-    ref?.current?.close()
-  }
+    ref?.current?.close();
+  };
 
   return (
     <BottomSheet
@@ -49,31 +48,22 @@ const BottomModalSheet = (({ ref }: BottomModalSheetProps) => {
       index={-1}
       animationConfigs={animationConfigs}
       backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
-      handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}
-    >
-      <BottomSheetView className="flex gap-4 p-4   " >
-
-        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showCreateContact}  >
+      handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}>
+      <BottomSheetView className="flex gap-4 p-4   ">
+        <MindzerButton isTitleCentered variants="primary" className="w-full" onPress={showCreateContact}>
           <AntDesign name="adduser" size={18} color="white" className="mr-2" />
-          <Text className={`font-medium text-white   `}>
-            Create New Contact
-          </Text>
+          <Text className={`font-medium text-white   `}>Create New Contact</Text>
         </MindzerButton>
-        <MindzerButton isTitleCentered variants='primary' className="w-full" onPress={showImportPage}  >
+        <MindzerButton isTitleCentered variants="primary" className="w-full" onPress={showImportPage}>
           <MaterialCommunityIcons name="import" size={19} className="mr-2" color="white" />
-          <Text className={`font-medium text-white   `}>
-            Import from Phone Contacts
-          </Text>
+          <Text className={`font-medium text-white   `}>Import from Phone Contacts</Text>
         </MindzerButton>
-        <MindzerButton isTitleCentered variants='secondary' className="w-full " onPress={() => ref?.current?.close()}   >
-          <Text className={`font-medium  text-gray-200 `}>
-            Cancel
-          </Text>
+        <MindzerButton isTitleCentered variants="secondary" className="w-full " onPress={() => ref?.current?.close()}>
+          <Text className={`font-medium  text-gray-200 `}>Cancel</Text>
         </MindzerButton>
       </BottomSheetView>
     </BottomSheet>
   );
-}
-);
+};
 
 export default BottomModalSheet;

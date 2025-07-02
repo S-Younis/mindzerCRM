@@ -4,7 +4,7 @@ import { contacts_lst } from '@/constants/contacts';
 import { router, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import Animated, { FadeInUp, FadeOutDown, LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 
@@ -58,6 +58,24 @@ const RelatedContacts = () => {
     );
   };
 
+  const handleAddContact = () => {
+    Alert.alert('Add Contact', 'How you like to add the contact ? ', [
+      {
+        text: 'Create Manually ',
+        onPress: () => router.push('/(modals)/contacts/createContact'),
+      },
+      {
+        text: 'Add from Contacts',
+        onPress: () => console.log('Ask me later pressed'),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Ask me later pressed'),
+        style: 'cancel',
+      },
+    ]);
+  };
+
   return (
     <View className="flex-1">
       <Stack.Screen
@@ -69,7 +87,9 @@ const RelatedContacts = () => {
               <Text className="text-blue-400 text-lg h-full" onPress={() => setIsEditingContact(prev => !prev)}>
                 {isEditingContact ? 'Done' : 'Edit'}
               </Text>
-              <Text className="text-blue-400 text-lg h-full">Add</Text>
+              <Text className="text-blue-400 text-lg h-full" onPress={handleAddContact}>
+                Add
+              </Text>
             </View>
           ),
         }}
@@ -81,7 +101,7 @@ const RelatedContacts = () => {
           data={contactsData}
           itemLayoutAnimation={LinearTransition}
           renderItem={({ item, index }) => (
-            <Animated.View entering={FadeInUp} exiting={FadeOutDown} className="flex-row items-center  relative ">
+            <Animated.View className="flex-row items-center  relative ">
               <AnimatedTouchableOpacity
                 disabled={!item.bEdit}
                 style={animatedDeleteIcon}

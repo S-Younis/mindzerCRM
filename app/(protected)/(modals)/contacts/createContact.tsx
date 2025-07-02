@@ -110,7 +110,8 @@ const createContact = () => {
       <Stack.Screen
         options={{
           title: 'Create Contact',
-          headerStyle: { backgroundColor: '#161f2e' },
+          headerTitleAlign: 'center',
+          // headerStyle: { backgroundColor: '#161f2e' },
           headerLeft: () => (
             <Text className="text-blue-400 text-xl" onPress={handleCancelBTN}>
               Cancel
