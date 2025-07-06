@@ -1,4 +1,4 @@
-import { Camera, CameraView } from 'expo-camera';
+import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Linking, Pressable, StyleSheet, View, Text } from 'react-native';
@@ -13,25 +13,75 @@ export default function CameraScan() {
   const { imgSelected } = useLocalSearchParams<{ imgSelected: string }>();
 
   const [uri, setUri] = useState<string>(imgSelected || '');
+  // const { status } = await Camera.getCameraPermissionsAsync();
+  const [permission] = useCameraPermissions();
 
   useEffect(() => {
-    const handleCameraPermissions = async () => {
-      const { status } = await Camera.getCameraPermissionsAsync();
+    console.log('Camera permission status:', permission?.status);
+    // const handleCameraPermissions = async () => {
+    //   // const { status } = await Camera.getCameraPermissionsAsync();
 
-      if (status != 'granted') {
-        Alert.alert('Permission Required', 'Camera access is needed to use this feature . Go to the settings to enable it.', [
-          { text: 'Cancel', onPress: () => router.back() },
+    //   if (permission?.status === 'undetermined') {
+    //     console.log('Camera permission undetermined');
+    //     await Camera.requestCameraPermissionsAsync();
+    //     // Re-check the permission status after requesting
+    //     const updatedPermission = await Camera.getCameraPermissionsAsync();
+    //     console.log('Updated camera permission status:', updatedPermission?.status);
+    //     if (updatedPermission?.status !== 'granted') {
+    //       router.back();
+    //     }
+    //   }
+
+    //   if (permission?.status == 'denied') {
+    //     console.warn('Camera permission denied');
+    //     Alert.alert('Permission Required', 'Camera access is needed to use this feature . Click to enable it. or go to settings ', [
+    //       { text: 'Cancel', onPress: () => router.back() },
+    //       {
+    //         text: 'Request Permission',
+    //         onPress: async () => {
+    //           await Camera.requestCameraPermissionsAsync();
+    //           // Linking.openSettings();
+    //         },
+    //       },
+    //     ]);
+    //   }
+    // };
+
+    const handleCameraPermissions = async () => {
+      const { status, canAskAgain } = await Camera.requestCameraPermissionsAsync();
+
+      if (status === 'granted') {
+        // Permission granted - proceed with camera access
+        return true;
+      }
+
+      if (canAskAgain) {
+        // Show custom explanation before requesting again
+        Alert.alert('Camera Access Needed', 'We need camera access to scan documents', [
+          { text: 'Not Now', onPress: () => router.back() },
           {
-            text: 'Open Settings',
-            onPress: () => {
-              Linking.openSettings();
+            text: 'Allow',
+            onPress: async () => {
+              const { status } = await Camera.requestCameraPermissionsAsync();
+              if (status === 'granted') {
+                // Permission granted - proceed with camera access
+                return true;
+              }
             },
           },
+        ]);
+      } else {
+        // Permission permanently denied - direct to settings
+        Alert.alert('Permission Required', 'Please enable camera access in settings', [
+          { text: 'Cancel', onPress: () => router.back() },
+          { text: 'Open Settings', onPress: () => Linking.openSettings() },
         ]);
       }
     };
     if (!imgSelected) {
-      handleCameraPermissions();
+      setTimeout(() => {
+        handleCameraPermissions();
+      }, 400); // Delay to ensure camera is ready
     }
   }, []);
 
@@ -51,7 +101,7 @@ export default function CameraScan() {
               <FontAwesome6 name="rotate-left" size={20} color="white" />
             </Pressable>
           )}
-          <MindzerButton variants={'primary'} className="w-52 mt-4 self-center ">
+          <MindzerButton variants={'primary'} className="w-52 mt-4 self-center " onPress={handleImgSubmit}>
             <Text className="text-light mx-auto ">Continue</Text>
           </MindzerButton>
         </View>
@@ -88,6 +138,26 @@ export default function CameraScan() {
     );
   };
 
+  const handleImgSubmit = async () => {
+    const formdata = new FormData();
+    // Helper function to convert URI to Blob
+    const uriToBlob = async (uri: string) => {
+      const response = await fetch(uri);
+      return await response.blob();
+    };
+
+    const blob = await uriToBlob(uri);
+    formdata.append('image', blob);
+
+    await fetch('https://httpbin.org/anything', {
+      method: 'POST',
+      body: formdata,
+      // headers: {
+      //   apikey: 'YOUR_API_KEY',
+      // },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -97,6 +167,7 @@ export default function CameraScan() {
               Cancel
             </Text>
           ),
+          headerTitleAlign: 'center',
           headerTitle: 'Scan Business Card',
         }}
       />

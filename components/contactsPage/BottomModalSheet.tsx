@@ -75,6 +75,7 @@ const BottomModalSheet = ({ ref }: BottomModalSheetProps) => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      console.log('Image selected:', result.assets[0].uri);
       router.push(`/(modals)/contacts/scan-business-card?imgSelected=${result.assets[0].uri}`);
     }
   };
