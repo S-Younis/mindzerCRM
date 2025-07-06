@@ -48,7 +48,7 @@ export default function contacts() {
   // End Loading
 
   return (
-    <Animated.View entering={FadeIn.duration(200)} className="flex-1 ">
+    <Animated.View entering={FadeIn.duration(300)} className="flex-1 ">
       <View
         className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${
           colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'

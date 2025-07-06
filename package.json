@@ -45,7 +45,9 @@
     "sonner-native": "^0.21.0",
     "tailwindcss": "3.4.17",
     "zod": "^3.25.28",
-    "zustand": "^5.0.5"
+    "zustand": "^5.0.5",
+    "expo-camera": "~16.1.10",
+    "expo-image-picker": "~16.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

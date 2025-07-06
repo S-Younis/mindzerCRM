@@ -35,8 +35,8 @@ const contactsSearch = () => {
 
     return (
         <SafeAreaView className='pt-2 flex-1 ' >
-            <View className='  pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ' >
-                <CustomInput ref={textInputRef} placeholder='Search' value={filterValue} containerClassName=' pl-4 pr-2 flex-1' onChangeText={(value) => setFilterValue(value)} clearButtonMode='while-editing' />
+            <View className='mt-4 pb-3 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ' >
+                <CustomInput ref={textInputRef} placeholder='Search' value={filterValue} containerClassName='py-[1px] pl-4 pr-2 flex-1' onChangeText={(value) => setFilterValue(value)} clearButtonMode='while-editing' />
                 <Text onPress={() => router.back()} className='text-blue-600  dark:text-blue-400 text-[16px] '>Cancel</Text>
             </View>
 
