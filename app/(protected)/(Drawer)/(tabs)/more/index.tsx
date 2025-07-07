@@ -14,6 +14,7 @@ import ListOption from '@/components/shared/ListOption';
 import { ProfileHeaderCard } from '@/components/morePage/ProfileHeaderCard';
 // import { myDarkTheme, myLightTheme } from '@/configs/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -55,7 +56,7 @@ export default function App() {
   };
 
   return (
-    <View className="flex-1" style={{ paddingBottom: bottom-10, paddingTop: top+4 }}>
+    <View className="flex-1" style={{ paddingBottom: bottom - 10, paddingTop: top + 4 }}>
       <View className="px-5 flex-1 pt-5  ">
         <ProfileHeaderCard />
 
@@ -73,12 +74,14 @@ export default function App() {
         </View>
         {/* General Options  */}
 
-        <MindzerButton isTitleCentered variants="danger" onPress={handleLogoutBTN} className="mt-auto">
-          <View className="max-w-5 max-h-5 flex-row items-center mr-2">
-            <AntDesign name="logout" size={16} color={'white'} />
-          </View>
-          <Text className={`font-medium  text-light `}>Logout</Text>
-        </MindzerButton>
+        <Animated.View entering={FadeIn} className="mt-auto">
+          <MindzerButton isTitleCentered variants="danger" onPress={handleLogoutBTN}>
+            <View className="max-w-5 max-h-5 flex-row items-center mr-2">
+              <AntDesign name="logout" size={16} color={'white'} />
+            </View>
+            <Text className={`font-medium  text-light `}>Logout</Text>
+          </MindzerButton>
+        </Animated.View>
       </View>
       {/* Logout Modal  */}
       <BottomModalSheet ref={bottomSheetRef} />

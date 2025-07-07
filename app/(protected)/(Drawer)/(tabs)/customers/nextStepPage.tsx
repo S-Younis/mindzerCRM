@@ -22,11 +22,11 @@ const nextStepPage = () => {
       {true && (
         <Stack.Screen
           options={{
-            headerLeft: () => (
-              <Text onPress={() => router.back()} className="text-blue-600  dark:text-blue-400 text-[16px] ">
-                Cancel
-              </Text>
-            ),
+            // headerLeft: () => (
+            //   <Text onPress={() => router.back()} className="text-blue-600  dark:text-blue-400 text-[16px] ">
+            //     Cancel
+            //   </Text>
+            // ),
             headerRight: () => (isEditing ? null : <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => setIsEditing(true)} />),
           }}
         />

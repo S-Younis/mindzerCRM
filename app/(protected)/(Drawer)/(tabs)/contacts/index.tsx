@@ -6,14 +6,16 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { myLightTheme } from '@/configs/theme';
 import { ContactCard } from '@/components/contactsPage/ContactCard';
 import { FlashList } from '@shopify/flash-list';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { contacts_lst } from '@/constants/contacts';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useContactStore } from '@/stores/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { DrawerToggle } from '@/components/shared/DrawerToggle';
+import SearchIconModalButton from '@/components/shared/SearchIconModalButton';
 
 export default function contacts() {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -47,65 +49,81 @@ export default function contacts() {
   // End Loading
 
   return (
-    <Animated.View entering={FadeIn.duration(300)} className="flex-1 ">
-      <View
-        className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${
-          colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'
-        } border`}>
-        <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
-        <Pressable
-          onPress={() => router.push('/(modals)/contacts/contactSortPage')}
-          className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
-          <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-          <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`} </Text>
-        </Pressable>
-      </View>
-      {contacts_lst.length > 0 && (
-        <FlashList
-          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          data={contacts_lst}
-          renderItem={({ item, index }) => (
-            <ContactCard
-              onPress={() => {
-                router.push(`/contacts/${item.iContactId}`);
-              }}
-              className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`}
-              sFullName={item.sFullName}
-              sJobTitle={item.sJobTitle}
-              sEmail={item.sEmail}
-              sPhoneBusiness={item.sPhoneBusiness}
-            />
-          )}
-          keyExtractor={item => item.iContactId.toString()}
-          estimatedItemSize={80}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        />
-      )}
-      {contacts_lst.length == 0 && (
-        <View className="flex-1 justify-center items-center p-8 gap-4">
-          <SVGComponent />
-          <Text className="text-md text-center mb-4 adaptive-text">No Contacts</Text>
-        </View>
-      )}
-
-      {/* Floating Action Button */}
-      <TouchableOpacity
-        className="shadow-md"
-        style={{
-          position: 'absolute',
-          bottom: 20,
-          right: 24,
-          backgroundColor: myLightTheme.colors.primary,
-          width: 56,
-          height: 56,
-          borderRadius: 30,
-          justifyContent: 'center',
-          alignItems: 'center',
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Contacts',
+          headerLeft: () => <DrawerToggle />,
+          headerRight: () => (
+            <View className="flex-row items-center gap-4">
+              <TouchableOpacity className="focus:opacity-80" onPress={() => router.push('/contacts/contactsTemplate')}>
+                <MaterialCommunityIcons name="puzzle-edit-outline" size={23} color={'#fafafa'} />
+              </TouchableOpacity>
+              <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />
+            </View>
+          ),
         }}
-        onPress={() => bottomSheetRef.current?.expand()}>
-        <Feather name="plus" size={24} color="white" />
-      </TouchableOpacity>
-      <BottomModalSheet ref={bottomSheetRef} />
-    </Animated.View>
+      />
+      <Animated.View entering={FadeIn.duration(300)} className="flex-1 ">
+        <View
+          className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${
+            colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'
+          } border`}>
+          <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
+          <Pressable
+            onPress={() => router.push('/(modals)/contacts/contactSortPage')}
+            className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
+            <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
+            <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`} </Text>
+          </Pressable>
+        </View>
+        {contacts_lst.length > 0 && (
+          <FlashList
+            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            data={contacts_lst}
+            renderItem={({ item, index }) => (
+              <ContactCard
+                onPress={() => {
+                  router.push(`/contacts/${item.iContactId}`);
+                }}
+                className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`}
+                sFullName={item.sFullName}
+                sJobTitle={item.sJobTitle}
+                sEmail={item.sEmail}
+                sPhoneBusiness={item.sPhoneBusiness}
+              />
+            )}
+            keyExtractor={item => item.iContactId.toString()}
+            estimatedItemSize={80}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          />
+        )}
+        {contacts_lst.length == 0 && (
+          <View className="flex-1 justify-center items-center p-8 gap-4">
+            <SVGComponent />
+            <Text className="text-md text-center mb-4 adaptive-text">No Contacts</Text>
+          </View>
+        )}
+
+        {/* Floating Action Button */}
+        <TouchableOpacity
+          className="shadow-md"
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 24,
+            backgroundColor: myLightTheme.colors.primary,
+            width: 56,
+            height: 56,
+            borderRadius: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => bottomSheetRef.current?.expand()}>
+          <Feather name="plus" size={24} color="white" />
+        </TouchableOpacity>
+        <BottomModalSheet ref={bottomSheetRef} />
+      </Animated.View>
+    </>
   );
 }

@@ -1,8 +1,6 @@
-import { router, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
 import { useColorScheme } from 'nativewind';
-import { DrawerToggle } from '@/components/shared/DrawerToggle';
-import SearchIconModalButton from '@/components/shared/SearchIconModalButton';
 // import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function Layout() {
@@ -22,9 +20,9 @@ export default function Layout() {
       <Stack.Screen
         name="index"
         options={{
-          title: 'Contacts',
-          headerLeft: () => <DrawerToggle />,
-          headerRight: () => <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />,
+          title: '',
+          // headerLeft: () => <DrawerToggle />,
+          // headerRight: () => <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />,
         }}
       />
       <Stack.Screen
@@ -33,6 +31,15 @@ export default function Layout() {
           title: 'Search Contacts',
           presentation: 'modal',
           headerShown: false,
+          animation: 'fade',
+        }}
+      />
+      <Stack.Screen
+        name="contactsTemplate"
+        options={{
+          title: 'Contacts Template',
+          presentation: 'modal',
+          headerShown: true,
           animation: 'fade',
         }}
       />

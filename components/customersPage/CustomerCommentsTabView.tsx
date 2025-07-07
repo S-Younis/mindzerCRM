@@ -1,11 +1,11 @@
-import { View, Text, Pressable, TouchableOpacity, Platform, Alert } from 'react-native';
+import { View, Text, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
 import CommentCard from '../shared/CommentCard';
 import { comments } from '@/constants/customers';
-import Animated, { FadeInUp, FadeOutDown, LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
@@ -89,9 +89,10 @@ const CustomerCommentsTabView = ({ isEditingComment }: CustomerCommentsTabViewPr
       {/* Comments List */}
       <Animated.FlatList
         scrollEnabled={false}
+        itemLayoutAnimation={LinearTransition}
         data={commentsData}
         renderItem={({ item: comment }) => (
-          <Animated.View entering={FadeInUp} exiting={FadeOutDown} className="flex-row items-center gap-3 relative ">
+          <Animated.View className="flex-row items-center gap-3 relative ">
             <AnimatedTouchableOpacity
               disabled={!comment.bEdit}
               style={animatedDeleteIcon}
@@ -111,7 +112,6 @@ const CustomerCommentsTabView = ({ isEditingComment }: CustomerCommentsTabViewPr
             </Animated.View>
           </Animated.View>
         )}
-        itemLayoutAnimation={LinearTransition}
         keyExtractor={item => item.id.toString()}
       />
     </View>
