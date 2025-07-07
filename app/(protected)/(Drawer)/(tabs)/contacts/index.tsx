@@ -13,14 +13,13 @@ import { myDarkTheme } from '@/configs/theme';
 import { router } from 'expo-router';
 import { useContactStore } from '@/stores/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
-import Animated, { FadeIn, LinearTransition } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 export default function contacts() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { colorScheme } = useColorScheme();
   const [refreshing, setRefreshing] = useState(false);
 
-  const AnimatedComponent = Animated.createAnimatedComponent(FlashList);
   const sortByTitle = useContactStore(state => state.sortByTitle);
 
   const onRefresh = useCallback(() => {
@@ -55,7 +54,7 @@ export default function contacts() {
         } border`}>
         <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
         <Pressable
-          onPress={() => router.push('/contacts/contactSortPage')}
+          onPress={() => router.push('/(modals)/contacts/contactSortPage')}
           className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
           <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
           <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`} </Text>

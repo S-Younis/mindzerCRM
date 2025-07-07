@@ -6,46 +6,22 @@ import { Image } from 'expo-image';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import FontAwesome6 from '@expo/vector-icons/build/FontAwesome6';
-
+import { toast, Toaster } from 'sonner-native';
+import { useContactStore } from '@/stores/contact.store';
 export default function CameraScan() {
   //
   const ref = useRef<CameraView>(null);
   const { imgSelected } = useLocalSearchParams<{ imgSelected: string }>();
 
   const [uri, setUri] = useState<string>(imgSelected || '');
-  // const { status } = await Camera.getCameraPermissionsAsync();
   const [permission] = useCameraPermissions();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // State Management
+  const setScannedContact_Obj = useContactStore(state => state.setScannedContact_Obj);
 
   useEffect(() => {
     console.log('Camera permission status:', permission?.status);
-    // const handleCameraPermissions = async () => {
-    //   // const { status } = await Camera.getCameraPermissionsAsync();
-
-    //   if (permission?.status === 'undetermined') {
-    //     console.log('Camera permission undetermined');
-    //     await Camera.requestCameraPermissionsAsync();
-    //     // Re-check the permission status after requesting
-    //     const updatedPermission = await Camera.getCameraPermissionsAsync();
-    //     console.log('Updated camera permission status:', updatedPermission?.status);
-    //     if (updatedPermission?.status !== 'granted') {
-    //       router.back();
-    //     }
-    //   }
-
-    //   if (permission?.status == 'denied') {
-    //     console.warn('Camera permission denied');
-    //     Alert.alert('Permission Required', 'Camera access is needed to use this feature . Click to enable it. or go to settings ', [
-    //       { text: 'Cancel', onPress: () => router.back() },
-    //       {
-    //         text: 'Request Permission',
-    //         onPress: async () => {
-    //           await Camera.requestCameraPermissionsAsync();
-    //           // Linking.openSettings();
-    //         },
-    //       },
-    //     ]);
-    //   }
-    // };
 
     const handleCameraPermissions = async () => {
       const { status, canAskAgain } = await Camera.requestCameraPermissionsAsync();
@@ -86,7 +62,9 @@ export default function CameraScan() {
   }, []);
 
   const takePicture = async () => {
-    const photo = await ref.current?.takePictureAsync();
+    const photo = await ref.current?.takePictureAsync({
+      quality: 0.5,
+    });
     setUri(photo?.uri || '');
   };
 
@@ -97,11 +75,11 @@ export default function CameraScan() {
 
         <View className="flex flex-row items-center mt-6 relative ">
           {!imgSelected && (
-            <Pressable onPress={() => setUri('')} className="absolute top-8 -left-14">
+            <Pressable disabled={isLoading} onPress={() => setUri('')} className="absolute top-8 -left-14">
               <FontAwesome6 name="rotate-left" size={20} color="white" />
             </Pressable>
           )}
-          <MindzerButton variants={'primary'} className="w-52 mt-4 self-center " onPress={handleImgSubmit}>
+          <MindzerButton isLoading={isLoading} disabled={isLoading} variants={'primary'} className="w-52 mt-4 self-center flex flex-row items-center justify-center " onPress={handleImgSubmit}>
             <Text className="text-light mx-auto ">Continue</Text>
           </MindzerButton>
         </View>
@@ -146,16 +124,36 @@ export default function CameraScan() {
       return await response.blob();
     };
 
+    setIsLoading(true);
+    toast.loading('Processing image...', {
+      duration: 2000,
+    });
     const blob = await uriToBlob(uri);
-    formdata.append('image', blob);
+    formdata.append('file', {
+      uri: uri,
+      type: blob.type || 'image/jpeg',
+      name: 'image.jpg',
+    } as unknown as Blob);
 
-    await fetch('https://httpbin.org/anything', {
+    const x = await fetch('https://xqhwyf6ht6ebnk3sgfaxzw3iga0xvlos.lambda-url.eu-north-1.on.aws/', {
       method: 'POST',
       body: formdata,
-      // headers: {
-      //   apikey: 'YOUR_API_KEY',
-      // },
     });
+
+    setIsLoading(false);
+    toast.dismiss();
+    toast.success('Image processed successfully!', {
+      duration: 2000,
+    });
+
+    const res = await x.json();
+
+    console.log('Response from server  :', res);
+    const contactDetails = res.textractResult;
+    console.log('Contact Details:', contactDetails);
+
+    setScannedContact_Obj(contactDetails);
+    router.push('/(modals)/contacts/createContact?importType=scan');
   };
 
   return (
@@ -172,6 +170,7 @@ export default function CameraScan() {
         }}
       />
       {uri ? renderPicture() : renderCamera()}
+      <Toaster />
     </View>
   );
 }

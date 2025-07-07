@@ -25,25 +25,69 @@ const createContact = () => {
   const select_sArea_modalRef = useRef<BottomSheet>(null);
 
   // IF Navigated from import contact page
-  const { importContact } = useLocalSearchParams() as { importContact: string };
-  const importContact_Obj = importContact == 'true' ? useContactStore(state => state.importContact_Obj) : null;
+  const { importType } = useLocalSearchParams() as { importType: 'phone' | 'scan' };
+  let importContact_Obj = null;
+
+  if (importType == 'phone') {
+    importContact_Obj = useContactStore(state => state.importContact_Obj);
+    // console.log('Import Contact Object:', importContact_Obj);
+  } else if (importType == 'scan') {
+    importContact_Obj = useContactStore(state => state.scannedContact_Obj);
+  }
+
   const matchedAreaId = lst_customers_areas.find(area => importContact_Obj?.addresses?.[0]?.country?.includes(area.sArea))?.iAreaId;
+
+  const formDefaultValues = (importType: 'phone' | 'scan' | null = null) => {
+    if (importType == 'phone') {
+      return {
+        sFullName: ((importContact_Obj?.firstName || '') + ' ' + (importContact_Obj?.lastName || '')).trim(),
+        sEmail: importContact_Obj?.emails[0].email || '',
+        sJobTitle: importContact_Obj?.sJobTitle || '',
+        sCompany: importContact_Obj?.sCompany || '',
+        bPrivate: importContact_Obj?.bPrivate || false,
+        sPhoneMobile: importContact_Obj?.phoneNumbers[0]?.number || '',
+        sPhoneBusiness: importContact_Obj?.phoneNumbers[1]?.number || importContact_Obj?.phoneNumbers[0]?.number || '',
+        sArea: matchedAreaId || -1,
+        sCity: importContact_Obj?.addresses?.[0]?.city || '',
+        sAddress: importContact_Obj?.addresses?.[0]?.address || '',
+        sComment: importContact_Obj?.sComment || '',
+      };
+    } else if (importType == 'scan') {
+      // If importing from scan, use the imported contact object
+      return {
+        sFullName: (importContact_Obj['First Name'] || '') + ' ' + (importContact_Obj['Last Name'] || '').trim(),
+        sEmail: importContact_Obj['Email'] || '',
+        sJobTitle: importContact_Obj['Job Title'] || '',
+        sCompany: importContact_Obj?.sCompany || '',
+        bPrivate: importContact_Obj?.bPrivate || false,
+        sPhoneMobile: importContact_Obj['Mobile Phone'] || '',
+        sPhoneBusiness: importContact_Obj['Business Phone'] || '',
+        sArea: matchedAreaId || -1,
+        sCity: importContact_Obj?.addresses?.[0]?.city || '',
+        sAddress: importContact_Obj?.addresses?.[0]?.address || '',
+        sComment: importContact_Obj?.sComment || '',
+      };
+    } else {
+      // Default values when not importing
+      return {
+        sFullName: '',
+        sEmail: '',
+        sJobTitle: '',
+        sCompany: '',
+        bPrivate: false,
+        sPhoneMobile: '',
+        sPhoneBusiness: '',
+        sArea: -1,
+        sCity: '',
+        sAddress: '',
+        sComment: '',
+      };
+    }
+  };
 
   const { control, handleSubmit } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      sFullName: importContact_Obj?.name || '',
-      sEmail: importContact_Obj?.emails?.[0]?.email || '',
-      sJobTitle: importContact_Obj?.jobTitle || '',
-      sCompany: '',
-      bPrivate: false,
-      sPhoneMobile: importContact_Obj?.phoneNumbers?.[0]?.number || '',
-      sPhoneBusiness: importContact_Obj?.phoneNumbers?.[1]?.number || '',
-      sArea: matchedAreaId || -1,
-      sCity: importContact_Obj?.addresses?.[0]?.city || '',
-      sAddress: importContact_Obj?.addresses?.[0]?.street || '',
-      sComment: importContact_Obj?.note || '',
-    },
+    defaultValues: formDefaultValues(importType),
   });
 
   const handleCancelBTN = () => {
@@ -56,7 +100,11 @@ const createContact = () => {
     //     { text: 'OK', onPress: () => router.back() },
     // ]);
     // } else {
-    router.back();
+    if (importType == 'scan') {
+      router.dismissTo('/contacts');
+    } else {
+      router.back();
+    }
     // }
   };
 
@@ -125,7 +173,7 @@ const createContact = () => {
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 ">
-        <View className="px-3 pt-2 gap-4 mb-12">
+        <View className="px-4 pt-2 gap-4 mb-12">
           <View>
             <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Personal Details</Text>
             <Controller
