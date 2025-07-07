@@ -5,18 +5,28 @@ import Reanimated, { SharedValue, useAnimatedStyle } from 'react-native-reanimat
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import { useState } from 'react';
+import { useContactTemplateStore } from '@/stores/contacts/contact.template.store';
 
 type ContactCardProps = PressableProps & {
   sFullName: string;
   sJobTitle?: string;
   sEmail: string;
   sPhoneBusiness: string;
+  sActive: boolean;
   isSwipable?: boolean;
 };
 
-export const ContactCard = ({ sFullName, sJobTitle, sEmail, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
+export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
   const [callActionIsLoading, setCallActionIsLoading] = useState(false);
   const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
+
+  const templateFactors = useContactTemplateStore(state => state.templateFactors);
+
+  // Card Template Based on Factors
+  const isEmailVisible = templateFactors.find(factor => factor.name === 'Email')?.isSelected;
+  const isJobTitleVisible = templateFactors.find(factor => factor.name === 'Job Title')?.isSelected;
+  const isPhoneVisible = templateFactors.find(factor => factor.name === 'Phone Number')?.isSelected;
+  const isStatusVisible = templateFactors.find(factor => factor.name === 'Status')?.isSelected;
 
   const FULL_NAME = sFullName.split(' ');
   const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
@@ -77,7 +87,6 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sPhoneBusiness, isSw
           className={` bg-[#161f2e] border-[#262f3a] border flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
           <View className="flex-row gap-4  flex-grow">
             <View className="items-center pt-3 ">
-              {/* <FontAwesome5 name="user" size={21} className='p-2 bg-gray-500 rounded-lg' color="#9ca3af" /> */}
               <View className="bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
                 <Text>{INTIALS}</Text>
               </View>
@@ -85,17 +94,27 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sPhoneBusiness, isSw
 
             <View className="gap-[8px] flex-grow">
               <Text className="text-light text-sm font-bold">{sFullName}</Text>
-              <View className="gap-[2px] pl-[3px]  ">
-                {sJobTitle && (
+              <View className="gap-[5px] pl-[3px]  ">
+                {sJobTitle && isJobTitleVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    {/* <Entypo name="dot-single" size={11} color="white" /> */}
-                    <Text className="text-gray-300 text-sm  mr-auto py-[2px] rounded-xl">{sJobTitle}</Text>
+                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sJobTitle}</Text>
                   </View>
                 )}
-                <View className="flex-row gap-[1px] items-center">
-                  {/* <Entypo name="dot-single" size={11} color="#f8f8f8" /> */}
-                  <Text className="text-blue-400 text-sm">{sEmail}</Text>
-                </View>
+                {isEmailVisible && (
+                  <View className="flex-row gap-[1px] items-center">
+                    <Text className="text-blue-400 text-sm">{sEmail}</Text>
+                  </View>
+                )}
+                {sPhoneBusiness && isPhoneVisible && (
+                  <View className="flex-row gap-[1px] items-center">
+                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sPhoneBusiness}</Text>
+                  </View>
+                )}
+                {sActive && isStatusVisible && (
+                  <View className="flex-row gap-[1px] items-center">
+                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sActive ? 'Active' : 'Inactive'}</Text>
+                  </View>
+                )}
               </View>
             </View>
           </View>

@@ -9,7 +9,7 @@ import { lst_opps, lstProducts, lstOppStatus } from '@/constants/opps';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
 import { router } from 'expo-router';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { OppCard } from '@/components/opportunitites/OppCard';
 import { FlashList } from '@shopify/flash-list';

@@ -6,7 +6,7 @@ import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ListFormOption from '@/components/shared/ListFormOption';
 import { FormSchema, FormDataType } from '@/types/schemas/contact.sheme';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 import { contacts_lst } from '@/constants/contacts';
 import { lst_customers_areas } from '@/constants/customers';
 import BottomSheet from '@gorhom/bottom-sheet';

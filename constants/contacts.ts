@@ -7,7 +7,7 @@ export type contactType = {
   eCompany: number;
   sCompany: string;
   sPhoneBusiness: string;
-  sActive?: Boolean;
+  sActive: boolean;
   bEdit: boolean;
   bPrivate?: boolean;
   sArea: number;

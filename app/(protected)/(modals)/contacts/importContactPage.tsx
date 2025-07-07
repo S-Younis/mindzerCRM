@@ -10,7 +10,7 @@ import { router, Stack } from 'expo-router';
 import { CustomInput } from '@/components/shared/CustomInput';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 const importContactPage = () => {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 

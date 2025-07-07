@@ -10,7 +10,7 @@ import { lst_customers } from '@/constants/customers';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
 import { router } from 'expo-router';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useInfiniteQuery } from '@tanstack/react-query';

@@ -40,7 +40,6 @@ export default function Layout() {
           title: 'Contacts Template',
           presentation: 'modal',
           headerShown: true,
-          animation: 'fade',
         }}
       />
 

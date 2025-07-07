@@ -1,5 +1,5 @@
 import ListOptionCheckBox from '@/components/shared/ListOptionCheckBox';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { router, Stack } from 'expo-router';
 import { useState } from 'react';

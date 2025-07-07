@@ -7,7 +7,7 @@ import MindzerButton from '@/components/shared/MindzerButton';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import FontAwesome6 from '@expo/vector-icons/build/FontAwesome6';
 import { toast, Toaster } from 'sonner-native';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 export default function CameraScan() {
   //
   const ref = useRef<CameraView>(null);

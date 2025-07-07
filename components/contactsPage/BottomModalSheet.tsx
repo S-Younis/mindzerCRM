@@ -112,7 +112,7 @@ const BottomModalSheet = ({ ref }: BottomModalSheetProps) => {
           <Text className={`font-medium text-white `}>Scan a Business Card</Text>
         </MindzerButton>
 
-        <MindzerButton isTitleCentered variants="secondary" className="w-full " onPress={() => ref?.current?.close()}>
+        <MindzerButton isTitleCentered variants="secondary" className="w-full my-2 " onPress={() => ref?.current?.close()}>
           <Text className={`font-medium  text-gray-200 `}>Cancel</Text>
         </MindzerButton>
       </BottomSheetView>

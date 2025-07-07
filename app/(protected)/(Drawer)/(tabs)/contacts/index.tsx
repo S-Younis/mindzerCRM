@@ -11,7 +11,7 @@ import { contacts_lst } from '@/constants/contacts';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
 import { router, Stack } from 'expo-router';
-import { useContactStore } from '@/stores/contact.store';
+import { useContactStore } from '@/stores/contacts/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
@@ -90,6 +90,7 @@ export default function contacts() {
                 sFullName={item.sFullName}
                 sJobTitle={item.sJobTitle}
                 sEmail={item.sEmail}
+                sActive={item.sActive}
                 sPhoneBusiness={item.sPhoneBusiness}
               />
             )}
