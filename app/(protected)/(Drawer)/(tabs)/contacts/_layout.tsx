@@ -36,7 +36,7 @@ export default function Layout() {
           animation: 'fade',
         }}
       />
-     
+
       <Stack.Screen
         name="[iContactId]"
         options={{
@@ -44,14 +44,13 @@ export default function Layout() {
         }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         name="importContactPage"
         options={{
           presentation: 'modal',
           title: 'Import Contacts',
-          // Screens Options Are Defined in the component itself
         }}
-      />
+      /> */}
     </Stack>
   );
 }

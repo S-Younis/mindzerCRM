@@ -38,7 +38,7 @@ const BottomModalSheet = ({ ref }: BottomModalSheetProps) => {
   };
 
   const showImportPage = () => {
-    router.push('/contacts/importContactPage');
+    router.push('/(modals)/contacts/importContactPage');
     ref?.current?.close();
   };
 

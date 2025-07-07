@@ -1,4 +1,4 @@
-import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
+import { Camera, CameraView } from 'expo-camera';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Linking, Pressable, StyleSheet, View, Text } from 'react-native';
@@ -14,15 +14,13 @@ export default function CameraScan() {
   const { imgSelected } = useLocalSearchParams<{ imgSelected: string }>();
 
   const [uri, setUri] = useState<string>(imgSelected || '');
-  const [permission] = useCameraPermissions();
+  // const [permission] = useCameraPermissions();
   const [isLoading, setIsLoading] = useState(false);
 
   // State Management
   const setScannedContact_Obj = useContactStore(state => state.setScannedContact_Obj);
 
   useEffect(() => {
-    console.log('Camera permission status:', permission?.status);
-
     const handleCameraPermissions = async () => {
       const { status, canAskAgain } = await Camera.requestCameraPermissionsAsync();
 
@@ -79,7 +77,12 @@ export default function CameraScan() {
               <FontAwesome6 name="rotate-left" size={20} color="white" />
             </Pressable>
           )}
-          <MindzerButton isLoading={isLoading} disabled={isLoading} variants={'primary'} className="w-52 mt-4 self-center flex flex-row items-center justify-center " onPress={handleImgSubmit}>
+          <MindzerButton
+            isLoading={isLoading}
+            disabled={isLoading}
+            variants={'primary'}
+            className="w-52 mt-4 self-center flex flex-row items-center justify-center "
+            onPress={handleImgSubmit}>
             <Text className="text-light mx-auto ">Continue</Text>
           </MindzerButton>
         </View>

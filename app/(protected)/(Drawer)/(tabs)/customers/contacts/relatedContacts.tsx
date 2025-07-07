@@ -66,7 +66,11 @@ const RelatedContacts = () => {
       },
       {
         text: 'Add from Contacts',
-        onPress: () => console.log('Ask me later pressed'),
+        onPress: () => router.push('/(modals)/contacts/importContactPage'),
+      },
+      {
+        text: 'Scan Business Card',
+        onPress: () => router.push('/(modals)/contacts/scan-business-card'),
       },
       {
         text: 'Cancel',
