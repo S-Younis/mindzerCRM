@@ -1,5 +1,6 @@
 import ListOptionCheckBox from '@/components/shared/ListOptionCheckBox';
-import { useContactStore } from '@/stores/contacts/contact.store';
+import Spinner from '@/components/shared/Spinner';
+import { useContactTemplateStore } from '@/stores/contacts/contact.template.store';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { router, Stack } from 'expo-router';
 import { useState } from 'react';
@@ -7,14 +8,28 @@ import { View, Text, ScrollView, Alert } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 const contactSortPage = () => {
-  const [selectedTabIndx, setSelectedTabIndx] = useState(0);
-  const { sortByTitle, setSortByTitle } = useContactStore();
+  const sortType = useContactTemplateStore(state => state.sortType);
+  const setSortType = useContactTemplateStore(state => state.setSortType);
+
+  const [sortType_copy, setSortType_copy] = useState(sortType);
+  const isNoneSelected = sortType_copy?.sortTitle ? false : true;
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveBTN = () => {
-    router.back();
+    setSortType(sortType_copy);
+    console.log('sortType_copy', sortType_copy);
+
+    // Simulate Invalidating the query to refresh the contacts list (sorted)
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      router.back();
+    }, 600);
   };
   const handleCancelBTN = () => {
-    if (sortByTitle != 'None') {
+    // detect if the user has changed the sortType
+    if (sortType_copy?.sortTitle != sortType?.sortTitle) {
       Alert.alert('Cancel', 'Are you sure you want to cancel?', [
         {
           text: 'No',
@@ -23,7 +38,7 @@ const contactSortPage = () => {
         {
           text: 'Yes',
           onPress: () => {
-            setSortByTitle('None');
+            setSortType_copy(null);
             router.back();
           },
         },
@@ -33,27 +48,33 @@ const contactSortPage = () => {
     }
   };
   const handleItemSelection = (title: string) => {
-    if (sortByTitle === title) {
-      setSortByTitle('None');
+    if (title === 'none') {
+      setSortType_copy(null);
       return;
     }
-    setSortByTitle(title);
+    setSortType_copy({ sortTitle: title, sortDirc: 'asc' });
   };
   return (
     <>
       {/* Dynamic Stack Header  */}
       <Stack.Screen
         options={{
-          title: '',
-          //   headerStyle: { backgroundColor: '#161f2e' },
+          title: 'Sort By',
+          headerTitleAlign: 'center',
           headerLeft: () => (
             <Text className="text-blue-400 text-xl" onPress={handleCancelBTN}>
               Cancel
             </Text>
           ),
           headerRight: () => (
-            <Text className="text-blue-400  text-xl" onPress={handleSaveBTN}>
-              Save
+            <Text disabled={isLoading} className={`text-blue-400  text-xl  `} onPress={handleSaveBTN}>
+              {isLoading ? (
+                <Animated.View entering={FadeIn.duration(300)}>
+                  <Spinner />
+                </Animated.View>
+              ) : (
+                'Save'
+              )}
             </Text>
           ),
         }}
@@ -62,9 +83,9 @@ const contactSortPage = () => {
         <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Selected</Text>
         <View className={`bg-slate-200 rounded-xl dark:bg-[#161f2e] border-[#262f3a]  p-4 px-5  flex-row justify-between gap-4 h-[62px] `}>
           <View className="flex-row items-center gap-2">
-            <Text className=" text-dark dark:text-light">{sortByTitle}</Text>
+            <Text className=" text-dark dark:text-light">{sortType_copy?.sortTitle || 'No Fields Selected'}</Text>
           </View>
-          {sortByTitle != 'None' && (
+          {!isNoneSelected && (
             <Animated.View entering={FadeIn.duration(200)}>
               <SegmentedControl
                 style={{ width: 120, borderRadius: 8 }}
@@ -72,9 +93,15 @@ const contactSortPage = () => {
                 fontStyle={{ color: '#f8f8f8', fontSize: 14, fontWeight: '400' }}
                 backgroundColor="#33343E"
                 sliderStyle={{ backgroundColor: '#6A6B75' }}
-                selectedIndex={selectedTabIndx}
+                selectedIndex={sortType_copy?.sortDirc == 'desc' ? 1 : 0}
                 onChange={event => {
-                  setSelectedTabIndx(event.nativeEvent.selectedSegmentIndex);
+                  if (!sortType_copy) return;
+
+                  if (event.nativeEvent.selectedSegmentIndex == 0) {
+                    setSortType_copy({ ...sortType_copy, sortDirc: 'asc' });
+                  } else {
+                    setSortType_copy({ ...sortType_copy, sortDirc: 'desc' });
+                  }
                 }}
               />
             </Animated.View>
@@ -86,28 +113,28 @@ const contactSortPage = () => {
           <ListOptionCheckBox
             title="None"
             titleClassName="font-normal"
-            isChecked={sortByTitle == 'None'}
-            onPress={() => handleItemSelection('None')}
+            isChecked={sortType_copy?.sortTitle ? false : true}
+            onPress={() => handleItemSelection('none')}
             className="rounded-t-lg "
           />
           <ListOptionCheckBox
             title="Name"
             titleClassName="font-normal"
-            isChecked={sortByTitle == 'Name'}
+            isChecked={sortType_copy?.sortTitle == 'Name'}
             onPress={() => handleItemSelection('Name')}
             className=" "
           />
           <ListOptionCheckBox
             title="Email"
             titleClassName="font-normal"
-            isChecked={sortByTitle == 'Email'}
+            isChecked={sortType_copy?.sortTitle == 'Email'}
             onPress={() => handleItemSelection('Email')}
             className=" "
           />
           <ListOptionCheckBox
             title="Job Title"
             titleClassName="font-normal"
-            isChecked={sortByTitle == 'Job Title'}
+            isChecked={sortType_copy?.sortTitle == 'Job Title'}
             onPress={() => handleItemSelection('Job Title')}
             className=" rounded-b-lg !border-b-0"
           />

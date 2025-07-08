@@ -6,6 +6,7 @@ export default function _layout() {
       <Stack.Screen name="search-modals/oppsSearch" options={{ headerShown: false }} />
       <Stack.Screen name="contacts/editContact/[iContactId]" options={{ title: '' }} />
       <Stack.Screen name="contacts/importContactPage" options={{ title: '' }} />
+      <Stack.Screen name="contacts/contactSortPage" options={{ title: '' }} />
     </Stack>
   );
 }

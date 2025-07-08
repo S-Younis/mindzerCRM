@@ -16,13 +16,14 @@ import SVGComponent from '@/assets/svg/SVGComponent';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
 import SearchIconModalButton from '@/components/shared/SearchIconModalButton';
+import { useContactTemplateStore } from '@/stores/contacts/contact.template.store';
 
 export default function contacts() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { colorScheme } = useColorScheme();
   const [refreshing, setRefreshing] = useState(false);
 
-  const sortByTitle = useContactStore(state => state.sortByTitle);
+  const sortType = useContactTemplateStore(state => state.sortType);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -74,7 +75,7 @@ export default function contacts() {
             onPress={() => router.push('/(modals)/contacts/contactSortPage')}
             className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
             <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-            <Text className="text-sm adaptive-text "> {sortByTitle == 'None' ? `Sort By Field` : ` Sort By : ${sortByTitle}`} </Text>
+            <Text className="text-sm adaptive-text "> {sortType?.sortTitle ? ` Sort By : ${sortType.sortTitle}` : `Sort By Field`} </Text>
           </Pressable>
         </View>
         {contacts_lst.length > 0 && (

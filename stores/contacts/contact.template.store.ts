@@ -8,10 +8,19 @@ export type contactFactor = {
   isSelected: boolean;
 };
 
+type sortType = {
+  sortTitle: string;
+  sortDirc: 'asc' | 'desc';
+};
+
 interface ContactTemplateType {
   templateFactors: contactFactor[] | [];
   setTemplateFactors: (arr: contactFactor[]) => void;
   defaultFactors: contactFactor[] | [];
+  // Sorting factors
+  sortType: sortType | null;
+  setSortType: (type: sortType | null) => void;
+  // Filter factors
 }
 
 export const useContactTemplateStore = create<ContactTemplateType>()(
@@ -32,6 +41,10 @@ export const useContactTemplateStore = create<ContactTemplateType>()(
         { id: 4, name: 'Status', isSelected: false },
         { id: 5, name: 'Country', isSelected: false },
       ],
+      // Sorting factors
+      sortType: null,
+      setSortType: type => set(() => ({ sortType: type })),
+      // Filter factors
     }),
     {
       name: 'contact-template-store',
@@ -39,6 +52,7 @@ export const useContactTemplateStore = create<ContactTemplateType>()(
       partialize: state => ({
         templateFactors: state.templateFactors,
         defaultFactors: state.defaultFactors,
+        sortType: state.sortType,
       }),
     }
   )
