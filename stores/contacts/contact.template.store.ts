@@ -11,6 +11,7 @@ export type contactFactor = {
 interface ContactTemplateType {
   templateFactors: contactFactor[] | [];
   setTemplateFactors: (arr: contactFactor[]) => void;
+  defaultFactors: contactFactor[] | [];
 }
 
 export const useContactTemplateStore = create<ContactTemplateType>()(
@@ -21,15 +22,23 @@ export const useContactTemplateStore = create<ContactTemplateType>()(
         { id: 2, name: 'Job Title', isSelected: true },
         { id: 3, name: 'Phone Number', isSelected: false },
         { id: 4, name: 'Status', isSelected: false },
+        { id: 5, name: 'Country', isSelected: false },
       ],
       setTemplateFactors: factor => set(() => ({ templateFactors: factor })),
+      defaultFactors: [
+        { id: 1, name: 'Email', isSelected: true },
+        { id: 2, name: 'Job Title', isSelected: true },
+        { id: 3, name: 'Phone Number', isSelected: false },
+        { id: 4, name: 'Status', isSelected: false },
+        { id: 5, name: 'Country', isSelected: false },
+      ],
     }),
     {
       name: 'contact-template-store',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: state => ({
         templateFactors: state.templateFactors,
-        setTemplateFactors: state.setTemplateFactors,
+        defaultFactors: state.defaultFactors,
       }),
     }
   )

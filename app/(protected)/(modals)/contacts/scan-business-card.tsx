@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 import MindzerButton from '@/components/shared/MindzerButton';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import FontAwesome6 from '@expo/vector-icons/build/FontAwesome6';
-import { toast, Toaster } from 'sonner-native';
+import { toast } from 'sonner-native';
 import { useContactStore } from '@/stores/contacts/contact.store';
 export default function CameraScan() {
   //
@@ -129,6 +129,7 @@ export default function CameraScan() {
 
     setIsLoading(true);
     toast.loading('Processing image...', {
+      position: 'top-center',
       duration: 2000,
     });
     const blob = await uriToBlob(uri);
@@ -146,6 +147,7 @@ export default function CameraScan() {
     setIsLoading(false);
     toast.dismiss();
     toast.success('Image processed successfully!', {
+      position: 'top-center',
       duration: 2000,
     });
 
@@ -173,7 +175,6 @@ export default function CameraScan() {
         }}
       />
       {uri ? renderPicture() : renderCamera()}
-      <Toaster />
     </View>
   );
 }

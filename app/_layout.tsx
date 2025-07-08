@@ -6,6 +6,7 @@ import Toast from 'react-native-toast-message';
 import { toastConfig } from '@/configs/toastConfigs';
 import useConfig from '@/hooks/useConfig';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'sonner-native';
 // Reactotron Dev Tools
 if (__DEV__) {
   require('../ReactotronConfig');
@@ -20,6 +21,7 @@ export default function RootLayout() {
           <Stack screenOptions={{ headerShown: false, animation: 'fade' }} />
         </ThemeProvider>
         <Toast config={toastConfig} />
+        <Toaster />
       </QueryClientProvider>
     </GestureHandlerRootView>
   );

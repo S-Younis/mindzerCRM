@@ -56,7 +56,7 @@ export default function contacts() {
           headerLeft: () => <DrawerToggle />,
           headerRight: () => (
             <View className="flex-row items-center gap-4">
-              <TouchableOpacity className="focus:opacity-80" onPress={() => router.push('/contacts/contactsTemplate')}>
+              <TouchableOpacity className="focus:opacity-80" onPress={() => router.push('/(modals)/contacts/contactsTemplate')}>
                 <MaterialCommunityIcons name="puzzle-edit-outline" size={23} color={'#fafafa'} />
               </TouchableOpacity>
               <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />
@@ -91,6 +91,7 @@ export default function contacts() {
                 sJobTitle={item.sJobTitle}
                 sEmail={item.sEmail}
                 sActive={item.sActive}
+                sAreaName={item.sAreaName}
                 sPhoneBusiness={item.sPhoneBusiness}
               />
             )}

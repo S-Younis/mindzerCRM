@@ -4,7 +4,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MindzerButton from '../shared/MindzerButton';
 // import Toast from 'react-native-toast-message';
-import { toast, Toaster } from 'sonner-native';
+import { toast } from 'sonner-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 import { useState } from 'react';
 
@@ -67,7 +67,10 @@ const AttachmentsTab = () => {
                     //   visibilityTime: 2000,
                     // });
                     setAttachments(prev => prev.filter(attachment => attachment.id !== attachmentID));
-                    toast.success('Attachment Deleted');
+                    toast.success('Attachment Deleted', {
+                      position: 'top-center',
+                      duration: 2000,
+                    });
                   },
                 },
               ],
@@ -95,7 +98,10 @@ const AttachmentsTab = () => {
             style: 'destructive',
             onPress: () => {
               setAttachments(prev => prev.filter(attachment => attachment.id !== attachmentID));
-              toast.success('Attachment Deleted');
+              toast.success('Attachment Deleted', {
+                position: 'top-center',
+                duration: 2000,
+              });
             },
           },
         ],
@@ -113,7 +119,10 @@ const AttachmentsTab = () => {
         size: '1.2 MB',
       },
     ]);
-    toast.success('Attachment Uploaded Successfully');
+    toast.success('Attachment Uploaded Successfully', {
+      position: 'top-center',
+      duration: 2000,
+    });
   };
 
   return (
@@ -153,8 +162,6 @@ const AttachmentsTab = () => {
         <Feather name="upload" size={20} color="#f8f8f8" />
         <Text className="ml-2 text-white  text-base font-semibold">Upload New File</Text>
       </MindzerButton>
-      {/* Global Toaster */}
-      <Toaster />
     </View>
   );
 };

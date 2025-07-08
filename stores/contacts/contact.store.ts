@@ -19,12 +19,4 @@ export const useContactStore = create<ContactStoreType>()(
     sortByTitle: 'None',
     setSortByTitle: title => set(() => ({ sortByTitle: title })),
   })
-  // {
-  //   name: 'contacts-store',
-  //   storage: createJSONStorage(() => AsyncStorage),
-  //   partialize: (state) => ({
-  //     importContact_Obj: state.importContact_Obj,
-  //     setImportContact_Obj: state.setImportContact_Obj,
-  //   }),
-  // }
 );

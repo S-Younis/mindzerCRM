@@ -136,7 +136,7 @@ const ContactDetails = () => {
         {selectedTabIndx === 0 && <DetialsTabView contactDetials={USER} lstAreas={lstAreas} />}
 
         {selectedTabIndx === 1 && (
-          <View className="px-3  mb-6 ">
+          <View className="px-4  mb-6 ">
             <View className="flex-row items-center gap-[4px] mt-4 mb-[6px] ml-3">
               <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
               <Text className=" text-gray-400  text-xs  ">Comments</Text>

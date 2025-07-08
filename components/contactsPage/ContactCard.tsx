@@ -13,10 +13,11 @@ type ContactCardProps = PressableProps & {
   sEmail: string;
   sPhoneBusiness: string;
   sActive: boolean;
+  sAreaName: string; // Added for area name
   isSwipable?: boolean;
 };
 
-export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
+export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sAreaName, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
   const [callActionIsLoading, setCallActionIsLoading] = useState(false);
   const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
 
@@ -27,6 +28,7 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sPhoneBusin
   const isJobTitleVisible = templateFactors.find(factor => factor.name === 'Job Title')?.isSelected;
   const isPhoneVisible = templateFactors.find(factor => factor.name === 'Phone Number')?.isSelected;
   const isStatusVisible = templateFactors.find(factor => factor.name === 'Status')?.isSelected;
+  const isAreaNameVisible = templateFactors.find(factor => factor.name === 'Country')?.isSelected;
 
   const FULL_NAME = sFullName.split(' ');
   const INTIALS = FULL_NAME[0].charAt(0).toUpperCase() + (FULL_NAME.length > 1 ? FULL_NAME[FULL_NAME.length - 1]?.charAt(0).toUpperCase() : '');
@@ -113,6 +115,11 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sPhoneBusin
                 {sActive && isStatusVisible && (
                   <View className="flex-row gap-[1px] items-center">
                     <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sActive ? 'Active' : 'Inactive'}</Text>
+                  </View>
+                )}
+                {sAreaName && isAreaNameVisible && (
+                  <View className="flex-row gap-[1px] items-center">
+                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sAreaName}</Text>
                   </View>
                 )}
               </View>

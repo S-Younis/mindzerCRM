@@ -34,14 +34,6 @@ export default function Layout() {
           animation: 'fade',
         }}
       />
-      <Stack.Screen
-        name="contactsTemplate"
-        options={{
-          title: 'Contacts Template',
-          presentation: 'modal',
-          headerShown: true,
-        }}
-      />
 
       <Stack.Screen
         name="[iContactId]"
@@ -49,14 +41,6 @@ export default function Layout() {
           title: '',
         }}
       />
-
-      {/* <Stack.Screen
-        name="importContactPage"
-        options={{
-          presentation: 'modal',
-          title: 'Import Contacts',
-        }}
-      /> */}
     </Stack>
   );
 }

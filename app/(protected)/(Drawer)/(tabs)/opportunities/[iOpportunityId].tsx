@@ -4,7 +4,7 @@ import { View, Text, Alert } from 'react-native';
 import { useAudioRecorder, AudioModule, RecordingPresets, useAudioPlayer } from 'expo-audio';
 import MindzerButton from '@/components/shared/MindzerButton';
 import { TextInput } from 'react-native-gesture-handler';
-import { toast, Toaster } from 'sonner-native';
+import { toast } from 'sonner-native';
 
 const OppDetails = () => {
   const { iOpportunityId } = useLocalSearchParams();
@@ -63,7 +63,10 @@ const OppDetails = () => {
 
     console.log('Transcribing form :', formData);
     try {
-      toast.loading('Transcribing...');
+      toast.loading('Transcribing audio...', {
+        position: 'top-center',
+        duration: 2000,
+      });
       setIsLoading(true);
       const response = await fetch('https://reigujyhhepcnp3xq6qoogd5l40uowxr.lambda-url.eu-north-1.on.aws/', {
         method: 'POST',
@@ -88,7 +91,10 @@ const OppDetails = () => {
       Alert.alert('No transcribed text available to summarize.');
       return;
     }
-    toast.loading('Summarizing...');
+    toast.loading('Summarizing...', {
+      position: 'top-center',
+      duration: 2000,
+    });
     setIsLoading(true);
     const x = await fetch('https://n4ob3gqvyql4i7h5llfbzq26ga0ahnhi.lambda-url.eu-north-1.on.aws/', {
       method: 'POST',
@@ -148,7 +154,6 @@ const OppDetails = () => {
         }}
       /> */}
       </View>
-      <Toaster position="top-center" duration={undefined} />
     </>
   );
 };
