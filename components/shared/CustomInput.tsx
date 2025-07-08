@@ -31,7 +31,7 @@ export const CustomInput = ({
             ) : null}
 
             <TextInput
-                className={`   text-slate-800  ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
+                className={`   text-slate-700  ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
                 placeholderTextColor={isError ? '#ef4444' : '#A9A9A9'}
                 autoCapitalize="none"
                 autoCorrect={false}
