@@ -6,7 +6,7 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Animated, { FadeInUp, FadeOutDown, LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-import { OppCard } from '@/components/opportunitites/OppCard';
+import { OppCard } from '@/components/oppsPage/OppCard';
 
 const RelatedOpps = () => {
   const [isEditingOpp, setIsEditingOpp] = useState(false);

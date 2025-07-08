@@ -53,7 +53,6 @@ export default function contacts() {
     <>
       <Stack.Screen
         options={{
-          title: 'Contacts',
           headerLeft: () => <DrawerToggle />,
           headerRight: () => (
             <View className="flex-row items-center gap-4">

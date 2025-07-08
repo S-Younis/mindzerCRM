@@ -75,6 +75,7 @@ export default function Layout() {
           title: '',
         }}
       />
+
       <Stack.Screen
         name="opps/relatedOpps"
         options={{

@@ -74,7 +74,7 @@ export default function App() {
         </View>
         {/* General Options  */}
 
-        <Animated.View entering={FadeIn} className="mt-auto">
+        <Animated.View entering={FadeIn} className="mt-8">
           <MindzerButton isTitleCentered variants="danger" onPress={handleLogoutBTN}>
             <View className="max-w-5 max-h-5 flex-row items-center mr-2">
               <AntDesign name="logout" size={16} color={'white'} />

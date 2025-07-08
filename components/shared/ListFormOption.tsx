@@ -1,4 +1,4 @@
-import { View, Text, Pressable, PressableProps, TextInput , StyleSheet } from 'react-native';
+import { View, Text, Pressable, PressableProps, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
@@ -33,7 +33,7 @@ const ListFormOption = ({
     <Pressable
       {...props}
       style={{ borderBottomWidth: StyleSheet.hairlineWidth }}
-      className={`bg-[#161f2e] border-[#262f3a]  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
+      className={`dark:bg-[#161f2e] dark:border-[#262f3a] border-gray-300  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
       <View className={`flex-row items-center ${children ? 'gap-[8px]' : 'gap-[4px]'} w-[100%] `}>
         <View className="w-fit">{children}</View>
         <Pressable
@@ -42,7 +42,7 @@ const ListFormOption = ({
           <View className="flex-1 gap-1">
             <View className="flex-row items-center  gap-[2px]  ">
               {isRequired && <MaterialCommunityIcons name="asterisk" size={6} color="#f87171" />}
-              <Text style={{ marginLeft: isRequired ? 0 : 8 }} className="  text-xs text-gray-400">
+              <Text style={{ marginLeft: isRequired ? 0 : 8 }} className="  text-sm text-slate-500/90 dark:text-gray-400">
                 {title}
               </Text>
             </View>
