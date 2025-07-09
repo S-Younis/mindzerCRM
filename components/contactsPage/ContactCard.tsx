@@ -1,4 +1,4 @@
-import { View, Text, PressableProps, Pressable, Linking, Platform, ActivityIndicator } from 'react-native';
+import { View, Text, PressableProps, Pressable, Linking, Platform, ActivityIndicator, StyleSheet } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated, { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import { useState } from 'react';
 import { useContactTemplateStore } from '@/stores/contacts/contact.template.store';
+import { useColorScheme } from 'nativewind';
 
 type ContactCardProps = PressableProps & {
   sFullName: string;
@@ -18,6 +19,8 @@ type ContactCardProps = PressableProps & {
 };
 
 export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sAreaName, sPhoneBusiness, isSwipable = true, ...props }: ContactCardProps) => {
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
+
   const [callActionIsLoading, setCallActionIsLoading] = useState(false);
   const [emailActionIsLoading, setEmailActionIsLoading] = useState(false);
 
@@ -86,40 +89,41 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sAreaName, 
         renderRightActions={RightSwipeAction}>
         <Pressable
           onPress={props.onPress}
-          className={` bg-[#161f2e] border-[#262f3a] border flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl ${props.className} active:opacity-70   `}>
-          <View className="flex-row gap-4  flex-grow">
+          // border-gray-300/75
+          className={`bg-gray-100  border-blue-800/15 dark:bg-[#161f2e] dark:border-[#262f3a] border  flex-row gap-4 py-3 px-[14px]  w-[91.5%] mx-auto  rounded-xl ${props.className} active:opacity-70    `}>
+          <View className="flex-row gap-3  flex-grow">
             <View className="items-center pt-3 ">
-              <View className="bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
-                <Text>{INTIALS}</Text>
+              <View className=" bg-accent/75 borde r dark:border-0 border-slate-500/30 dark:bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
+                <Text className="text-blue-900 text-[13px] dark:text-md   dark:text-dark">{INTIALS}</Text>
               </View>
             </View>
 
             <View className="gap-[8px] flex-grow">
-              <Text className="text-light text-sm font-bold">{sFullName}</Text>
+              <Text className="text-blue-900 dark:text-light text-sm font-bold pl-[3px]">{sFullName}</Text>
               <View className="gap-[5px] pl-[3px]  ">
                 {sJobTitle && isJobTitleVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sJobTitle}</Text>
+                    <Text className=" text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">{sJobTitle}</Text>
                   </View>
                 )}
                 {isEmailVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    <Text className="text-blue-400 text-sm">{sEmail}</Text>
+                    <Text className="text-blue-700 dark:text-blue-400 text-sm">{sEmail}</Text>
                   </View>
                 )}
                 {sPhoneBusiness && isPhoneVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sPhoneBusiness}</Text>
+                    <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">{sPhoneBusiness}</Text>
                   </View>
                 )}
                 {sActive && isStatusVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sActive ? 'Active' : 'Inactive'}</Text>
+                    <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">{sActive ? 'Active' : 'Inactive'}</Text>
                   </View>
                 )}
                 {sAreaName && isAreaNameVisible && (
                   <View className="flex-row gap-[1px] items-center">
-                    <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">{sAreaName}</Text>
+                    <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">{sAreaName}</Text>
                   </View>
                 )}
               </View>
@@ -127,7 +131,7 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sAreaName, 
           </View>
 
           <View className="justify-center">
-            <Entypo name="chevron-small-right" size={32} color={'#4b5563'} />
+            <Entypo className="opacity-60 dark:opacity-100  " name="chevron-small-right" size={32} color={colorScheme == 'dark' ? '#4b5563' : '#9ca3af'} />
           </View>
         </Pressable>
       </ReanimatedSwipeable>

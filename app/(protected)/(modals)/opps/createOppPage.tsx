@@ -137,8 +137,8 @@ const createOpp = () => {
 
             {/* Header */}
             <View className="flex-row items-center px-5 py-4 bg-white border-b border-slate-200 mb-2">
-              <MaterialCommunityIcons name="calculator-variant" size={22} color="#4f46e5" />
-              <Text className="text-lg font-semibold text-slate-800 ml-3">Customer Details</Text>
+              <MaterialCommunityIcons name="calculator-variant" size={22} color="#1e3a8a" />
+              <Text className="text-lg font-semibold text-blue-900 ml-3">Customer Details</Text>
             </View>
 
             <View style={{ ...styles.card, paddingHorizontal: 0, paddingVertical: 2 }}>

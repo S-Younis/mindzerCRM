@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Pressable, Text, RefreshControl, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Pressable, Text, RefreshControl, ActivityIndicator, StatusBar } from 'react-native';
 import BottomModalSheet from '@/components/contactsPage/BottomModalSheet';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
@@ -11,7 +11,6 @@ import { contacts_lst } from '@/constants/contacts';
 import { useColorScheme } from 'nativewind';
 import { myDarkTheme } from '@/configs/theme';
 import { router, Stack } from 'expo-router';
-import { useContactStore } from '@/stores/contacts/contact.store';
 import SVGComponent from '@/assets/svg/SVGComponent';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
@@ -42,8 +41,8 @@ export default function contacts() {
 
   if (!showContent) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : myLightTheme.colors.primary} />
+      <View className="flex-1 justify-center items-center text-gray-400">
+        <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : '#9ca3af'} />
       </View>
     );
   }
@@ -64,29 +63,29 @@ export default function contacts() {
           ),
         }}
       />
-      <Animated.View entering={FadeIn.duration(300)} className="flex-1 ">
+
+      <Animated.View entering={FadeIn.duration(300)} className="flex-1  ">
         <View
-          className={`h-14 flex-row items-center justify-between border-[1px] border-t-0 border-x-0 border-gray-800  pl-6 pr-5   ${
-            colorScheme == 'dark' ? myDarkTheme.colors.card : '#fafafa'
-          } border`}>
-          <Text className="text-md text-light  ">Contacts ( {contacts_lst.length} ) </Text>
+          className={`h-14 flex-row items-center justify-between border border-t-0 border-x-0 bg-gray-50 dark:bg-[#020b1b]   border-gray-300 dark:border-gray-800  pl-6 pr-5    `}>
+          <Text className="text-md  text-blue-900  font-medium  dark:text-light  ">Contacts ( {contacts_lst.length} ) </Text>
           <Pressable
             onPress={() => router.push('/(modals)/contacts/contactSortPage')}
-            className={`flex-row items-center justify-center gap-[2px] p-1 px-2 bg-[#161f2e] border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
-            <FontAwesome className=" mb-1 ml-1" name="sort-desc" size={14} color="#fafafa" />
-            <Text className="text-sm adaptive-text "> {sortType?.sortTitle ? ` Sort By : ${sortType.sortTitle}` : `Sort By Field`} </Text>
+            className={`flex-row items-center justify-center gap-[1px] p-1 px-2  bg-accent/50 border-accent dark:bg-[#161f2e] dark:border-gray-800 border-[1px]  rounded-full active:opacity-70  `}>
+            <FontAwesome className=" mb-[5px] ml-1" name="sort-desc" size={14} color={colorScheme == 'light' ? '#1e3a8a' : '#fafafa'} />
+            <Text className="text-sm text-blue-900 dark:text-light "> {sortType?.sortTitle ? ` Sort By : ${sortType.sortTitle}` : `Sort By Field`} </Text>
           </Pressable>
         </View>
+
         {contacts_lst.length > 0 && (
           <FlashList
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
             data={contacts_lst}
             renderItem={({ item, index }) => (
               <ContactCard
                 onPress={() => {
                   router.push(`/contacts/${item.iContactId}`);
                 }}
-                className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''}`}
+                className={`${index == 0 ? 'mt-4' : index == contacts_lst.length - 1 ? 'mb-4' : ''} `}
                 sFullName={item.sFullName}
                 sJobTitle={item.sJobTitle}
                 sEmail={item.sEmail}
@@ -100,6 +99,7 @@ export default function contacts() {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           />
         )}
+
         {contacts_lst.length == 0 && (
           <View className="flex-1 justify-center items-center p-8 gap-4">
             <SVGComponent />
@@ -109,11 +109,12 @@ export default function contacts() {
 
         {/* Floating Action Button */}
         <TouchableOpacity
-          className="shadow-md"
+          className="shadow-sm dark:shadow-md"
           style={{
             position: 'absolute',
             bottom: 20,
             right: 24,
+            // backgroundColor: '#2563eb',
             backgroundColor: myLightTheme.colors.primary,
             width: 56,
             height: 56,

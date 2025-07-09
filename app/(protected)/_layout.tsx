@@ -4,6 +4,7 @@ import { usePrefStore } from '@/stores/pref.store';
 import { useEffect, useState } from 'react';
 import Spinner from '@/components/shared/Spinner';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 export default function _layout() {
   // const { data, isLoading, isError } = useValidateSession();
@@ -18,7 +19,14 @@ export default function _layout() {
 
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
 
-  if (!isHydrated) {
+  // Load Fonts :
+  const [isFontLoaded, fontsError] = useFonts({
+    'Figtree-Reqular': require('@assets/fonts/Figtree-Regular.ttf'),
+    'Figtree-Medium': require('@assets/fonts/Figtree-Medium.ttf'),
+    'Figtree-Bold': require('@assets/fonts/Figtree-Bold.ttf'),
+  });
+
+  if (!isHydrated || !isFontLoaded) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center ">
         <Spinner />

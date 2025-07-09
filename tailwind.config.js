@@ -8,12 +8,18 @@ module.exports = {
     extend: {
       colors: {
         primary: '#193cb8',
-        // primary: '#1974fe',
-        secondary: '#8ec5ff', 
-        light:'#fafafa',
-        dark: '#18181B',
+        // primary: '#2563eb',
+        secondary: '#8ec5ff',
+        accent: '#dce3f4',
+        light: '#fafafa',
+        dark: '#252525',
         disabledDark: '#767676',
         disabledLight: '#d1d5db',
+      },
+      fontFamily: {
+        sans: ["Figtree-Reqular"], // Will become default
+        medium: ["Figtree-Medium"],
+        bold: ["Figtree-Bold"],
       },
     },
   },

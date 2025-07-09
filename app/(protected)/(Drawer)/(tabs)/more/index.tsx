@@ -6,8 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import BottomModalSheet from '@/components/morePage/BottomModalSheet';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
-import { useRef } from 'react';
-import { router } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { router, useFocusEffect } from 'expo-router';
 import { useAuthStore } from '@/stores/auth.store';
 import Toast from 'react-native-toast-message';
 import ListOption from '@/components/shared/ListOption';
@@ -15,6 +15,8 @@ import { ProfileHeaderCard } from '@/components/morePage/ProfileHeaderCard';
 // import { myDarkTheme, myLightTheme } from '@/configs/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { StatusBar } from 'react-native';
+import React from 'react';
 
 export default function App() {
   const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
@@ -24,6 +26,15 @@ export default function App() {
   const { bottom, top } = useSafeAreaInsets();
 
   const logOut = useAuthStore(state => state.logOut);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      return () => {
+        StatusBar.setBarStyle('light-content');
+      };
+    }, [])
+  );
 
   const handleLogoutBTN = () => {
     // Use Native ActionSheet for ios only

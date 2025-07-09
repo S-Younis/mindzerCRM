@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import { router, Stack } from 'expo-router';
 // import { ContactCard } from '@/components/contactsPage/ContactCard';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -11,9 +11,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { toast } from 'sonner-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { useColorScheme } from 'nativewind';
 
 const contactsTemplate = () => {
   const { bottom: SAFE_BOTTOM_HEIGHT } = useSafeAreaInsets();
+  const { colorScheme } = useColorScheme(); // Auto-detect system color scheme
 
   const templateFactors = useContactTemplateStore(state => state.templateFactors);
   const setTemplateFactors = useContactTemplateStore(state => state.setTemplateFactors);
@@ -29,6 +31,12 @@ const contactsTemplate = () => {
   const isPhoneVisible = templateFactors_copy.find(factor => factor.name === 'Phone Number')?.isSelected;
   const isStatusVisible = templateFactors_copy.find(factor => factor.name === 'Status')?.isSelected;
   const isAreaNameVisible = templateFactors_copy.find(factor => factor.name === 'Country')?.isSelected;
+
+  // Theme Selection
+  // const [themesName, setThemesName] = useState([
+  //   { id: 1, name: 'Style 1 ', isSelected: true, bgColor: 'bg-transparent' },
+  //   { id: 2, name: 'Style 2', isSelected: false, bgColor: 'bg-accent/40' },
+  // ]);
 
   // useEffect(() => {
   //   const x = async () => {
@@ -56,6 +64,9 @@ const contactsTemplate = () => {
     }, 2000);
   };
 
+  // const handleThemeSelection = (id: number) => {
+  // };
+
   const handleResetTemplate = () => {
     setTemplateFactors_copy(defaultFactors);
     setTimeout(() => {
@@ -66,6 +77,7 @@ const contactsTemplate = () => {
       });
     }, 200);
   };
+
   return (
     <>
       <Stack.Screen
@@ -73,78 +85,97 @@ const contactsTemplate = () => {
           headerTitle: 'Contacts Template',
           headerTitleAlign: 'center',
           headerLeft: () => (
-            <Text onPress={() => router.back()} className="text-blue-400 text-xl">
-              Cancel
-            </Text>
+            <TouchableOpacity activeOpacity={0.5} onPress={() => router.back()}>
+              <Text className=" text-white dark:text-blue-400 text-xl">Cancel</Text>
+            </TouchableOpacity>
           ),
           headerRight: () => (
-            <Text
-              disabled={isLoading || selectedFactorsCount < 1}
-              onPress={handleTemplateSave}
-              className={`text-blue-400 text-xl disabled:opacity-75 disabled:text-gray-500 transition-colors duration-300  `}>
-              {isLoading ? (
-                <Animated.View entering={FadeIn.duration(300)}>
-                  <Spinner />
-                </Animated.View>
-              ) : (
-                'Save'
-              )}
-            </Text>
+            <TouchableOpacity activeOpacity={0.5} disabled={isLoading || selectedFactorsCount == 0} onPress={handleTemplateSave}>
+              <Text
+                disabled={isLoading || selectedFactorsCount == 0}
+                className={`text-white dark:text-blue-400 text-xl  disabled:text-gray-300/60 disabled:dark:text-gray-500 transition-colors duration-300  `}>
+                {isLoading ? (
+                  <Animated.View entering={FadeIn.duration(300)}>
+                    <Spinner />
+                  </Animated.View>
+                ) : (
+                  'Save'
+                )}
+              </Text>
+            </TouchableOpacity>
           ),
         }}
       />
       <View className="flex-1 ">
-        <Text className="mt-8 mx-6 text-gray-300">Select fields you want to include in the Card </Text>
+        <Text className="mt-8 mx-6 text-gray-600 dark:text-gray-300">Select fields you want to include in the Card </Text>
         <View className="mt-4 mx-6 flex flex-row items-center flex-wrap gap-3">
           {templateFactors_copy.map(factor => (
             <Pressable
               key={factor.id}
               onPress={() => handleFactorPress(factor.id)}
-              className={`flex-row items-center justify-center gap-[2px]  p-4 px-6 ${
-                factor.isSelected ? 'bg-green-600/10 border-green-700' : 'bg-[#161f2e] border-gray-800'
-              }  border-[1px]  rounded-lg active:opacity-70 transition-all duration-100 `}>
-              <Text className=" adaptive-text "> {factor.name} </Text>
+              className={`flex-row items-center justify-center gap-[2px] p-[10px] px-6 border rounded-lg 
+  ${factor.isSelected ? 'bg-green-600/10 border-green-700' : 'bg-transparent border border-blue-900/50 dark:border-gray-800 dark:bg-[#161f2e]'} 
+  hover:border-gray-500 dark:hover:border-gray-700 
+  active:opacity-70 active:border-inherit 
+  transition-all duration-100`}>
+              <Text className={`${factor.isSelected ? 'text-green-700 dark:text-light' : ' text-blue-900 dark:text-light'}   `}> {factor.name} </Text>
             </Pressable>
           ))}
         </View>
+        {/* 
+        <Text className="mt-8 mx-6  text-gray-600 dark:text-gray-300">Select Card Theme : </Text>
+        <View className="mt-4 mx-6 flex flex-row items-center flex-wrap gap-3">
+          {themesName.map(theme => (
+            <Pressable
+              key={theme.id}
+              onPress={() => handleThemeSelection(theme.id)}
+              className={`flex-row items-center justify-center gap-[2px] p-4 px-6 border rounded-lg 
+  ${theme.isSelected ? 'bg-green-600/10 border-green-700' : 'bg-transparent border border-blue-900/50 dark:border-gray-800 dark:bg-[#161f2e]'} 
+  hover:border-gray-500 dark:hover:border-gray-700 
+  active:opacity-70 active:border-inherit 
+  transition-all duration-100`}>
+              <Text className={`${theme.isSelected ? 'text-green-700 dark:text-light' : ' text-blue-900 dark:text-light'}   `}> {theme.name} </Text>
+            </Pressable>
+          ))}
+        </View> */}
 
         <View className="flex-1 mt-12 mx-3" style={{ marginBottom: SAFE_BOTTOM_HEIGHT + 40 }}>
-          <Text className="mx-4 mb-4 text-gray-300">This is how your contact card will look like </Text>
+          <Text className="mx-4 mb-4 text-gray-600 dark:text-gray-300">This is how your contact card will look like </Text>
           {/* ContactCard.tsx Component Copy */}
-          <Pressable className={`bg-[#161f2e] border-[#262f3a] border flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl active:opacity-70   `}>
-            <View className="flex-row gap-4  flex-grow">
+          <Pressable
+            className={`bg-accent/20 border-blue-800/20 dark:bg-[#161f2e] dark:border-[#262f3a] border flex-row gap-4 py-3 px-[14px]  w-[94%] mx-auto  rounded-xl  active:opacity-70    `}>
+            <View className="flex-row gap-3  flex-grow">
               <View className="items-center pt-3 ">
-                <View className="bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
-                  <Text>JS</Text>
+                <View className=" bg-accent/75 border dark:border-0 border-slate-500/30 dark:bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
+                  <Text className="text-blue-900 text-[13px] dark:text-md  dark:text-dark">JS</Text>
                 </View>
               </View>
-
               <View className="gap-[8px] flex-grow">
-                <Text className="text-light text-sm font-bold">John Smith</Text>
+                <Text className="text-blue-900 dark:text-light text-sm font-bold pl-[3px]">John Smith</Text>
                 <View className="gap-[5px] pl-[3px]  ">
                   {isJobTitleVisible && (
                     <View className="flex-row gap-[1px] items-center">
-                      <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">Sales Person</Text>
+                      <Text className=" text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">Sales Person</Text>
                     </View>
                   )}
                   {isEmailVisible && (
                     <View className="flex-row gap-[1px] items-center">
-                      <Text className="text-blue-400 text-sm">johnExmaple@email.com</Text>
+                      <Text className="text-blue-700 dark:text-blue-400 text-sm">johnExmaple@email.com</Text>
                     </View>
                   )}
                   {isPhoneVisible && (
                     <View className="flex-row gap-[1px] items-center">
-                      <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">+973 33182726</Text>
+                      <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">+973 33182726</Text>
                     </View>
                   )}
                   {isStatusVisible && (
                     <View className="flex-row gap-[1px] items-center">
-                      <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">Active</Text>
+                      <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">Active</Text>
                     </View>
                   )}
                   {isAreaNameVisible && (
                     <View className="flex-row gap-[1px] items-center">
-                      <Text className="text-gray-300 text-sm  mr-auto  rounded-xl">France</Text>
+                      <Text className="text-gray-500 dark:text-gray-300 text-sm  mr-auto  rounded-xl">France</Text>
                     </View>
                   )}
                 </View>
@@ -152,13 +183,13 @@ const contactsTemplate = () => {
             </View>
 
             <View className="justify-center">
-              <Entypo name="chevron-small-right" size={32} color={'#4b5563'} />
+              <Entypo className="opacity-60 dark:opacity-100  " name="chevron-small-right" size={32} color={colorScheme == 'dark' ? '#4b5563' : '#9ca3af'} />
             </View>
           </Pressable>
           {/* ContactCard.tsx Component Copy */}
 
           <MindzerButton onPress={handleResetTemplate} variants={'secondary'} className="mt-auto w-[85%] mx-auto flex items-center justify-center">
-            <Text className="text-light text-lg mb-1 h-full">Reset Template</Text>
+            <Text className=" text-gray-700 dark:text-white  text-lg mb-1 h-full">Reset Template</Text>
           </MindzerButton>
         </View>
       </View>

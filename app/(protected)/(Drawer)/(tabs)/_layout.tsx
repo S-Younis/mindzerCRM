@@ -5,12 +5,15 @@ import { useColorScheme } from 'nativewind';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
 // import { DrawerToggleButton } from '@react-navigation/drawer';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
+import { View } from 'react-native';
+// import CustomTabBar from '@/components/navigation/CustomTabBar';
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
 
   return (
     <Tabs
+      // tabBar={props => <CustomTabBar {...props} />}
       screenOptions={{
         tabBarActiveTintColor: colorScheme === 'dark' ? '#fafafa' : myLightTheme.colors.primary,
         headerTitleAlign: 'center',
@@ -18,6 +21,10 @@ export default function Layout() {
         headerStyle: {
           backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,
         },
+        tabBarStyle: {
+          backgroundColor: colorScheme === 'light' ? 'white' : undefined,
+        },
+
         headerLeft: () => <DrawerToggle hasMargins />,
       }}>
       <Tabs.Screen

@@ -50,7 +50,7 @@ export default function customers() {
   if (!showContent) {
     return (
       <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : myLightTheme.colors.primary} />
+        <ActivityIndicator size="large" color={colorScheme == 'dark' ? myDarkTheme.colors.primary : '#9ca3af'} />
       </View>
     );
   }
