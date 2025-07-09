@@ -1,8 +1,8 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { CustomInput } from '@/components/shared/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';
 import { ContactCard } from '@/components/contactsPage/ContactCard';
 import { contacts_lst } from '@/constants/contacts';
@@ -25,6 +25,15 @@ const contactsSearch = () => {
     setFilteredContacts(temp);
   }, [filterValue]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      return () => {
+        StatusBar.setBarStyle('light-content');
+      };
+    }, [])
+  );
+
   // on Page show input focus
   const textInputRef = React.useRef<TextInput>(null);
   useEffect(() => {
@@ -33,7 +42,7 @@ const contactsSearch = () => {
 
   return (
     <SafeAreaView className="flex-1">
-      <View className="mt-6 pb-4 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b-2 border-gray-900 ">
+      <View className="bg-gray-100 mt-6 pb-4 px-4  flex-row justify-between gap-[14px] items-center   border-t-0 border-x-0 border-b dark:border-b-2 border-gray-300 dark:border-gray-900 ">
         <CustomInput
           ref={textInputRef}
           placeholder="Search"
@@ -63,6 +72,9 @@ const contactsSearch = () => {
             onPress={() => {
               router.push(`/contacts/${item.iContactId}`);
             }}
+            sPhoneBusiness={''}
+            sActive={false}
+            sAreaName={''}
           />
         )}
         keyExtractor={item => item.iContactId.toString()}
