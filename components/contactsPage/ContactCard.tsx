@@ -93,7 +93,7 @@ export const ContactCard = ({ sFullName, sJobTitle, sEmail, sActive, sAreaName, 
           className={`bg-gray-100  border-blue-800/15 dark:bg-[#161f2e] dark:border-[#262f3a] border  flex-row gap-4 py-3 px-[14px]  w-[91.5%] mx-auto  rounded-xl ${props.className} active:opacity-70    `}>
           <View className="flex-row gap-3  flex-grow">
             <View className="items-center pt-3 ">
-              <View className=" bg-accent/75 borde r dark:border-0 border-slate-500/30 dark:bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
+              <View className=" bg-accent/75  border-slate-500/30 dark:bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center">
                 <Text className="text-blue-900 text-[13px] dark:text-md   dark:text-dark">{INTIALS}</Text>
               </View>
             </View>

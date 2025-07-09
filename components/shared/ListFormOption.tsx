@@ -33,7 +33,7 @@ const ListFormOption = ({
     <Pressable
       {...props}
       style={{ borderBottomWidth: StyleSheet.hairlineWidth }}
-      className={`dark:bg-[#161f2e] dark:border-[#262f3a] border-gray-300  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
+      className={`bg-white dark:bg-[#161f2e] dark:border-[#262f3a] border-gray-300  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
       <View className={`flex-row items-center ${children ? 'gap-[8px]' : 'gap-[4px]'} w-[100%] `}>
         <View className="w-fit">{children}</View>
         <Pressable

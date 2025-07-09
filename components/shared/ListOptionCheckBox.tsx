@@ -15,12 +15,12 @@ const ListOptionCheckBox = ({ children, title = '', titleMarginLeft, titleClassN
   return (
     <Pressable
       {...props}
-      className={`bg-gray-100 border-b border-gray-300/75  dark:bg-[#161f2e] dark:border-[#262f3a]  p-4 px-5  flex-row justify-between gap-4 ${props.className} active:opacity-70`}>
+      className={`bg-gray-100 border-b border-gray-300/75   dark:bg-[#161f2e] dark:border-[#262f3a]  p-4 px-5  flex-row justify-between gap-4 ${props.className} `}>
       <View className="flex-row items-center gap-2">
         {children}
         <Text
           style={{ marginLeft: titleMarginLeft }}
-          className={`font-medium ${titleClassName} text-dark dark:text-light ${isChecked && '!text-blue-600 dark:text-[#50a2ff]'}`}>
+          className={`font-medium ${titleClassName} text-dark dark:text-light ${isChecked && '!text-blue-700 dark:!text-[#50a2ff]'}`}>
           {title}
         </Text>
       </View>

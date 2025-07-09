@@ -115,7 +115,7 @@ const contactSortPage = () => {
         </View>
 
         <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-4 mb-[6px] ml-3 ">Select Field</Text>
-        <ScrollView className="h-fit bg-white border  border-gray-300/75 rounded-xl">
+        <ScrollView className="h-fit bg-white  border  border-gray-300/75 dark:border-0 rounded-xl">
           <ListOptionCheckBox
             title="None"
             titleClassName="font-normal"

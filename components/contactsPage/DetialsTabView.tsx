@@ -19,8 +19,8 @@ const DetialsTabView = ({ contactDetials, lstAreas }: DetialsTabViewProps) => {
 
   return (
     <View className="px-4 gap-4 mb-6">
-      <View>
-        <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Personal Details</Text>
+      <View className="">
+        <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-4 mb-[6px] ml-3 ">Personal Details</Text>
 
         <ListFormOption title="Company" value={contactDetials?.sCompany} titleMarginLeft={4} className="rounded-tr-lg rounded-tl-lg ">
           <FontAwesome6 name="building-user" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
@@ -56,7 +56,7 @@ const DetialsTabView = ({ contactDetials, lstAreas }: DetialsTabViewProps) => {
       </View>
       {/* Address Section */}
       <View>
-        <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Address</Text>
+        <Text className=" text-gray-500 dark:text-gray-400 text-sm mt-2 mb-[6px] ml-3 ">Address</Text>
 
         <ListFormOption
           title="Country"

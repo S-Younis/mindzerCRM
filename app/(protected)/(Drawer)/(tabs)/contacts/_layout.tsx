@@ -19,21 +19,20 @@ export default function Layout() {
       }}>
       <Stack.Screen
         name="index"
-        options={
-          {
-            title: 'Contacts',
-            // headerLeft: () => <DrawerToggle />,
-            // headerRight: () => <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />,
-          }
-        }
+        options={{
+          title: 'Contacts',
+          // headerLeft: () => <DrawerToggle />,
+          // headerRight: () => <SearchIconModalButton onPress={() => router.push('/contacts/contactsSearch')} />,
+        }}
       />
       <Stack.Screen
         name="contactsSearch"
         options={{
-          title: 'Search Contacts',
-          presentation: 'modal',
-          headerShown: false,
+          title: '',
+          // presentation: 'modal',
+          headerShown: true,
           animation: 'fade',
+          animationDuration: 300,
         }}
       />
 

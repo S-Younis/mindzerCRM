@@ -81,17 +81,17 @@ const ContactDetails = () => {
         stickyHeaderIndices={[1]}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         className="h-full ">
-        <View className=" bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  ">
-          <View className="bg-gray-200 rounded-full h-12 w-12 flex items-center justify-center">
-            <Text>
+        <View className=" bg-[#f1f7fe] dark:bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  ">
+          <View className="bg-accent/75  dark:bg-gray-300 rounded-full h-12 w-12 flex items-center justify-center">
+            <Text className="text-blue-900 dark:text-dark">
               {sFirstName.charAt(0)}
               {sLastName.charAt(0)}
             </Text>
           </View>
           <View className="gap-1">
-            <Text className="text-light text-xl font-bold pl-[2px] ">{USER?.sFullName}</Text>
+            <Text className="text-blue-900 dark:text-light text-xl font-bold pl-[2px] ">{USER?.sFullName}</Text>
             <View className="flex-row items-center gap-3  ">
-              <Text className="text-blue-400 text-sm  "> {USER?.sEmail}</Text>
+              <Text className=" text-blue-600 dark:text-blue-400 text-sm  "> {USER?.sEmail}</Text>
               <MaterialCommunityIcons name="content-copy" size={14} color="#f8f8f8" onPress={handleEamilOnClick} />
             </View>
             <View className="flex-row items-center gap-2  mt-2 mr-auto ">
@@ -102,30 +102,36 @@ const ContactDetails = () => {
               <View className="flex-row gap-[12px]">
                 <TouchableOpacity
                   onPress={() => handleContactActions('phone')}
-                  className=" bg-gray-700  rounded-full w-[35px] h-[35px]   flex items-center justify-center">
+                  className=" bg-accent/40 dark:bg-gray-700  rounded-full w-[35px] h-[35px]   flex items-center justify-center">
                   {callActionIsLoading ? (
-                    <ActivityIndicator size={'small'} className="text-white " />
+                    <ActivityIndicator size={'small'} className="text-blue-600 dark:text-white " />
                   ) : (
                     <Feather name="phone-call" size={16} color={'#16a34a'} />
                   )}
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleContactActions('email')}
-                  className=" bg-gray-700 rounded-full w-[35px] h-[35px]   flex items-center justify-center">
-                  {emailActionIsLoading ? <ActivityIndicator size={'small'} className="text-white " /> : <Feather name="mail" size={16} color={'#ca8a04'} />}
+                  className=" bg-accent/40 dark:bg-gray-700 rounded-full w-[35px] h-[35px]   flex items-center justify-center">
+                  {emailActionIsLoading ? (
+                    <ActivityIndicator size={'small'} className=" text-blue-600 dark:text-white " />
+                  ) : (
+                    <Feather name="mail" size={16} color={'#ca8a04'} />
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </View>
 
-        <View className="py-4 bg-[#161f2e] border-[#262f3a] border-[1px] border-t-0 border-x-none ">
+        <View className="py-4 bg-[#f1f7fe] dark:bg-[#161f2e]  border  border-t-0 border-x-none border-gray-300/70  dark:border-[#262f3a] ">
           <SegmentedControl
             style={{ width: '70%', marginHorizontal: 'auto', borderRadius: 8 }}
             values={['Details', 'Comments']}
-            fontStyle={{ color: '#f8f8f8', fontSize: 12, fontWeight: '500' }}
-            backgroundColor="#33343E"
-            sliderStyle={{ backgroundColor: '#6A6B75' }}
+            // backgroundColor="#33343E"
+            // sliderStyle={{ backgroundColor: '#6A6B75' }}
+            fontStyle={{ color: colorScheme == 'light' ? '#252525' : '#f8f8f8', fontSize: 12, fontWeight: '500' }}
+            backgroundColor={colorScheme == 'dark' ? '#33343E' : '#f9fafb'}
+            sliderStyle={{ backgroundColor: colorScheme == 'dark' ? '#6A6B75' : '#fefefe' }}
             selectedIndex={selectedTabIndx}
             onChange={event => {
               setSelectedTabIndx(event.nativeEvent.selectedSegmentIndex);

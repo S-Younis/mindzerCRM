@@ -188,7 +188,7 @@ const contactsTemplate = () => {
           </Pressable>
           {/* ContactCard.tsx Component Copy */}
 
-          <MindzerButton onPress={handleResetTemplate} variants={'secondary'} className="mt-auto w-[85%] mx-auto flex items-center justify-center">
+          <MindzerButton onPress={handleResetTemplate} variants={'secondary'} className="mt-auto w-[85%] mx-auto flex items-center justify-center ">
             <Text className=" text-gray-700 dark:text-white  text-lg mb-1 h-full">Reset Template</Text>
           </MindzerButton>
         </View>
