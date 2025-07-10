@@ -45,7 +45,7 @@ const Spinner = ({ size = 'sm', ...props }: SpinnerProps) => {
           />
           <Path
             d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
-            stroke="#111827" // gray-900
+            stroke={colorScheme == 'dark' ? '#111827' : '#6b7280'}
             strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"

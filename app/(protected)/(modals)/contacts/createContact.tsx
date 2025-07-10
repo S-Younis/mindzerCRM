@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView, TextInput } from 'react-native';
+import { View, Text, Alert, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
@@ -140,6 +140,8 @@ const createContact = () => {
       sCity: data.sCity,
       sAddress: data.sAddress,
       sComment: data.sComment || '',
+      sActive: false,
+      sAreaName: '',
     });
 
     Toast.show({
@@ -159,185 +161,189 @@ const createContact = () => {
         options={{
           title: 'Create Contact',
           headerTitleAlign: 'center',
-          // headerStyle: { backgroundColor: '#161f2e' },
           headerLeft: () => (
-            <Text className="text-blue-400 text-xl" onPress={handleCancelBTN}>
-              Cancel
-            </Text>
+            <TouchableOpacity activeOpacity={0.6} onPress={handleCancelBTN}>
+              <Text className=" text-light dark:text-blue-400 text-xl">Cancel</Text>
+            </TouchableOpacity>
           ),
           headerRight: () => (
-            <Text className="text-blue-400  text-xl" onPress={handleCreateBTN}>
-              Save
-            </Text>
+            <TouchableOpacity activeOpacity={0.6} onPress={handleCreateBTN}>
+              <Text className="text-light dark:text-blue-400  text-xl">Save</Text>
+            </TouchableOpacity>
           ),
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 ">
         <View className="px-4 pt-2 gap-4 mb-12">
           <View>
-            <Text className=" text-gray-400  text-xs mt-4 mb-[6px] ml-3 ">Personal Details</Text>
-            <Controller
-              control={control}
-              name="sFullName"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  isReadOnly={false}
-                  title="Full Name"
-                  value={value}
-                  isRequired
-                  className="rounded-tr-lg rounded-tl-lg "
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="sEmail"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} isRequired title="Email" />
-              )}
-            />
-            <Controller
-              control={control}
-              name="sJobTitle"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title="Job Title" />
-              )}
-            />
-            <Controller
-              control={control}
-              name="sCompany"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isRequired isReadOnly={false} title="Company" />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="bPrivate"
-              render={({ field: { onChange, onBlur, value } }) => {
-                return (
+            <Text className="text-gray-500 dark:text-gray-400  text-sm mt-4 mb-[6px] ml-3 ">Personal Details</Text>
+            <View className=" bg-gray-100 dark:bg-transparent py-1  border dark:border-0  border-gray-300/60 rounded-xl ">
+              <Controller
+                control={control}
+                name="sFullName"
+                render={({ field: { onChange, onBlur, value } }) => (
                   <ListFormOption
-                    className="rounded-br-lg rounded-bl-lg border-b-0 "
-                    onPress={() => {
-                      bPrivateOnChangeRef.current = onChange; // 👈 Update ref on render
-                      select_bPrivate_modalRef.current?.expand();
-                    }}
                     onBlur={onBlur}
-                    value={value ? 'Yes' : 'No'}
-                    isReadOnly={true}
-                    title="Private ( Limited Visibility )"
+                    onChangeText={onChange}
+                    isReadOnly={false}
+                    title="Full Name"
+                    value={value}
                     isRequired
-                    hasOpenIcon
+                    className="rounded-tr-lg rounded-tl-lg "
                   />
-                );
-              }}
-            />
+                )}
+              />
+              <Controller
+                control={control}
+                name="sEmail"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} isRequired title="Email" />
+                )}
+              />
+              <Controller
+                control={control}
+                name="sJobTitle"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title="Job Title" />
+                )}
+              />
+              <Controller
+                control={control}
+                name="sCompany"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isRequired isReadOnly={false} title="Company" />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="bPrivate"
+                render={({ field: { onChange, onBlur, value } }) => {
+                  return (
+                    <ListFormOption
+                      className="rounded-br-lg rounded-bl-lg !border-b-0 "
+                      onPress={() => {
+                        bPrivateOnChangeRef.current = onChange; // 👈 Update ref on render
+                        select_bPrivate_modalRef.current?.expand();
+                      }}
+                      onBlur={onBlur}
+                      value={value ? 'Yes' : 'No'}
+                      isReadOnly={true}
+                      title="Private ( Limited Visibility )"
+                      isRequired
+                      hasOpenIcon
+                    />
+                  );
+                }}
+              />
+            </View>
           </View>
           {/* Phones Section  */}
           <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Phones</Text>
+            <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-2 mb-[6px] ml-3 ">Phones</Text>
+            <View className=" bg-gray-100 dark:bg-transparent py-1  border dark:border-0  border-gray-300/60 rounded-xl ">
+              <Controller
+                control={control}
+                name="sPhoneBusiness"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    isReadOnly={false}
+                    title="Bussiness"
+                    value={value}
+                    className="rounded-tr-lg rounded-tl-lg "
+                  />
+                )}
+              />
 
-            <Controller
-              control={control}
-              name="sPhoneBusiness"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  isReadOnly={false}
-                  title="Bussiness"
-                  value={value}
-                  className="rounded-tr-lg rounded-tl-lg "
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="sPhoneMobile"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Mobile"
-                  className="rounded-br-lg rounded-bl-lg border-b-0 "
-                />
-              )}
-            />
+              <Controller
+                control={control}
+                name="sPhoneMobile"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    isReadOnly={false}
+                    title="Mobile"
+                    className="rounded-br-lg rounded-bl-lg !border-b-0 "
+                  />
+                )}
+              />
+            </View>
           </View>
           {/* Address Section */}
           <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Address</Text>
+            <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-2 mb-[6px] ml-3 ">Address</Text>
+            <View className=" bg-gray-100 dark:bg-transparent py-1  border dark:border-0  border-gray-300/60 rounded-xl ">
+              <Controller
+                control={control}
+                name="sArea"
+                render={({ field: { onChange, onBlur, value } }) => {
+                  const formIndustryText = lst_customers_areas.find(area => area.iAreaId === value)?.sArea || 'Select Area';
+                  return (
+                    <ListFormOption
+                      className="rounded-tr-lg rounded-tl-lg "
+                      onPress={() => {
+                        areaOnChangeRef.current = onChange; // 👈 Update ref on render
+                        select_sArea_modalRef.current?.expand();
+                      }}
+                      onBlur={onBlur}
+                      value={formIndustryText}
+                      isReadOnly={true}
+                      title="Country"
+                      isRequired
+                      hasOpenIcon
+                    />
+                  );
+                }}
+              />
 
-            <Controller
-              control={control}
-              name="sArea"
-              render={({ field: { onChange, onBlur, value } }) => {
-                const formIndustryText = lst_customers_areas.find(area => area.iAreaId === value)?.sArea || 'Select Area';
-                return (
+              <Controller
+                control={control}
+                name="sCity"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title="City" />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="sAddress"
+                render={({ field: { onChange, onBlur, value } }) => (
                   <ListFormOption
-                    className="rounded-tr-lg rounded-tl-lg "
-                    onPress={() => {
-                      areaOnChangeRef.current = onChange; // 👈 Update ref on render
-                      select_sArea_modalRef.current?.expand();
-                    }}
+                    onChangeText={onChange}
                     onBlur={onBlur}
-                    value={formIndustryText}
-                    isReadOnly={true}
-                    title="Country"
-                    isRequired
-                    hasOpenIcon
+                    value={value}
+                    isReadOnly={false}
+                    title="Full Address"
+                    className="rounded-br-lg rounded-bl-lg !border-b-0 "
                   />
-                );
-              }}
-            />
-
-            <Controller
-              control={control}
-              name="sCity"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption onChangeText={onChange} onBlur={onBlur} value={value} isReadOnly={false} title="City" />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="sAddress"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <ListFormOption
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  isReadOnly={false}
-                  title="Full Address"
-                  className="rounded-br-lg rounded-bl-lg "
-                />
-              )}
-            />
+                )}
+              />
+            </View>
           </View>
           {/* Comment Section */}
           <View>
-            <Text className=" text-gray-400 text-xs mt-2 mb-[6px] ml-3 ">Comment</Text>
-
-            <Controller
-              control={control}
-              name="sComment"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  placeholder="Add a comment..."
-                  multiline
-                  numberOfLines={4}
-                  className="bg-[#161f2e] min-h-20 text-light text-sm px-4 py-2 rounded-lg border border-gray-800 placeholder:text-gray-400"
-                />
-              )}
-            />
+            <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-2 mb-[6px] ml-3 ">Comment</Text>
+            <View className=" bg-gray-100 dark:bg-transparent py-1  border dark:border-0  border-gray-300/60 rounded-xl ">
+              <Controller
+                control={control}
+                name="sComment"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    placeholder="Add a comment..."
+                    multiline
+                    numberOfLines={4}
+                    className="dark:bg-[#161f2e] min-h-20 text-light text-sm px-4 py-2 rounded-lg  placeholder:text-gray-400"
+                  />
+                )}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -5,7 +5,7 @@ import { useColorScheme } from 'nativewind';
 import { myDarkTheme, myLightTheme } from '@/configs/theme';
 // import { DrawerToggleButton } from '@react-navigation/drawer';
 import { DrawerToggle } from '@/components/shared/DrawerToggle';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 // import CustomTabBar from '@/components/navigation/CustomTabBar';
 
 export default function Layout() {
@@ -32,6 +32,13 @@ export default function Layout() {
         options={{
           title: 'Home',
           headerTitle: 'Dashboard',
+          headerTitleStyle: { fontSize: 18, fontFamily: 'Figtree-Medium' },
+          headerTintColor: '#fafafa',
+          headerLeft: () => (
+            <View className="ml-[15px]">
+              <DrawerToggle />
+            </View>
+          ),
           tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
       />

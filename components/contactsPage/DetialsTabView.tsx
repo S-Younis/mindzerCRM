@@ -19,60 +19,67 @@ const DetialsTabView = ({ contactDetials, lstAreas }: DetialsTabViewProps) => {
 
   return (
     <View className="px-4 gap-4 mb-6">
-      <View className="">
+      <View>
         <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-4 mb-[6px] ml-3 ">Personal Details</Text>
+        <View className=" bg-gray-100 dark:bg-transparent py-1  pl-1 border dark:border-0  border-gray-300/60 rounded-xl ">
+          <ListFormOption title="Company" value={contactDetials?.sCompany} titleMarginLeft={4} className="rounded-tr-lg rounded-tl-lg ">
+            <FontAwesome6 name="building-user" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Company" value={contactDetials?.sCompany} titleMarginLeft={4} className="rounded-tr-lg rounded-tl-lg ">
-          <FontAwesome6 name="building-user" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="Job Title" value={contactDetials?.sJobTitle} titleMarginLeft={4}>
+            <Entypo name="suitcase" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Job Title" value={contactDetials?.sJobTitle} titleMarginLeft={4}>
-          <Entypo name="suitcase" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="Email" value={contactDetials?.sEmail} titleMarginLeft={4}>
+            <MaterialIcons name="alternate-email" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Email" value={contactDetials?.sEmail} titleMarginLeft={4}>
-          <MaterialIcons name="alternate-email" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="Bussiness Phone" value={contactDetials?.sPhoneBusiness} titleMarginLeft={4}>
+            <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Bussiness Phone" value={contactDetials?.sPhoneBusiness} titleMarginLeft={4}>
-          <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="Mobile Phone" value={contactDetials?.sPhoneMobile} titleMarginLeft={4}>
+            <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Mobile Phone" value={contactDetials?.sPhoneMobile} titleMarginLeft={4}>
-          <Feather name="phone" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="Status" value={contactDetials?.sActive ? 'Active' : 'Inactive'} titleMarginLeft={4}>
+            <MaterialCommunityIcons name="account-question" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Status" value={contactDetials?.sActive ? 'Active' : 'Inactive'} titleMarginLeft={4}>
-          <MaterialCommunityIcons name="account-question" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
-
-        <ListFormOption
-          title="Private ( Limited Visibiliy )"
-          value={contactDetials?.bPrivate ? 'Yes' : 'No'}
-          titleMarginLeft={4}
-          className="rounded-br-lg rounded-bl-lg ">
-          <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption
+            title="Private ( Limited Visibiliy )"
+            value={contactDetials?.bPrivate ? 'Yes' : 'No'}
+            titleMarginLeft={4}
+            className="rounded-br-lg rounded-bl-lg !border-b-0 ">
+            <MaterialCommunityIcons name="account-eye" size={18} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
+        </View>
       </View>
       {/* Address Section */}
       <View>
         <Text className=" text-gray-500 dark:text-gray-400 text-sm mt-2 mb-[6px] ml-3 ">Address</Text>
 
-        <ListFormOption
-          title="Country"
-          value={lstAreas?.find(id => id.iAreaId == contactDetials?.sArea)?.sArea}
-          titleMarginLeft={4}
-          className="rounded-tr-lg rounded-tl-lg ">
-          <Ionicons name="location-sharp" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+        <View className=" bg-gray-100 dark:bg-transparent py-1 pl-1 border dark:border-0  border-gray-200/90 rounded-xl ">
+          <ListFormOption
+            title="Country"
+            value={lstAreas?.find(id => id.iAreaId == contactDetials?.sArea)?.sArea}
+            titleMarginLeft={4}
+            className="rounded-tr-lg rounded-tl-lg ">
+            <Ionicons name="location-sharp" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="City" value={contactDetials?.sCity} titleMarginLeft={4}>
-          <MaterialCommunityIcons name="home-city-outline" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption title="City" value={contactDetials?.sCity} titleMarginLeft={4}>
+            <MaterialCommunityIcons name="home-city-outline" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
 
-        <ListFormOption title="Full Address" value={contactDetials?.sAddress} titleMarginLeft={4} className="rounded-br-lg rounded-bl-lg min-h-16 ">
-          <Entypo name="address" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-        </ListFormOption>
+          <ListFormOption
+            title="Full Address"
+            value={contactDetials?.sAddress}
+            titleMarginLeft={4}
+            className="rounded-br-lg rounded-bl-lg !border-b-0 min-h-16 ">
+            <Entypo name="address" size={16} color={colorScheme == 'dark' ? '#f8f8f8' : '#4b5563'} />
+          </ListFormOption>
+        </View>
       </View>
 
       <View style={{ marginTop: 10 }} className=" mb-2 flex-row items-center justify-center gap-1 ">

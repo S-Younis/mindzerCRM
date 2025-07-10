@@ -33,9 +33,9 @@ const ListFormOption = ({
     <Pressable
       {...props}
       style={{ borderBottomWidth: StyleSheet.hairlineWidth }}
-      className={`bg-white dark:bg-[#161f2e] dark:border-[#262f3a] border-gray-300  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
+      className={`bg-transparent dark:bg-[#161f2e] dark:border-[#262f3a] border-gray-300  h-[66px]  px-4 flex-row items-center justify-between gap-4 ${props.className} active:opacity-70 `}>
       <View className={`flex-row items-center ${children ? 'gap-[8px]' : 'gap-[4px]'} w-[100%] `}>
-        <View className="w-fit">{children}</View>
+        {children && <View className="w-fit">{children}</View>}
         <Pressable
           onPress={isReadOnly ? props.onPress : () => textInputRef.current?.focus()}
           className=" flex-row justify-between items-center gap-[8px] w-[100%]   pr-4 ">
@@ -70,7 +70,9 @@ const ListFormOption = ({
               </Text>
             )}
           </View>
-          {hasOpenIcon && <Entypo name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />}
+          {hasOpenIcon && (
+            <Entypo className="opacity-80 dark:opacity-80  " name="chevron-small-right" size={20} color={colorScheme == 'dark' ? '#f8f8f8' : '#9ca3af'} />
+          )}
         </Pressable>
       </View>
     </Pressable>

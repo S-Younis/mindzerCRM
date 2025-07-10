@@ -28,9 +28,7 @@ export const CustomInput = ({
       {children ? <View className={` pl-1 flex items-center justify-center  ${iconContainerClassName}   `}>{children}</View> : null}
 
       <TextInput
-        className={` text-gray-900  dark:text-slate-700   ${isError && 'text-red-500'}  dark:text-light ${
-          isError && 'dark:text-red-500'
-        }  py-2 flex-1 ${inputClassName}`}
+        className={` text-gray-900    ${isError && 'text-red-500'}  dark:text-light ${isError && 'dark:text-red-500'}  py-2 flex-1 ${inputClassName}`}
         placeholderTextColor={isError ? '#ef4444' : '#A9A9A9'}
         autoCapitalize="none"
         autoCorrect={false}

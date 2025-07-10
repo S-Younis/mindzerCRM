@@ -28,7 +28,7 @@ export const lst_customers = [
     iUserAppManagerId: 301,
     iStatusId: 1,
     sLocation: 'New York',
-    bEdit: false,
+    bEdit: true,
     sContact: 'John Smith',
     dtCreated: new Date('2023-01-15'),
     dtUpdated: new Date('2023-06-20'),

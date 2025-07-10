@@ -9,7 +9,7 @@
 }
 @layer components {
   .btn-primary {
-    @apply bg-primary  py-[12px] px-5 rounded-lg active:bg-blue-700;
+    @apply bg-primary  shadow-sm  dark:shadow-none shadow-black/30 py-[12px] px-5 rounded-lg active:bg-[#1E40AF];
   }
   /* disabled:dark:bg-gray-900 disabled:dark:text-gray-500 */
 
@@ -17,7 +17,7 @@
     @apply bg-gray-300 dark:bg-gray-600  py-[12px] px-5 rounded-lg   active:bg-gray-400/75 dark:active:bg-gray-500;
   }
   .btn-outline {
-    @apply bg-slate-100 dark:bg-transparent border border-slate-300  dark:border-[#444442] py-[12px] px-5 rounded-lg active:bg-gray-100 dark:active:bg-[#0d0d16] text-black dark:text-white;
+    @apply bg-white dark:bg-transparent text-dark dark:text-light border-[1.2px] border-[#1e3a8a]   py-[12px] px-5 rounded-lg active:bg-gray-100 dark:active:bg-[#0d0d16];
   }
   .btn-success {
     @apply bg-green-800 py-[12px] px-5 rounded-lg active:bg-green-700;

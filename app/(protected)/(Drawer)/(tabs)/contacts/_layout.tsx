@@ -11,7 +11,7 @@ export default function Layout() {
       screenOptions={{
         headerShown: true,
         headerTitleAlign: 'center',
-        headerTitleStyle: { fontSize: 18, color: '#fafafa' },
+        headerTitleStyle: { fontSize: 18, fontFamily: 'Figtree-Medium' },
         headerTintColor: '#fafafa',
         headerStyle: {
           backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : myLightTheme.colors.primary,

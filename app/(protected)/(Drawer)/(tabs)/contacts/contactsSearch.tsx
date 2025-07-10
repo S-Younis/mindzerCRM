@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Platform } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CustomInput } from '@/components/shared/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,14 +7,14 @@ import { FlashList } from '@shopify/flash-list';
 import { ContactCard } from '@/components/contactsPage/ContactCard';
 import { contacts_lst } from '@/constants/contacts';
 import Animated, { FadeIn } from 'react-native-reanimated';
-// import { useColorScheme } from 'nativewind';
+import { useColorScheme } from 'nativewind';
 
 const contactsSearch = () => {
   const [filterValue, setFilterValue] = useState('');
   // const debouncedValue = useDebounce(filterValue, 300); // Debounce the input value to avoid excessive filtering
   const [filteredContacts, setFilteredContacts] = useState<any[]>([]);
 
-  // const { colorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   useEffect(() => {
     if (filterValue.trim() === '') {
       setFilteredContacts([]);
@@ -56,16 +56,16 @@ const contactsSearch = () => {
         options={{
           headerBackVisible: false,
           headerTitleAlign: 'center',
-          headerTintColor: '#2563eb',
+          headerTintColor: colorScheme == 'dark' ? '#d1d5db' : '#2563eb',
           headerRight: () => (
-            <Animated.View entering={FadeIn.duration(400)} className="flex-row gap-4 items-center">
+            <Animated.View entering={FadeIn.duration(400)} className={`${Platform.OS == 'ios' ? 'w-full' : 'w-[95%]'}  flex-row gap-4 items-center`}>
               <TextInput
                 ref={textInputRef}
                 placeholder="Search"
                 value={filterValue}
                 onChangeText={value => setFilterValue(value)}
                 clearButtonMode="while-editing"
-                className={`bg-gray-100 mb-2 dark:border dark:border-gray-500/65 dark:focus:border-blue-600  dark:bg-transparent px-2 rounded-lg   text-gray-900    dark:text-light  py-2 flex-1 `}
+                className={`bg-gray-100 pl-3 mb-2 dark:border dark:border-gray-500/65 dark:focus:border-blue-900  dark:bg-transparent px-2 rounded-lg   text-gray-900    dark:text-light  py-2 flex-1 `}
                 autoCapitalize="none"
                 autoCorrect={false}
               />

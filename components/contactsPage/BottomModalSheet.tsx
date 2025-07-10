@@ -7,7 +7,6 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MindzerButton from '../shared/MindzerButton';
 import { router } from 'expo-router';
 import { useColorScheme } from 'nativewind';
-import { myDarkTheme } from '@/configs/theme';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -95,9 +94,13 @@ const BottomModalSheet = ({ ref }: BottomModalSheetProps) => {
       backdropComponent={renderBackdrop}
       index={-1}
       animationConfigs={animationConfigs}
-      backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#f9fafb' }}
+      backgroundStyle={
+        // bg-gray-50 : #f9fafb
+        // bg-gray-100 : #f3f4f6
+        { backgroundColor: colorScheme === 'dark' ? '#161f2e' : '#fafafa' }
+      }
       handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}>
-      <BottomSheetView className="flex gap-4 p-4 px-6   ">
+      <BottomSheetView className="flex gap-4 p-4 px-6    ">
         <MindzerButton isTitleCentered variants="primary" className="w-full" onPress={showCreateContact}>
           <AntDesign name="adduser" size={18} color="white" className="mr-2" />
           <Text className={`font-medium text-white `}>Create New Contact</Text>

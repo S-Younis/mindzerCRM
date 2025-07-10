@@ -70,7 +70,9 @@ const ContactDetails = () => {
         <Stack.Screen
           options={{
             headerRight: () => (
-              <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" onPress={() => router.push(`/(modals)/contacts/editContact/${iContactId}`)} />
+              <TouchableOpacity activeOpacity={0.6} onPress={() => router.push(`/(modals)/contacts/editContact/${iContactId}`)}>
+                <MaterialIcons name="mode-edit-outline" size={20} color="#f8f8f8" />
+              </TouchableOpacity>
             ),
           }}
         />
@@ -81,7 +83,7 @@ const ContactDetails = () => {
         stickyHeaderIndices={[1]}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         className="h-full ">
-        <View className=" bg-[#f1f7fe] dark:bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  ">
+        <View className=" bg-[#f9fafb] dark:bg-[#161f2e]  p-4 pb-2 px-6 pt-6 flex-row  gap-2  ">
           <View className="bg-accent/75  dark:bg-gray-300 rounded-full h-12 w-12 flex items-center justify-center">
             <Text className="text-blue-900 dark:text-dark">
               {sFirstName.charAt(0)}
@@ -92,7 +94,7 @@ const ContactDetails = () => {
             <Text className="text-blue-900 dark:text-light text-xl font-bold pl-[2px] ">{USER?.sFullName}</Text>
             <View className="flex-row items-center gap-3  ">
               <Text className=" text-blue-600 dark:text-blue-400 text-sm  "> {USER?.sEmail}</Text>
-              <MaterialCommunityIcons name="content-copy" size={14} color="#f8f8f8" onPress={handleEamilOnClick} />
+              <MaterialCommunityIcons name="content-copy" size={14} color={colorScheme == 'dark' ? '#f8f8f8' : '#9ca3af'} onPress={handleEamilOnClick} />
             </View>
             <View className="flex-row items-center gap-2  mt-2 mr-auto ">
               <View className="  bg-green-500 p-[4px] px-4  rounded-xl flex items-center justify-center">
@@ -123,7 +125,7 @@ const ContactDetails = () => {
           </View>
         </View>
 
-        <View className="py-4 bg-[#f1f7fe] dark:bg-[#161f2e]  border  border-t-0 border-x-none border-gray-300/70  dark:border-[#262f3a] ">
+        <View className="bg-[#f9fafb] py-4  dark:bg-[#161f2e]  border  border-t-0 border-x-none border-gray-300/55  dark:border-[#262f3a] ">
           <SegmentedControl
             style={{ width: '70%', marginHorizontal: 'auto', borderRadius: 8 }}
             values={['Details', 'Comments']}
@@ -144,8 +146,8 @@ const ContactDetails = () => {
         {selectedTabIndx === 1 && (
           <View className="px-4  mb-6 ">
             <View className="flex-row items-center gap-[4px] mt-4 mb-[6px] ml-3">
-              <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} />
-              <Text className=" text-gray-400  text-xs  ">Comments</Text>
+              {/* <MaterialCommunityIcons name="comment-outline" size={10} color={colorScheme == 'dark' ? '#f8f8f8' : 'black'} /> */}
+              <Text className=" text-gray-500 dark:text-gray-400  text-sm  ">Comments</Text>
             </View>
             <View className=" flex items-center justify-center ">
               <TextInput
@@ -156,7 +158,7 @@ const ContactDetails = () => {
                 readOnly={true}
                 multiline
                 numberOfLines={4}
-                className="bg-[#161f2e] min-h-20  text-light text-sm px-4 pb-[20px] pt-4 rounded-lg border border-gray-800 placeholder:text-gray-400"
+                className="bg-white dark:bg-[#161f2e] min-h-20   text-dark dark:text-light text-sm px-4 pb-[20px] pt-4 rounded-lg border border-gray-200/90 dark:border-gray-800 placeholder:text-gray-400"
               />
             </View>
           </View>

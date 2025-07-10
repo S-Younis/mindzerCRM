@@ -21,9 +21,12 @@ export const myLightTheme = {
   colors: {
     ...DefaultTheme.colors,
     // background: '#f5f8fa',
-    background: '#f8f8f8',
+    // background: '#f8f8f8',
+    background: '#fafafa',
     card: '#f7fafd',
-    primary: '#193cb8',
+    // primary: '#193cb8',
+    primary: '#1E3A8A',
+    // primary: '#3079dc',
     // primary: '#013399',
   },
 };
