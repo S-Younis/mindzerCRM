@@ -56,7 +56,7 @@ const SelectArea = ({ ref, areas_lst, areaOnChangeFunc, selectedAreaId, setSelec
       backdropComponent={renderBackdrop}
       index={-1}
       animationConfigs={animationConfigs}
-      backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? myDarkTheme.colors.card : '#fff' }}
+      backgroundStyle={{ backgroundColor: colorScheme === 'dark' ? '#161f2e' : '#fafafa' }}
       handleIndicatorStyle={{ backgroundColor: colorScheme === 'dark' ? '#D3D3D3' : '#DCDCDC' }}>
       <BottomSheetView className="justify-between px-4 pb-12 h-full ">
         <View className="p-2 h-[54px] mb-4">

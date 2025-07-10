@@ -115,36 +115,36 @@ const contactSortPage = () => {
         </View>
 
         <Text className=" text-gray-500 dark:text-gray-400  text-sm mt-4 mb-[6px] ml-3 ">Select Field</Text>
-        <ScrollView className="h-fit bg-gray-100  border  border-gray-300/75 dark:border-0 rounded-xl">
-          <ListOptionCheckBox
-            title="None"
-            titleClassName="font-normal"
-            isChecked={sortType_copy?.sortTitle ? false : true}
-            onPress={() => handleItemSelection('none')}
-            className="rounded-t-lg"
-          />
-          <ListOptionCheckBox
-            title="Name"
-            titleClassName="font-normal"
-            isChecked={sortType_copy?.sortTitle == 'Name'}
-            onPress={() => handleItemSelection('Name')}
-            className=" "
-          />
-          <ListOptionCheckBox
-            title="Email"
-            titleClassName="font-normal"
-            isChecked={sortType_copy?.sortTitle == 'Email'}
-            onPress={() => handleItemSelection('Email')}
-            className=" "
-          />
-          <ListOptionCheckBox
-            title="Job Title"
-            titleClassName="font-normal"
-            isChecked={sortType_copy?.sortTitle == 'Job Title'}
-            onPress={() => handleItemSelection('Job Title')}
-            className=" rounded-b-lg  !border-b-0"
-          />
-        </ScrollView>
+        {/* <ScrollView className="h-fit bg-gray-100  border  border-gray-300/75 dark:border-0 rounded-xl"> */}
+        <ListOptionCheckBox
+          title="None"
+          titleClassName="font-normal"
+          isChecked={sortType_copy?.sortTitle ? false : true}
+          onPress={() => handleItemSelection('none')}
+          className="rounded-t-lg"
+        />
+        <ListOptionCheckBox
+          title="Name"
+          titleClassName="font-normal"
+          isChecked={sortType_copy?.sortTitle == 'Name'}
+          onPress={() => handleItemSelection('Name')}
+          className=" "
+        />
+        <ListOptionCheckBox
+          title="Email"
+          titleClassName="font-normal"
+          isChecked={sortType_copy?.sortTitle == 'Email'}
+          onPress={() => handleItemSelection('Email')}
+          className=" "
+        />
+        <ListOptionCheckBox
+          title="Job Title"
+          titleClassName="font-normal"
+          isChecked={sortType_copy?.sortTitle == 'Job Title'}
+          onPress={() => handleItemSelection('Job Title')}
+          className=" rounded-b-lg  !border-b-0"
+        />
+        {/* </ScrollView> */}
       </View>
     </>
   );

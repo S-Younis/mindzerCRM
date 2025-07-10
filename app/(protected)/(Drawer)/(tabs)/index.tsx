@@ -66,7 +66,7 @@ export default function Home() {
   };
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" className="flex-1 px-4 pt-2">
+    <ScrollView contentInsetAdjustmentBehavior="automatic" showsVerticalScrollIndicator={false} className="flex-1 px-4 pt-2">
       <View className="flex-row gap-2 mb-4 mt-4">
         <Text className={`text-2xl font-bold text-blue-900 dark:text-slate-200 `}>Welcome Back ,</Text>
         <Text className={`text-2xl font-bold text-blue-600 dark:text-blue-500 `}>{user?.name || 'Guest'}</Text>
